@@ -1,4 +1,4 @@
-/* Reset básico */
+/* Reset básico e fontes */
 * {
     margin: 0;
     padding: 0;
@@ -6,266 +6,343 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f8f8f8;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7fa;
     color: #333;
-    line-height: 1.6;
-    padding: 0;
+}
+
+/* Container geral */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Cabeçalho */
 header {
-    background-color: #2b2d42;
+    background-color: #2c3e50;
     color: #fff;
-    padding: 40px 20px;
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 header h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-header p {
-    font-size: 1.2rem;
-    font-weight: 300;
-    margin-bottom: 30px;
-}
-
-/* Navegação */
 nav {
-    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding: 0 20px;
+}
+
+nav .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
 }
 
 nav a {
     color: #fff;
     text-decoration: none;
-    margin: 0 20px;
+    margin: 0 15px;
     font-size: 1.1rem;
     font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: 0.3s ease;
+    position: relative;
+    transition: color 0.3s ease, padding 0.3s ease;
 }
 
 nav a:hover {
-    color: #e63946;
-    border-bottom: 3px solid #e63946;
+    color: #e74c3c;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #e74c3c;
 }
 
-/* Seção Hero */
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover::after {
+    background-color: #e74c3c;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav li {
+    margin: 0 10px;
+}
+
+
+/* Hero Section */
 .hero {
-    background: url('https://via.placeholder.com/1600x600') center/cover no-repeat;
-    padding: 120px 20px;
+    background-color: #ecf0f1;
+    padding: 50px 0;
     text-align: center;
-    color: #fff;
-    position: relative;
+    margin-bottom: 40px;
 }
 
 .hero h2 {
-    font-size: 4rem;
-    font-weight: 800;
-    margin-bottom: 20px;
-    letter-spacing: 1.5px;
+    font-size: 2.5rem;
+    color: #34495e;
 }
 
 .hero p {
-    font-size: 1.4rem;
-    margin-bottom: 30px;
-    font-weight: 300;
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin-top: 10px;
 }
 
-.hero .btn {
-    padding: 15px 30px;
-    background-color: #e63946;
-    color: #fff;
-    border-radius: 30px;
-    font-size: 1.2rem;
-    text-decoration: none;
-    transition: 0.3s ease;
-}
-
-.hero .btn:hover {
-    background-color: #d63031;
-    transform: scale(1.05);
-}
-
-/* Busca de Vagas */
+/* Busca de vagas */
 .busca {
-    background: #ffffff;
-    padding: 60px 20px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    margin-top: -80px;
-    z-index: 10;
-    position: relative;
-    text-align: center;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
+    background-color: #fff;
+    padding: 40px 0;
+    margin-bottom: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .busca h3 {
-    font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 30px;
-    font-weight: 600;
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .busca form {
     display: flex;
-    justify-content: center;
-    gap: 20px;
     flex-wrap: wrap;
-    margin-top: 30px;
+    gap: 15px;
+    justify-content: center;
 }
 
 .busca input,
-.busca select {
-    padding: 15px;
-    font-size: 1.1rem;
-    border: 2px solid #ddd;
+.busca button {
+    padding: 12px 18px;
+    font-size: 1rem;
     border-radius: 8px;
-    width: 280px;
-    transition: all 0.3s ease;
+    border: 1px solid #ccc;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .busca input:focus,
-.busca select:focus {
-    border-color: #2b2d42;
-    outline: none;
+.busca button:focus {
+    border-color: #e74c3c;
 }
 
 .busca button {
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    background-color: #2b2d42;
-    color: white;
-    border: none;
-    border-radius: 8px;
+    background-color: #e74c3c;
+    color: #fff;
     cursor: pointer;
-    width: 180px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .busca button:hover {
-    background-color: #1e1f29;
-    transform: translateY(-3px);
+    background-color: #c0392b;
 }
 
-/* Lista de Vagas */
+/* Vagas recentes */
 .vagas {
-    background: #f4f4f4;
-    padding: 60px 20px;
+    margin-bottom: 40px;
 }
 
 .vagas h3 {
-    font-size: 2.8rem;
-    margin-bottom: 30px;
-    color: #333;
-    font-weight: 700;
+    font-size: 1.8rem;
+    color: #2c3e50;
     text-align: center;
+    margin-bottom: 30px;
 }
 
-.vagas ul {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
+#jobList {
     list-style: none;
-    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
 }
 
-.vagas li {
+#jobList li {
     background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.vagas li:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+#jobList li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-.vagas li h4 {
-    font-size: 1.7rem;
-    padding: 20px;
-    background-color: #2b2d42;
+#jobList h4 {
+    font-size: 1.4rem;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+#jobList p {
+    color: #7f8c8d;
+    margin-bottom: 10px;
+}
+
+#jobList a {
+    display: inline-block;
+    background-color: #3498db;
     color: #fff;
-    font-weight: 700;
-}
-
-.vagas li p {
-    padding: 20px;
-    font-size: 1.1rem;
-    color: #666;
-}
-
-.vagas li a {
-    display: block;
-    padding: 15px 20px;
-    background-color: #e63946;
-    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
     text-decoration: none;
-    font-weight: 600;
-    text-align: center;
-    border-top: 1px solid #ddd;
+    margin-top: 15px;
     transition: background-color 0.3s ease;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
 }
 
-.vagas li a:hover {
-    background-color: #d63031;
+#jobList a:hover {
+    background-color: #2980b9;
+}
+
+/* Modal de publicação de vaga */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    width: 500px;
+    max-width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.modal input,
+.modal textarea,
+.modal button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modal input:focus,
+.modal textarea:focus,
+.modal button:focus {
+    border-color: #e74c3c;
+}
+
+.modal button {
+    background-color: #e74c3c;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal button:hover {
+    background-color: #c0392b;
 }
 
 /* Rodapé */
 footer {
-    background-color: #2b2d42;
+    background-color: #2c3e50;
     color: #fff;
-    padding: 40px 20px;
+    padding: 20px 0;
     text-align: center;
-    margin-top: 60px;
 }
 
 footer p {
     font-size: 1rem;
-    color: #bbb;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
-    header h1 {
-        font-size: 2.6rem;
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .menu-toggle span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: #fff;
+        margin: 5px 0;
+    }
+
+    .btn-mobile {
+        display: block;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        display: none;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: #2c3e50;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    nav a {
+        margin: 10px 0;
+    }
+
+    nav.active {
+        display: block;
     }
 
     .hero h2 {
-        font-size: 3rem;
+        font-size: 2rem;
     }
 
     .hero p {
-        font-size: 1.1rem;
-    }
-
-    .busca form {
-        flex-direction: column;
-    }
-
-    .busca input,
-    .busca select,
-    .busca button {
-        width: 100%;
-    }
-
-    .vagas ul {
-        grid-template-columns: 1fr;
-    }
-
-    .vagas li {
-        margin-bottom: 20px;
+        font-size: 1rem;
     }
 }
