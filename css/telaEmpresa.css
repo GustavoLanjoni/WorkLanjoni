@@ -1,26 +1,271 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #2c3e50;
+    color: #fff;
+    padding: 15px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Centralização e espaçamento */
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Estilo para o nav */
+nav {
+    display: flex; /* Torna visível em telas grandes */
+    flex-direction: row; /* Alinha os itens horizontalmente */
+    gap: 20px; /* Espaço entre itens */
+    position: relative;
+    padding: 10px 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #3b5998;
+    border-radius: 4px;
+}
+
+nav.active {
+    display: flex;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Estilo para o botão Publicar Nova Vaga no menu */
+nav a.btn-primary {
+    margin-top: 10px;
+    width: 80%;
+    align-self: center;
+    text-align: center;
+    background-color: #e74c3c;
+    padding: 10px 0;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Alinhamento do botão e perfil */
+header .actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Botão Publicar Vaga */
+.btn-primary {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+/* Bola de perfil */
+.perfil-bola {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #3498db; /* Cor azul */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.perfil-bola:hover {
+    background-color: #2980b9; /* Cor mais escura ao passar o mouse */
+}
+
+/* Toggle Menu (Responsivo) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    background-color: #fff;
+    height: 3px;
+    width: 25px;
+    margin: 5px 0;
+    transition: transform 0.3s ease;
+}
+
+/* Menu móvel */
+nav.mobile-menu {
+    display: none;
+    flex-direction: column;
+    background-color: #2c3e50;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+}
+
+nav.mobile-menu a {
+    color: #fff;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+nav.mobile-menu .btn-primary {
+    margin-top: 10px;
+    width: 80%;
+    align-self: center;
+}
+
+.perfil-link {
+    text-decoration: none; /* Remove sublinhado padrão do link */
+}
+
+
+.container-empresa {
+    width: 80%;
+    max-width: 900px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 2rem;
+    color: #333;
+}
+
+p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.botoes-acao {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.botoes-acao button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.botoes-acao button:hover {
+    background-color: #0056b3;
+}
+
+.form-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button.back-btn {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+button.back-btn:hover {
+    background-color: #5a6268;
 }
 
 .container-empresa {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1200px;
+    margin: 50px auto;
+    background: #fff;
     padding: 20px;
-    width: 300px;
-    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-    margin-bottom: 20px;
-    font-size: 22px;
+h1, h2, h3 {
     color: #333;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
 }
 
 .form-group {
@@ -30,34 +275,123 @@ h2 {
 input, textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
     margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    font-size: 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
+ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-button:hover {
-    background-color: #45a049;
+ul li {
+    margin-bottom: 10px;
 }
 
-.back-btn {
-    background-color: #ccc;
-    color: #333;
-    margin-top: 10px;
+ul li button {
+    margin-left: 10px;
+    background-color: #dc3545;
 }
 
-.back-btn:hover {
-    background-color: #bbb;
+ul li button:hover {
+    background-color: #c82333;
+}
+
+
+
+
+/* Responsividade aprimorada para o header */
+@media (max-width: 768px) {
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #2c3e50;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        cursor: pointer;
+        position: relative;
+        z-index: 10;
+        left: 40px;
+    }
+
+    .menu-toggle span {
+        display: block;
+        width: 30px;
+        height: 4px;
+        background-color: #fff;
+        margin: 4px 0;
+        transition: transform 0.3s, opacity 0.3s;
+    }
+
+    /* Transformações para animação do menu */
+    .menu-toggle.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    nav {
+        display: none;
+        position: absolute;
+        top: 92px;
+        left: 0;
+        width: 385px;
+        background-color: #34495e;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    nav.active {
+        display: block;
+    }
+
+    nav a {
+        display: block;
+        color: #fff;
+        text-decoration: none;
+        margin: 10px 0;
+        font-size: 1.2rem;
+        padding: 10px;
+        transition: background 0.3s;
+    }
+
+    nav a:hover {
+        background-color: #3b5998;
+        border-radius: 4px;
+    }
+
+    .hero h2 {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+
+    .hero p {
+        font-size: 1rem;
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    /* Melhor visibilidade para itens */
+    .btn-mobile {
+        display: block;
+        margin: 10px auto;
+    }
 }

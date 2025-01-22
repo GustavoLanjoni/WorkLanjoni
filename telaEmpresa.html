@@ -1,62 +1,107 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Vagas - Empresa</title>
+    <title>Painel da Empresa</title>
     <link rel="stylesheet" href="/css/telaEmpresa.css">
+
+
+
 </head>
+
 <body>
-
-<!-- Tela de Cadastro de Vagas para Empresa -->
-<div class="container-empresa">
-    <h2>Cadastrar Nova Vaga</h2>
-
-    <!-- Formulário de Cadastro de Vagas -->
-    <div class="form-group">
-        <label for="vaga-titulo">Título da Vaga:</label>
-        <input type="text" id="vaga-titulo" placeholder="Digite o título da vaga">
-    </div>
-
-    <div class="form-group">
-        <label for="vaga-descricao">Descrição da Vaga:</label>
-        <textarea id="vaga-descricao" placeholder="Digite a descrição da vaga"></textarea>
-    </div>
-
-    <button onclick="adicionarVaga()">Cadastrar Vaga</button>
-    <button class="back-btn" onclick="voltar()">Voltar</button>
-</div>
-
-<script>
-    // Função para cadastrar uma nova vaga
-    function adicionarVaga() {
-        const titulo = document.getElementById('vaga-titulo').value;
-        const descricao = document.getElementById('vaga-descricao').value;
-
-        // Verifica se os campos foram preenchidos
-        if (titulo && descricao) {
-            const vaga = { titulo, descricao };
-
-            // Salva a vaga no localStorage (ou poderia ser no banco de dados)
-            const vagas = JSON.parse(localStorage.getItem('vagas')) || [];
-            vagas.push(vaga);
-            localStorage.setItem('vagas', JSON.stringify(vagas));
-
-            alert("Vaga cadastrada com sucesso!");
-
-            // Limpa os campos após o cadastro
-            document.getElementById('vaga-titulo').value = '';
-            document.getElementById('vaga-descricao').value = '';
-        } else {
-            alert("Por favor, preencha todos os campos.");
+    <header>
+        <div class="container">
+            <nav>
+                <a href="telaEmpresa.html">Home</a>
+                <a href="vagasPostada.html">Vagas Postada</a>
+                <a href="sobreSite.html">Sobre</a>
+                <a href="contatoSite.html">Contato</a>
+            </nav>
+            <div class="actions">
+                <!-- Botão Publicar Nova Vaga -->
+                <button class="btn-primary" id="openFormBtn">
+                    <i class="fas fa-plus"></i> Publicar Nova Vaga
+                </button>
+                <!-- Link para a página de perfil -->
+                <a href="perfilEmpresa.html" class="perfil-link">
+                    <div class="perfil-bola"></div>
+                </a>
+            </div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+    
+    
+    <script>
+        // Função para redirecionar ao clicar na bola de perfil
+        function redirecionarPerfil() {
+            window.location.href = "perfilEmpresa.html";
         }
-    }
+    </script>
+    
 
-    // Função para voltar para a tela de login
-    function voltar() {
-        window.location.href = '/';  // Redireciona de volta para a página de login
-    }
-</script>
+    <div class="container-empresa">
+        <!-- Boas-vindas -->
+        <h1 id="boas-vindas">Bem-vindo(a), Empresa!</h1>
+        <p>Gerencie suas vagas, crie seu perfil e utilize as ferramentas do painel.</p>
 
+
+
+        <!-- Visualização do perfil -->
+        <div id="perfil-visualizacao" style="display: none; margin-top: 20px;">
+            <h2>Perfil da Empresa</h2>
+            <p><strong>Nome:</strong> <span id="perfil-nome"></span></p>
+            <p><strong>Descrição:</strong> <span id="perfil-descricao"></span></p>
+            <p><strong>Contato:</strong> <span id="perfil-contato"></span></p>
+            <button onclick="editarPerfil()">Editar</button>
+        </div>
+    </div>
+
+    <script>
+        // Funções do Perfil da Empresa
+        function salvarPerfil() {
+            const nome = document.getElementById('nome-empresa').value;
+            const descricao = document.getElementById('descricao-empresa').value;
+            const contato = document.getElementById('contato-empresa').value;
+
+            if (nome && descricao && contato) {
+                localStorage.setItem('perfilEmpresa', JSON.stringify({ nome, descricao, contato }));
+                exibirPerfil();
+            } else {
+                alert("Por favor, preencha todos os campos do perfil.");
+            }
+        }
+
+        function exibirPerfil() {
+            const perfil = JSON.parse(localStorage.getItem('perfilEmpresa'));
+            if (perfil) {
+                document.getElementById('perfil-nome').textContent = perfil.nome;
+                document.getElementById('perfil-descricao').textContent = perfil.descricao;
+                document.getElementById('perfil-contato').textContent = perfil.contato;
+
+                document.getElementById('form-perfil').style.display = 'none';
+                document.getElementById('perfil-visualizacao').style.display = 'block';
+            }
+        }
+
+        function editarPerfil() {
+            document.getElementById('form-perfil').style.display = 'block';
+            document.getElementById('perfil-visualizacao').style.display = 'none';
+        }
+
+        // Carregar dados ao abrir a página
+        window.onload = () => {
+            exibirPerfil();
+        };
+    </script>
+    <script src="menuEmpresa.js"></script>
 </body>
+
 </html>
