@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Vagas - Empresa</title>
+    <link rel="stylesheet" href="/css/telaEmpresa.css">
+</head>
+<body>
+
+<!-- Tela de Cadastro de Vagas para Empresa -->
+<div class="container-empresa">
+    <h2>Cadastrar Nova Vaga</h2>
+
+    <!-- Formulário de Cadastro de Vagas -->
+    <div class="form-group">
+        <label for="vaga-titulo">Título da Vaga:</label>
+        <input type="text" id="vaga-titulo" placeholder="Digite o título da vaga">
+    </div>
+
+    <div class="form-group">
+        <label for="vaga-descricao">Descrição da Vaga:</label>
+        <textarea id="vaga-descricao" placeholder="Digite a descrição da vaga"></textarea>
+    </div>
+
+    <button onclick="adicionarVaga()">Cadastrar Vaga</button>
+    <button class="back-btn" onclick="voltar()">Voltar</button>
+</div>
+
+<script>
+    // Função para cadastrar uma nova vaga
+    function adicionarVaga() {
+        const titulo = document.getElementById('vaga-titulo').value;
+        const descricao = document.getElementById('vaga-descricao').value;
+
+        // Verifica se os campos foram preenchidos
+        if (titulo && descricao) {
+            const vaga = { titulo, descricao };
+
+            // Salva a vaga no localStorage (ou poderia ser no banco de dados)
+            const vagas = JSON.parse(localStorage.getItem('vagas')) || [];
+            vagas.push(vaga);
+            localStorage.setItem('vagas', JSON.stringify(vagas));
+
+            alert("Vaga cadastrada com sucesso!");
+
+            // Limpa os campos após o cadastro
+            document.getElementById('vaga-titulo').value = '';
+            document.getElementById('vaga-descricao').value = '';
+        } else {
+            alert("Por favor, preencha todos os campos.");
+        }
+    }
+
+    // Função para voltar para a tela de login
+    function voltar() {
+        window.location.href = '/';  // Redireciona de volta para a página de login
+    }
+</script>
+
+</body>
+</html>

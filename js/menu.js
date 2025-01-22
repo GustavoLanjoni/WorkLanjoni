@@ -1,17 +1,16 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Seleciona os elementos do menu
-    const menuToggle = document.querySelector(".menu-toggle");
-    const nav = document.querySelector("nav");
+// Seleção de elementos
+const menuToggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('nav');
+const openFormBtn = document.getElementById('openFormBtn');
 
-    // Adiciona o evento de clique para alternar o menu
-    menuToggle.addEventListener("click", function () {
-        nav.classList.toggle("menu-open"); // Adiciona ou remove a classe para abrir/fechar o menu
-    });
+// Alternância do menu em dispositivos móveis
+menuToggle.addEventListener('click', () => {
+    menuToggle.classList.toggle('active'); // Adiciona/Remove a classe 'active' no botão
+    nav.classList.toggle('active'); // Mostra/Esconde o menu
+});
 
-    // Fecha o menu quando um link ou botão for clicado
-    nav.addEventListener("click", function (event) {
-        if (event.target.tagName === "A" || event.target.tagName === "BUTTON") {
-            nav.classList.remove("menu-open"); // Fecha o menu
-        }
-    });
+// Exemplo de funcionalidade para o botão "Publicar Nova Vaga"
+openFormBtn.addEventListener('click', () => {
+    alert('Botão "Publicar Nova Vaga" clicado!'); // Ação ao clicar no botão
+    // Você pode substituir o alert por uma funcionalidade real, como abrir um formulário
 });

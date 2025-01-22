@@ -38,12 +38,13 @@ header h1 {
     letter-spacing: 2px;
 }
 
+/* Navegação */
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 15px;
     padding: 0 20px;
+    gap: -20px;
 }
 
 nav .logo {
@@ -67,27 +68,8 @@ nav a {
 
 nav a:hover {
     color: #e74c3c;
-    padding-bottom: 5px;
     border-bottom: 2px solid #e74c3c;
-}
-
-nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: transparent;
-    transition: background-color 0.3s ease;
-}
-
-nav a:hover::after {
-    background-color: #e74c3c;
-}
-
-.menu-toggle {
-    display: none;
+    padding-bottom: 3px;
 }
 
 nav ul {
@@ -98,6 +80,66 @@ nav ul {
 nav li {
     margin: 0 10px;
 }
+
+/* Botão Publicar Vaga */
+.btn-primary {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+/* Toggle Menu (Responsivo) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    background-color: #fff;
+    height: 3px;
+    width: 25px;
+    margin: 5px 0;
+    transition: transform 0.3s ease;
+}
+
+/* Estilo do menu móvel */
+nav.mobile-menu {
+    display: none;
+    flex-direction: column;
+    background-color: #2c3e50;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+}
+
+nav.mobile-menu a {
+    color: #fff;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+/* Publicar Vaga no menu móvel */
+nav.mobile-menu .btn-primary {
+    margin-top: 10px;
+    width: 80%;
+    align-self: center;
+}
+
 
 
 /* Hero Section */
@@ -139,7 +181,6 @@ nav li {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
-    justify-content: center;
 }
 
 .busca input,
@@ -150,6 +191,7 @@ nav li {
     border: 1px solid #ccc;
     outline: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
 }
 
 .busca input:focus,
@@ -168,7 +210,7 @@ nav li {
     background-color: #c0392b;
 }
 
-/* Vagas recentes */
+/* Estilo da seção de vagas */
 .vagas {
     margin-bottom: 40px;
 }
@@ -180,11 +222,13 @@ nav li {
     margin-bottom: 30px;
 }
 
+/* Lista de vagas em formato responsivo */
 #jobList {
     list-style: none;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
+    padding: 0;
 }
 
 #jobList li {
@@ -193,6 +237,8 @@ nav li {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 #jobList li:hover {
@@ -200,17 +246,28 @@ nav li {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Informações resumidas */
 #jobList h4 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: #34495e;
     margin-bottom: 10px;
 }
 
-#jobList p {
+#jobList .resumo {
     color: #7f8c8d;
+    font-size: 0.9rem;
     margin-bottom: 10px;
 }
 
+/* Detalhes ocultos inicialmente */
+#jobList .detalhes {
+    display: none;
+    margin-top: 15px;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+/* Botão para alternar detalhes */
 #jobList a {
     display: inline-block;
     background-color: #3498db;
@@ -218,13 +275,16 @@ nav li {
     padding: 10px 15px;
     border-radius: 5px;
     text-decoration: none;
-    margin-top: 15px;
+    margin-top: 10px;
     transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+    text-align: center;
 }
 
 #jobList a:hover {
     background-color: #2980b9;
 }
+
 
 /* Modal de publicação de vaga */
 .modal {
@@ -295,54 +355,97 @@ footer p {
     font-size: 1rem;
 }
 
-/* Responsividade */
+/* Responsividade aprimorada para o header */
 @media (max-width: 768px) {
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #2c3e50;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+        color: #fff;
+        text-decoration: none;
+    }
+
     .menu-toggle {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         cursor: pointer;
-        position: absolute;
-        top: 20px;
-        right: 20px;
+        position: relative;
+        z-index: 10;
     }
 
     .menu-toggle span {
         display: block;
-        width: 25px;
-        height: 3px;
+        width: 30px;
+        height: 4px;
         background-color: #fff;
-        margin: 5px 0;
+        margin: 4px 0;
+        transition: transform 0.3s, opacity 0.3s;
     }
 
-    .btn-mobile {
-        display: block;
+    /* Transformações para animação do menu */
+    .menu-toggle.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
     }
 
     nav {
-        flex-direction: column;
-        align-items: flex-start;
         display: none;
         position: absolute;
-        top: 80px;
+        top: 60px;
         left: 0;
         width: 100%;
-        background-color: #2c3e50;
+        background-color: #34495e;
         padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    nav a {
-        margin: 10px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     nav.active {
         display: block;
     }
 
+    nav a {
+        display: block;
+        color: #fff;
+        text-decoration: none;
+        margin: 10px 0;
+        font-size: 1.2rem;
+        padding: 10px;
+        transition: background 0.3s;
+    }
+
+    nav a:hover {
+        background-color: #3b5998;
+        border-radius: 4px;
+    }
+
     .hero h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        text-align: center;
     }
 
     .hero p {
         font-size: 1rem;
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    /* Melhor visibilidade para itens */
+    .btn-mobile {
+        display: block;
+        margin: 10px auto;
     }
 }
