@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil da Empresa</title>
+    <link rel="stylesheet" href="/css/perfilEmpresa.css"> 
+</head>
+<body>
+    <main>
+        
+        <section id="form-perfil">
+            
+            <a href="telaEmpresa.html" class="btn-voltar" aria-label="Voltar para tela anterior">← Voltar</a>
+
+            <h2>Editar Perfil da Empresa</h2>
+
+            <!-- Foto de Perfil -->
+            <label for="foto-perfil">Foto de Perfil:</label>
+            <input type="file" id="foto-perfil" accept="image/png, image/jpeg, image/jpg">
+            <img id="preview-foto" src="" alt="Pré-visualização da foto selecionada" style="display:none;">
+
+            <!-- Nome da Empresa -->
+            <label for="nome-empresa">Nome da Empresa:</label>
+            <input type="text" id="nome-empresa" placeholder="Digite o nome da empresa" required>
+
+            <!-- Localidade -->
+            <label for="localidade-empresa">Localidade:</label>
+            <input type="text" id="localidade-empresa" placeholder="Digite a cidade ou estado" required>
+
+            <!-- Sobre a Empresa -->
+            <label for="descricao-empresa">Sobre a Empresa:</label>
+            <textarea id="descricao-empresa" placeholder="Descreva sobre a empresa" required></textarea>
+
+            <!-- Contato -->
+            <label for="contato-empresa">Contato (e-mail ou telefone):</label>
+            <input type="text" id="contato-empresa" placeholder="Digite o contato (e-mail ou telefone)" required>
+
+            <!-- Botão de Salvar -->
+            <button onclick="salvarPerfil()">Salvar</button>
+        </section>
+
+        <!-- Modal de sucesso -->
+        <div id="modal-sucesso" class="modal-sucesso" role="dialog" aria-hidden="true">
+            <div class="modal-conteudo">
+                <p>🎉 Perfil salvo com sucesso! 🎉</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Script JS -->
+    <script src="perfilEmpresa.js"></script> 
+</body>
+</html>
