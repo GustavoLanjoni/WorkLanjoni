@@ -345,103 +345,101 @@ nav.mobile-menu .btn-primary {
 /* Estilo do Container das Vagas */
 #vagasContainer {
     margin-top: 40px;
-    background: linear-gradient(145deg, #f9f9f9, #e1e1e1);
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
     padding: 40px;
     margin-bottom: 40px;
     border-radius: 16px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     font-family: 'Roboto', sans-serif;
 }
 
+/* Barra de pesquisa */
 .search-container {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     display: flex;
     justify-content: center;
+    gap: 10px;
 }
 
-#searchInput {
-    width: 100%;
-    max-width: 400px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-}
 
-#searchInput:focus {
-    border-color: #0056b3;
-    outline: none;
-}
-
+/* Cards de Vagas */
 .vagas-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
 }
 
 .vaga-card {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    cursor: pointer;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .vaga-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .vaga-card h3 {
-    font-size: 20px;
+    font-size: 22px;
     color: #333;
+    margin-bottom: 15px;
 }
 
 .vaga-card p {
     font-size: 16px;
-    color: #666;
+    color: #555;
+    margin-bottom: 20px;
 }
 
 .vaga-card button {
-    background-color: #0056b3;
+    align-self: flex-start;
+    background-color: #0073e6;
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 20px;
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .vaga-card button:hover {
-    background-color: #003d80;
+    background-color: #005bb5;
 }
 
-/* Detalhes da vaga */
+/* Detalhes da Vaga */
 .vaga-detalhes-container {
     display: none;
-    background-color: #fff;
+    background-color: #ffffff;
     padding: 30px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
     max-width: 900px;
     margin: 0 auto;
     margin-top: 20px;
 }
 
 .vaga-detalhes-container h3 {
-    font-size: 24px;
+    font-size: 26px;
     color: #333;
     margin-bottom: 20px;
 }
 
 .vaga-detalhes-container p {
     font-size: 18px;
-    color: #666;
+    color: #555;
     margin-bottom: 15px;
+    line-height: 1.6;
 }
 
 .vaga-detalhes-container button {
@@ -450,8 +448,9 @@ nav.mobile-menu .btn-primary {
     border: none;
     padding: 12px 25px;
     font-size: 18px;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .vaga-detalhes-container button:hover {
@@ -459,57 +458,267 @@ nav.mobile-menu .btn-primary {
 }
 
 
-/* Responsividade */
+/* Container principal da barra de pesquisa */
+.search-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1000px;
+    margin: 40px auto 0; /* Margem superior de 40px para afastar do cabeçalho */
+}
+
+
+/* Input de busca */
+#searchInput {
+    padding: 12px 20px;
+    font-size: 16px;
+    width: 280px;
+    border: 2px solid #d1d8e0;
+    border-radius: 8px;
+    background-color: #f4f6f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#searchInput:focus {
+    border-color: #5d9bfb;
+    box-shadow: 0 0 8px rgba(93, 155, 251, 0.5);
+    outline: none;
+}
+
+/* Estilos do select box */
+select {
+    padding: 12px 18px;
+    font-size: 16px;
+    width: 220px;
+    border: 2px solid #d1d8e0;
+    border-radius: 8px;
+    background-color: #f4f6f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+select:focus {
+    border-color: #5d9bfb;
+    box-shadow: 0 0 8px rgba(93, 155, 251, 0.5);
+    outline: none;
+}
+
+/* Estilo para o filtro de cidade */
+#cityFilter {
+    padding: 12px 20px;
+    font-size: 16px;
+    width: 280px;
+    border: 2px solid #d1d8e0;
+    border-radius: 8px;
+    background-color: #f4f6f9;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#cityFilter:focus {
+    border-color: #5d9bfb;
+    box-shadow: 0 0 8px rgba(93, 155, 251, 0.5);
+    outline: none;
+}
+
+/* Estilo para a opção de filtro */
+option {
+    padding: 12px;
+    font-size: 16px;
+}
+
+/* Adicionando ícones ou efeitos */
+.search-container input,
+.search-container select {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+
+/* Melhorias de usabilidade */
+input, select {
+    transition: all 0.3s ease;
+}
+
+/* Hover nos campos */
+#searchInput:hover, 
+select:hover, 
+#cityFilter:hover {
+    border-color: #4fa3f7;
+}
+
+/* Foco no campo de input */
+#searchInput:focus, 
+select:focus, 
+#cityFilter:focus {
+    border-color: #4fa3f7;
+    box-shadow: 0 0 8px rgba(79, 163, 247, 0.5);
+}
+
+
+footer {
+    background-color: #2c3e50; /* Fundo escuro */
+    color: #ecf0f1; /* Texto claro */
+    padding: 40px 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+footer .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    text-align: left;
+}
+
+footer .footer-content > div {
+    flex: 1;
+    min-width: 250px;
+}
+
+footer h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #ecf0f1;
+}
+
+footer p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+footer a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #1abc9c;
+}
+
+footer .social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+footer .social-icons a {
+    font-size: 20px;
+    color: #ecf0f1;
+    transition: color 0.3s ease;
+}
+
+footer .social-icons a:hover {
+    color: #3498db;
+}
+
+footer .footer-bottom {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    border-top: 1px solid #7f8c8d;
+    padding-top: 10px;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    border-top: 1px solid #7f8c8d;
+    padding-top: 10px;
+    color: #ecf0f1;
+}
+
+.footer-bottom .heart {
+    display: inline-block;
+    animation: pulse 1.5s infinite;
+    color: #e74c3c; /* Vermelho vibrante */
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+
+/* Responsividade para telas de até 768px (telas médias e pequenas) */
 @media (max-width: 768px) {
-    /* Ajusta o container das vagas para se adaptar a telas menores */
+    /* Footer */
+    footer .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    footer .footer-content > div {
+        min-width: unset;
+    }
+
+    /* Search container */
+    .search-container {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+    #searchInput,
+    #cityFilter,
+    select {
+        width: 100%;
+    }
+
+    /* Container de vagas */
     #vagasContainer {
         padding: 15px;
         grid-template-columns: 1fr; /* Uma coluna por vez */
     }
 
-    /* Ajusta a navegação para tela pequena */
+    /* Navegação */
     nav {
         flex-direction: column;
         align-items: flex-start;
     }
-
     nav .logo {
         font-size: 1.5rem;
     }
-
-    /* Exibe o botão de menu para dispositivos móveis */
-    .menu-toggle {
-        display: flex;
-    }
-
     nav a {
         font-size: 1rem;
     }
 
-    /* Exibe o menu móvel quando o botão for clicado */
+    /* Menu móvel */
+    .menu-toggle {
+        display: flex;
+    }
     nav.mobile-menu {
         display: flex;
     }
 
-    /* Ajuste do botão de publicar vaga para mobile */
+    /* Botão de publicar vaga */
     .btn-primary {
         width: 100%;
         margin-top: 10px;
     }
 
-    /* Ajuste do botão de busca em telas menores */
+    /* Botão de busca */
     .busca input,
     .busca button {
         width: 100%;
         font-size: 1rem;
     }
 
-    /* Ajusta a visualização das vagas */
+    /* Visualização das vagas */
     #jobList {
         grid-template-columns: 1fr; /* Uma vaga por linha */
     }
 
-    /* Modal responsivo */
+    /* Modal */
     .modal-content {
         width: 90%;
         max-width: 100%;
@@ -517,35 +726,37 @@ nav.mobile-menu .btn-primary {
     }
 }
 
+/* Responsividade para telas muito pequenas (480px ou menos) */
 @media (max-width: 480px) {
-    /* Ajuste final para telas menores, como smartphones */
+    /* Ajustes de título e hero */
     header h1 {
         font-size: 2rem;
     }
-
     .hero h2 {
         font-size: 2rem;
     }
-
     .hero p {
         font-size: 1rem;
     }
 
+    /* Campo de busca */
     #searchInput {
         width: 90%;
         font-size: 14px;
     }
 
+    /* Botões */
     .btn-primary {
         font-size: 0.9rem;
     }
 
-    /* Ajuste do estilo de cartões de vagas */
+    /* Cartões de vagas */
     #vagasContainer .vaga-card h4 {
         font-size: 1.2rem;
     }
-
     #vagasContainer .vaga-card .resumo {
         font-size: 1rem;
     }
 }
+
+

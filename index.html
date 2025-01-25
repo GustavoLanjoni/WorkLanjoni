@@ -3,9 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Encontre as melhores vagas no Work Lanjoni.">
+    <meta name="keywords" content="trabalho, vagas, empregos, Work Lanjoni">
+    <meta name="author" content="Work Lanjoni">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Work Lanjoni</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
@@ -26,9 +31,43 @@
             </div>
         </div>
     </header>
+
+
+
+
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Buscar por vaga..." oninput="filterVagas()" />
+
+         <!-- Filtro de Cidade -->
+         <input type="text" id="cityFilter" placeholder="Cidade" oninput="filterVagas()" />
+
+        <!-- Filtro de Remoto/Presencial -->
+        <select id="remoteFilter" onchange="filterVagas()">
+            <option value="">Tipo de Trabalho</option>
+            <option value="Home Office">Home Office</option>
+            <option value="Presencial">Presencial</option>
+        </select>
+
+        <!-- Filtro de Data do Anúncio -->
+        <select id="dateFilter" onchange="filterVagas()">
+            <option value="">Data do Anúncio</option>
+            <option value="24h">Últimas 24 horas</option>
+            <option value="3d">Últimos 3 dias</option>
+            <option value="7d">Últimos 7 dias</option>
+            <option value="14d">Últimos 14 dias</option>
+        </select>
+
+        <!-- Filtro de Tipo de Vaga -->
+        <select id="jobTypeFilter" onchange="filterVagas()">
+            <option value="">Tipo de Vaga</option>
+            <option value="Tempo Integral">Tempo Integral</option>
+            <option value="Autonomo/PJ">Autônomo/PJ</option>
+            <option value="Efetivo CLT">Efetivo CLT</option>
+        </select>
+
+       
     </div>
+
 
     <div id="vagasContainer" class="vagas-container">
         <h2>Vagas Disponíveis</h2>
@@ -48,9 +87,53 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Work Lanjoni - Todos os direitos reservados</p>
+            <div class="footer-content">
+                <!-- Resumo sobre o site -->
+                <div class="about">
+                    <h3>Sobre o Work Lanjoni</h3>
+                    <p>O Work Lanjoni é uma plataforma inovadora para conectar empresas e candidatos, oferecendo as
+                        melhores oportunidades de emprego. Nosso objetivo é facilitar a busca por talentos e ajudar
+                        pessoas a alcançarem suas metas profissionais.</p>
+                </div>
+
+                <!-- Informações de Contato -->
+                <div class="contact">
+                    <h3>Contato</h3>
+                    <p>Email: <a href="mailto:contato@worklanjoni.com">contato@worklanjoni.com</a></p>
+                    <p>Telefone: <a href="tel:+5517996489436">(17) 99648-9436</a></p>
+                    <p>Endereço: Rua Exemplo, 123 - Cosmorama, SP</p>
+                </div>
+
+                <!-- Redes Sociais -->
+                <div class="social">
+                    <h3>Siga-nos</h3>
+                    <div class="social-icons">
+                        <a href="https://instagram.com/devlanjoni" target="_blank" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@gustavo_lanjoni" target="_blank" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@Devlanjoni" target="_blank" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/gustavolanjoni/" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Direitos autorais -->
+            <div class="footer-bottom">
+                <p>&copy; Feito com muito <span class="heart">❤️</span> 2025 Work Lanjoni - Todos os direitos reservados
+                </p>
+            </div>
+
         </div>
     </footer>
+
+
 
     <script>
         window.onload = function () {
@@ -125,13 +208,38 @@
         };
     </script>
 
+    <script>
+        function debounce(func, delay) {
+            let timeout;
+            return function (...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func(...args), delay);
+            };
+        }
+
+        const filterVagas = debounce((termoBusca) => {
+            const termo = termoBusca.toLowerCase();
+            const vagasFiltradas = vagasPublicadas.filter(vaga =>
+                vaga.nome.toLowerCase().includes(termo) ||
+                vaga.descricao.toLowerCase().includes(termo)
+            );
+            exibirVagas(vagasFiltradas);
+        }, 300);
+
+        searchInput.addEventListener('input', (e) => {
+            filterVagas(e.target.value);
+        });
+
+    </script>
 
 
     <script src="js/menu.js"></script>
     <script src="js/jobs.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/search.js"></script>
-    <script src="textoEmpresa.js"></script>
+    <script src="barraDePesquisa.js"></script>
+
+
 
 </body>
 
