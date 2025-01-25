@@ -1,101 +1,109 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Vagas</title>
     <link rel="stylesheet" href="/css/telaUsuario.css">
 </head>
+
 <body>
 
-<div class="container">
-    <h2>Login ou Cadastro</h2>
+    <div class="container">
+        <h2>Login ou Cadastro</h2>
 
-    <div class="form-group">
-        <label for="role">Escolha sua opção:</label>
-        <select id="role">
-            <option value="usuario">Usuário</option>
-            <option value="empresa">Empresa</option>
-        </select>
+        <div class="form-group">
+            <label for="role">Escolha sua opção:</label>
+            <select id="role">
+                <option value="usuario">Usuário</option>
+                <option value="empresa">Empresa</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" placeholder="Digite seu e-mail">
+        </div>
+
+        <div class="form-group">
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" placeholder="Digite sua senha">
+        </div>
+
+        <button onclick="login()">Entrar</button>
+
+        <div class="footer">
+            <a href="#">Esqueceu a senha?</a>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" placeholder="Digite seu e-mail">
+    <div id="vagasUsuarioContainer"></div>
+
+
+    <!-- Tela de Vagas (para Usuário) -->
+    <div class="tela-usuario" id="telaUsuario">
+        <h2>Vagas Disponíveis</h2>
+        <div id="vagasContainer"></div>
+        <button class="back-btn" onclick="backToLogin()">Voltar</button>
     </div>
 
-    <div class="form-group">
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" placeholder="Digite sua senha">
-    </div>
+    <script>
+        // Função de login
+        function login() {
+            const role = document.getElementById("role").value;
+            const email = document.getElementById("email").value;
+            const senha = document.getElementById("senha").value;
 
-    <button onclick="login()">Entrar</button>
-    
-    <div class="footer">
-        <a href="#">Esqueceu a senha?</a>
-    </div>
-</div>
-
-<!-- Tela de Vagas (para Usuário) -->
-<div class="tela-usuario" id="telaUsuario">
-    <h2>Vagas Disponíveis</h2>
-    <div id="vagasContainer"></div>
-    <button class="back-btn" onclick="backToLogin()">Voltar</button>
-</div>
-
-<script>
-    // Função de login
-    function login() {
-        const role = document.getElementById("role").value;
-        const email = document.getElementById("email").value;
-        const senha = document.getElementById("senha").value;
-
-        if (role === "usuario") {
-            // Direciona para a tela de vagas do usuário
-            showVagas();
-        } else if (role === "empresa") {
-            alert("Bem-vindo, Empresa!");
-            // Adicionar redirecionamento ou conteúdo específico da empresa
+            if (role === "usuario") {
+                // Direciona para a tela de vagas do usuário
+                showVagas();
+            } else if (role === "empresa") {
+                alert("Bem-vindo, Empresa!");
+                // Adicionar redirecionamento ou conteúdo específico da empresa
+            }
         }
-    }
 
-    // Exibe as vagas disponíveis para o usuário
-    function showVagas() {
-        // Esconde a tela de login
-        document.querySelector('.container').style.display = 'none';
-        
-        // Exibe a tela de vagas
-        const telaUsuario = document.getElementById('telaUsuario');
-        telaUsuario.style.display = 'block';
-        
-        // Vagas fictícias
-        const vagas = [
-            "Desenvolvedor Web",
-            "Analista de Sistemas",
-            "Gerente de Projetos",
-            "Designer Gráfico",
-            "Assistente de Marketing"
-        ];
+        // Exibe as vagas disponíveis para o usuário
+        function showVagas() {
+            // Esconde a tela de login
+            document.querySelector('.container').style.display = 'none';
 
-        const vagasContainer = document.getElementById('vagasContainer');
-        vagasContainer.innerHTML = '';
-        vagas.forEach(vaga => {
-            const vagaElement = document.createElement('div');
-            vagaElement.classList.add('vaga');
-            vagaElement.textContent = vaga;
-            vagasContainer.appendChild(vagaElement);
-        });
-    }
+            // Exibe a tela de vagas
+            const telaUsuario = document.getElementById('telaUsuario');
+            telaUsuario.style.display = 'block';
 
-    // Volta para a tela de login
-    function backToLogin() {
-        // Esconde a tela de vagas
-        document.getElementById('telaUsuario').style.display = 'none';
+            // Vagas fictícias
+            const vagas = [
+                "Desenvolvedor Web",
+                "Analista de Sistemas",
+                "Gerente de Projetos",
+                "Designer Gráfico",
+                "Assistente de Marketing"
+            ];
 
-        // Exibe a tela de login
-        document.querySelector('.container').style.display = 'block';
-    }
-</script>
+            const vagasContainer = document.getElementById('vagasContainer');
+            vagasContainer.innerHTML = '';
+            vagas.forEach(vaga => {
+                const vagaElement = document.createElement('div');
+                vagaElement.classList.add('vaga');
+                vagaElement.textContent = vaga;
+                vagasContainer.appendChild(vagaElement);
+            });
+        }
+
+        // Volta para a tela de login
+        function backToLogin() {
+            // Esconde a tela de vagas
+            document.getElementById('telaUsuario').style.display = 'none';
+
+            // Exibe a tela de login
+            document.querySelector('.container').style.display = 'block';
+        }
+    </script>
+
+    <script src="vagasUsuario.js"></script>
 
 </body>
+
 </html>

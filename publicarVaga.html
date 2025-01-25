@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicar Vaga</title>
+    <link rel="stylesheet" href="css/publicarVaga.css">
+    <!-- Link para o Font Awesome (para ícones) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Botão de Voltar -->
+        <a href="telaEmpresa.html" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </a>
+
+        <h1>Publicar Vaga</h1>
+        <form id="vagaForm">
+            <div class="form-group">
+                <label for="nomeVaga">Nome da Vaga</label>
+                <input type="text" id="nomeVaga" name="nomeVaga" placeholder="Digite o nome da vaga" required>
+            </div>
+            <div class="form-group">
+                <label for="descricaoVaga">Descrição da Vaga</label>
+                <textarea id="descricaoVaga" name="descricaoVaga" rows="5" placeholder="Descreva a vaga"
+                    required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="contato">Contato</label>
+                <input type="text" id="contato" name="contato" placeholder="Informe o contato (e-mail ou telefone)"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="beneficio">Benefícios</label>
+                <input type="text" id="beneficio" name="beneficio" placeholder="Liste os benefícios oferecidos">
+            </div>
+            <div class="form-group">
+                <label for="salario">Salário</label>
+                <input type="text" id="salario" name="salario" placeholder="Informe o salário">
+            </div>
+            <div class="form-group">
+                <label for="requisitos">Requisitos</label>
+                <textarea id="requisitos" name="requisitos" rows="4"
+                    placeholder="Liste os requisitos necessários"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="local">Local</label>
+                <input type="text" id="local" name="local" placeholder="Informe o local da vaga">
+            </div>
+            <div class="form-group">
+                <label for="cargaHoraria">Carga Horária</label>
+                <input type="text" id="cargaHoraria" name="cargaHoraria" placeholder="Informe a carga horária">
+            </div>
+            <div class="form-group">
+                <label for="tipoContratacao">Tipo de Contratação</label>
+                <select id="tipoContratacao" name="tipoContratacao" required>
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="CLT">CLT</option>
+                    <option value="PJ">PJ</option>
+                    <option value="Freelancer">Freelancer</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tipoVaga">Tipo de Vaga</label>
+                <select id="tipoVaga" name="tipoVaga" required>
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="Home Office">Home Office</option>
+                    <option value="Presencial">Presencial</option>
+                </select>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">Publicar</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById('vagaForm').addEventListener('submit', (event) => {
+            event.preventDefault(); // Evita o envio padrão do formulário
+
+            const vaga = {
+                nome: document.getElementById('nomeVaga').value,
+                descricao: document.getElementById('descricaoVaga').value,
+                contato: document.getElementById('contato').value,
+                beneficio: document.getElementById('beneficio').value,
+                salario: document.getElementById('salario').value,
+                requisitos: document.getElementById('requisitos').value,
+                local: document.getElementById('local').value,
+                cargaHoraria: document.getElementById('cargaHoraria').value,
+                tipoContratacao: document.getElementById('tipoContratacao').value,
+                topoVaga: document.getElementById('tipoVaga').value
+            };
+
+            console.log('Vaga Publicada:', vaga);
+
+            alert('Vaga publicada com sucesso!');
+        });
+    </script>
+
+    <script src="js/enviarTelaUsuario.js"></script>
+    <script src="js/enviarTelaVagasPublicadas.js"></script>
+
+</body>
+
+</html>

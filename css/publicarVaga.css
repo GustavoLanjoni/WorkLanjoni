@@ -1,0 +1,112 @@
+/* Estilo geral */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e9eff5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container principal */
+.container {
+    max-width: 600px;
+    width: 100%;
+    margin: 30px;
+    background: #ffffff;
+    padding: 35px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 25px 25px 0 0; /* Cantos superiores arredondados, inferiores retos */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+/* Título */
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Grupo de formulário */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    outline: none;
+    background-color: #ffffff;
+}
+
+/* Estilo para textarea */
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Ações do formulário */
+.form-actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Botão de envio */
+.btn-submit {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 14px 35px;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 123, 255, 0.2);
+}
+
+.btn-submit:active {
+    background-color: #004085;
+    transform: translateY(0);
+}
+
+/* Foco do botão ao passar o mouse */
+.btn-submit:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+}

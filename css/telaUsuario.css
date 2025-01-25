@@ -163,3 +163,16 @@ button:disabled {
 .back-btn:hover {
     background-color: #218838;
 }
+
+.alerta-expirada {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.vaga h3 {
+    color: #333;
+}
+.vaga.expirada h3 {
+    color: gray;
+    text-decoration: line-through;
+}

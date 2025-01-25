@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vagas Postadas</title>
+    <link rel="stylesheet" href="/css/vagasPostadas.css">
+</head>
+
+<body>
+    <h2>Vagas Postadas</h2>
+    <div id="vagasPostadasContainer"></div>
+
+
+    <!-- Modal para editar vaga -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="fecharModal()">&times;</span>
+            <h2>Editar Vaga</h2>
+            <form id="editForm">
+                <label for="editNome">Nome:</label>
+                <input type="text" id="editNome" required>
+
+                <label for="editDescricao">Descrição:</label>
+                <textarea id="editDescricao" required></textarea>
+
+                <label for="editContato">Contato:</label>
+                <input type="text" id="editContato" required>
+
+                <label for="editBeneficio">Benefício:</label>
+                <input type="text" id="editBeneficio">
+
+                <label for="editSalario">Salário:</label>
+                <input type="number" id="editSalario" step="0.01">
+
+                <label for="editRequisitos">Requisitos:</label>
+                <textarea id="editRequisitos"></textarea>
+
+                <label for="editLocal">Local:</label>
+                <input type="text" id="editLocal">
+
+                <label for="editCargaHoraria">Carga Horária:</label>
+                <input type="text" id="editCargaHoraria">
+
+                <label for="editTipoContratacao">Tipo de Contratação:</label>
+                <input type="text" id="editTipoContratacao">
+
+                <label for="editTipoVaga">Tipo de Vaga:</label>
+                <input type="text" id="editTipoVaga">
+
+                <label for="editExpiracao">Data de Expiração (AAAA-MM-DD):</label>
+                <input type="date" id="editExpiracao">
+
+                <button type="submit">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+  
+
+
+
+    <script>
+
+        let vagaEditandoIndex = null;
+
+        // Função para abrir o modal
+        function abrirModal(vaga, index) {
+            vagaEditandoIndex = index;
+
+            // Preencher os campos do modal com os dados da vaga
+            document.getElementById('editNome').value = vaga.nome;
+            document.getElementById('editDescricao').value = vaga.descricao;
+            document.getElementById('editContato').value = vaga.contato;
+            document.getElementById('editBeneficio').value = vaga.beneficio;
+            document.getElementById('editSalario').value = vaga.salario;
+            document.getElementById('editRequisitos').value = vaga.requisitos;
+            document.getElementById('editLocal').value = vaga.local;
+            document.getElementById('editCargaHoraria').value = vaga.cargaHoraria;
+            document.getElementById('editTipoContratacao').value = vaga.tipoContratacao;
+            document.getElementById('editTipoVaga').value = vaga.tipoVaga;
+            document.getElementById('editExpiracao').value = vaga.expiracao;
+
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        // Função para fechar o modal
+        function fecharModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        // Função para salvar as alterações
+        document.getElementById('editForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Atualizar a vaga
+            vagasPostadas[vagaEditandoIndex] = {
+                nome: document.getElementById('editNome').value,
+                descricao: document.getElementById('editDescricao').value,
+                contato: document.getElementById('editContato').value,
+                beneficio: document.getElementById('editBeneficio').value,
+                salario: document.getElementById('editSalario').value,
+                requisitos: document.getElementById('editRequisitos').value,
+                local: document.getElementById('editLocal').value,
+                cargaHoraria: document.getElementById('editCargaHoraria').value,
+                tipoContratacao: document.getElementById('editTipoContratacao').value,
+                tipoVaga: document.getElementById('editTipoVaga').value,
+                dataPostagem: vagasPostadas[vagaEditandoIndex].dataPostagem, // Mantém a data original
+                expiracao: document.getElementById('editExpiracao').value || null
+            };
+
+            // Salvar no localStorage e atualizar a lista
+            localStorage.setItem('vagasUsuario', JSON.stringify(vagasPostadas));
+            alert('Vaga atualizada com sucesso!');
+            fecharModal();
+            renderVagas(); // Atualiza a exibição
+        });
+
+        // Função para editar a vaga ao clicar no botão
+        function editarVaga(index) {
+            const vaga = vagasPostadas[index];
+            abrirModal(vaga, index);
+        }
+
+
+
+    </script>
+
+    <script src="/js/vagasPostadas.js"></script>
+</body>
+
+</html>

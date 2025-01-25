@@ -94,8 +94,7 @@ header .actions {
 
 /* Bola de perfil */
 .perfil-bola {
-    width: 60px;
-    height: 60px;
+    
     border-radius: 50%;
     background-color: #3498db; /* Cor azul */
     display: flex;
