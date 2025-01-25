@@ -108,5 +108,19 @@ vagasPostadas.forEach((vaga) => {
 });
 localStorage.setItem('vagasUsuario', JSON.stringify(vagasPostadas));
 
+
+function excluirVaga(index) {
+    if (confirm('Tem certeza de que deseja excluir esta vaga?')) {
+        // Remove a vaga pelo índice
+        vagasPostadas.splice(index, 1);
+        // Atualiza o localStorage com as vagas restantes
+        localStorage.setItem('vagasUsuario', JSON.stringify(vagasPostadas));
+        // Re-renderiza as vagas na tela de "Vagas Postadas"
+        renderVagas();
+        alert('Vaga excluída com sucesso!');
+    }
+}
+
+
 // Inicializa a página exibindo as vagas
 renderVagas();
