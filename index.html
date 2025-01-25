@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Lanjoni</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#link1">Home</a>
+                <a href="#link2">Sobre</a>
+                <a href="#link3">Contato</a>
+                <div class="btn-mobile"></div>
+            </nav>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Buscar por vaga..." />
+    </div>
+
+    <div id="vagasContainer" class="vagas-container">
+        <h2>Vagas Disponíveis</h2>
+        <!-- Aqui será listado as vagas -->
+    </div>
+
+    <div id="vagaDetalhesContainer" class="vaga-detalhes-container" style="display: none;">
+        <h2>Detalhes da Vaga</h2>
+        <!-- Detalhes da vaga selecionada serão exibidos aqui -->
+    </div>
+
+    <script>
+        window.onload = function () {
+            const vagasPublicadas = JSON.parse(localStorage.getItem('vagasPublicadas')) || [];
+            const vagasContainer = document.getElementById('vagasContainer');
+            const vagaDetalhesContainer = document.getElementById('vagaDetalhesContainer');
+            const searchInput = document.getElementById('searchInput');
+
+            // Função para exibir as vagas
+            function exibirVagas(vagas) {
+                vagasContainer.innerHTML = ''; // Limpa o conteúdo existente
+                if (vagas.length > 0) {
+                    vagas.forEach((vaga, index) => {
+                        const vagaElement = document.createElement('div');
+                        vagaElement.classList.add('vaga');
+
+                        vagaElement.innerHTML = `
+                            <div class="vaga-card">
+                                <h3>${vaga.nome}</h3>
+                                <p><strong>Descrição:</strong> ${vaga.descricao}</p>
+                                <button onclick="verDetalhes(${index})">Ver</button>
+                            </div>
+                        `;
+                        vagasContainer.appendChild(vagaElement);
+                    });
+                } else {
+                    vagasContainer.innerHTML = '<p>Não há vagas disponíveis.</p>';
+                }
+            }
+
+            // Exibe as vagas inicialmente
+            exibirVagas(vagasPublicadas);
+
+            // Filtrando as vagas com base no texto da busca
+            searchInput.addEventListener('input', function () {
+                const termoBusca = searchInput.value.toLowerCase();
+                const vagasFiltradas = vagasPublicadas.filter(vaga => {
+                    return vaga.nome.toLowerCase().includes(termoBusca) ||
+                        vaga.descricao.toLowerCase().includes(termoBusca) ||
+                        vaga.local.toLowerCase().includes(termoBusca);
+                });
+
+                exibirVagas(vagasFiltradas);
+            });
+
+            // Exibe os detalhes da vaga selecionada
+            window.verDetalhes = function (index) {
+                const vagaSelecionada = vagasPublicadas[index];
+                vagaDetalhesContainer.style.display = 'block'; // Exibe a seção de detalhes
+                vagasContainer.style.display = 'none'; // Esconde a lista de vagas
+
+                vagaDetalhesContainer.innerHTML = `
+                    <h3>${vagaSelecionada.nome}</h3>
+                    <p><strong>Descrição:</strong> ${vagaSelecionada.descricao}</p>
+                    <p><strong>Contato:</strong> ${vagaSelecionada.contato}</p>
+                    <p><strong>Benefícios:</strong> ${vagaSelecionada.beneficio}</p>
+                    <p><strong>Salário:</strong> ${vagaSelecionada.salario}</p>
+                    <p><strong>Requisitos:</strong> ${vagaSelecionada.requisitos}</p>
+                    <p><strong>Local:</strong> ${vagaSelecionada.local}</p>
+                    <p><strong>Carga Horária:</strong> ${vagaSelecionada.cargaHoraria}</p>
+                    <p><strong>Tipo de Contratação:</strong> ${vagaSelecionada.tipoContratacao}</p>
+                    <p><strong>Tipo de Vaga:</strong> ${vagaSelecionada.tipoVaga}</p>
+                    <button onclick="voltar()">Voltar</button>
+                `;
+            };
+
+            // Função para voltar à lista de vagas
+            window.voltar = function () {
+                vagaDetalhesContainer.style.display = 'none'; // Esconde a seção de detalhes
+                vagasContainer.style.display = 'block'; // Exibe a lista de vagas
+            };
+        };
+    </script>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Work Lanjoni - Todos os direitos reservados</p>
+        </div>
+    </footer>
+
+    <script src="js/menu.js"></script>
+    <script src="js/jobs.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/search.js"></script>
+
+</body>
+
+</html>

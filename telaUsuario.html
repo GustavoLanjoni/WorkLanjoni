@@ -38,11 +38,8 @@
         </div>
     </div>
 
-    <div id="vagasUsuarioContainer"></div>
-
-
     <!-- Tela de Vagas (para Usuário) -->
-    <div class="tela-usuario" id="telaUsuario">
+    <div class="tela-usuario" id="telaUsuario" style="display:none;">
         <h2>Vagas Disponíveis</h2>
         <div id="vagasContainer"></div>
         <button class="back-btn" onclick="backToLogin()">Voltar</button>
@@ -56,40 +53,12 @@
             const senha = document.getElementById("senha").value;
 
             if (role === "usuario") {
-                // Direciona para a tela de vagas do usuário
-                showVagas();
+                // Redireciona para a página index.html após o login do usuário
+                window.location.href = 'index.html'; // Redireciona para a página de usuário
             } else if (role === "empresa") {
                 alert("Bem-vindo, Empresa!");
                 // Adicionar redirecionamento ou conteúdo específico da empresa
             }
-        }
-
-        // Exibe as vagas disponíveis para o usuário
-        function showVagas() {
-            // Esconde a tela de login
-            document.querySelector('.container').style.display = 'none';
-
-            // Exibe a tela de vagas
-            const telaUsuario = document.getElementById('telaUsuario');
-            telaUsuario.style.display = 'block';
-
-            // Vagas fictícias
-            const vagas = [
-                "Desenvolvedor Web",
-                "Analista de Sistemas",
-                "Gerente de Projetos",
-                "Designer Gráfico",
-                "Assistente de Marketing"
-            ];
-
-            const vagasContainer = document.getElementById('vagasContainer');
-            vagasContainer.innerHTML = '';
-            vagas.forEach(vaga => {
-                const vagaElement = document.createElement('div');
-                vagaElement.classList.add('vaga');
-                vagaElement.textContent = vaga;
-                vagasContainer.appendChild(vagaElement);
-            });
         }
 
         // Volta para a tela de login
