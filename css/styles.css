@@ -344,118 +344,208 @@ nav.mobile-menu .btn-primary {
 
 /* Estilo do Container das Vagas */
 #vagasContainer {
-    background: linear-gradient(145deg, #f2f2f2, #e1e1e1);
-    padding: 30px;
+    margin-top: 40px;
+    background: linear-gradient(145deg, #f9f9f9, #e1e1e1);
+    padding: 40px;
     margin-bottom: 40px;
-    border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-    transition: all 0.3s ease-in-out;
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
     font-family: 'Roboto', sans-serif;
 }
 
-/* Efeito de Hover para os Cards de Vagas */
-#vagasContainer .vaga-card {
+.search-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#searchInput {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     background-color: #fff;
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+#searchInput:focus {
+    border-color: #0056b3;
+    outline: none;
+}
+
+.vagas-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.vaga-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
     cursor: pointer;
-    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
-/* Efeito ao passar o mouse no card */
-#vagasContainer .vaga-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    background-color: #f9f9f9;
+.vaga-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Título da vaga */
-#vagasContainer .vaga-card h4 {
-    font-size: 1.5rem;
-    color: #34495e;
-    margin-bottom: 15px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    text-transform: capitalize;
+.vaga-card h3 {
+    font-size: 20px;
+    color: #333;
 }
 
-/* Descrição resumida */
-#vagasContainer .vaga-card .resumo {
-    font-size: 1.1rem;
-    color: #7f8c8d;
-    margin-bottom: 15px;
-    line-height: 1.5;
-    font-weight: 400;
+.vaga-card p {
+    font-size: 16px;
+    color: #666;
 }
 
-/* Informações extras ocultas inicialmente */
-#vagasContainer .vaga-card .detalhes {
+.vaga-card button {
+    background-color: #0056b3;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.vaga-card button:hover {
+    background-color: #003d80;
+}
+
+/* Detalhes da vaga */
+.vaga-detalhes-container {
     display: none;
-    font-size: 0.9rem;
-    color: #7f8c8d;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 0 auto;
     margin-top: 20px;
 }
 
-/* Botão para ver detalhes da vaga */
-#vagasContainer .vaga-card a {
-    display: inline-flex;
-    align-items: center;
-    background-color: #3498db;
+.vaga-detalhes-container h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.vaga-detalhes-container p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.vaga-detalhes-container button {
+    background-color: #ff6f61;
     color: #fff;
-    padding: 12px 18px;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    font-size: 1rem;
-    font-weight: 500;
+    border: none;
+    padding: 12px 25px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-#vagasContainer .vaga-card a:hover {
-    background-color: #2980b9;
-    transform: translateY(-2px);
+.vaga-detalhes-container button:hover {
+    background-color: #e05c4d;
 }
 
-#vagasContainer .vaga-card a i {
-    margin-right: 8px;
-    font-size: 1.2rem;
-}
-
-/* Ícone de informação (exemplo) */
-#vagasContainer .vaga-card .info-icon {
-    font-size: 1.8rem;
-    color: #3498db;
-    margin-bottom: 10px;
-}
 
 /* Responsividade */
 @media (max-width: 768px) {
+    /* Ajusta o container das vagas para se adaptar a telas menores */
     #vagasContainer {
-        padding: 20px;
-        grid-template-columns: 1fr;  /* Exibe as vagas em uma coluna em telas menores */
-    }
-}
-
-
-/* Responsividade */
-@media (max-width: 768px) {
-    nav ul {
-        display: none;
+        padding: 15px;
+        grid-template-columns: 1fr; /* Uma coluna por vez */
     }
 
+    /* Ajusta a navegação para tela pequena */
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav .logo {
+        font-size: 1.5rem;
+    }
+
+    /* Exibe o botão de menu para dispositivos móveis */
     .menu-toggle {
         display: flex;
     }
 
+    nav a {
+        font-size: 1rem;
+    }
+
+    /* Exibe o menu móvel quando o botão for clicado */
     nav.mobile-menu {
         display: flex;
     }
 
-    .container {
-        width: 95%;
+    /* Ajuste do botão de publicar vaga para mobile */
+    .btn-primary {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    /* Ajuste do botão de busca em telas menores */
+    .busca input,
+    .busca button {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    /* Ajusta a visualização das vagas */
+    #jobList {
+        grid-template-columns: 1fr; /* Uma vaga por linha */
+    }
+
+    /* Modal responsivo */
+    .modal-content {
+        width: 90%;
+        max-width: 100%;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Ajuste final para telas menores, como smartphones */
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    #searchInput {
+        width: 90%;
+        font-size: 14px;
+    }
+
+    .btn-primary {
+        font-size: 0.9rem;
+    }
+
+    /* Ajuste do estilo de cartões de vagas */
+    #vagasContainer .vaga-card h4 {
+        font-size: 1.2rem;
+    }
+
+    #vagasContainer .vaga-card .resumo {
+        font-size: 1rem;
     }
 }

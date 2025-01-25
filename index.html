@@ -26,20 +26,31 @@
             </div>
         </div>
     </header>
-
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Buscar por vaga..." />
+        <input type="text" id="searchInput" placeholder="Buscar por vaga..." oninput="filterVagas()" />
     </div>
 
     <div id="vagasContainer" class="vagas-container">
         <h2>Vagas Disponíveis</h2>
-        <!-- Aqui será listado as vagas -->
+        <div id="vagasList">
+            <!-- Aqui serão listadas as vagas -->
+        </div>
     </div>
 
     <div id="vagaDetalhesContainer" class="vaga-detalhes-container" style="display: none;">
         <h2>Detalhes da Vaga</h2>
-        <!-- Detalhes da vaga selecionada serão exibidos aqui -->
+        <div id="vagaDetalhesContent">
+            <!-- Detalhes da vaga selecionada serão exibidos aqui -->
+        </div>
+        <button onclick="closeDetalhes()">Fechar</button>
     </div>
+
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Work Lanjoni - Todos os direitos reservados</p>
+        </div>
+    </footer>
 
     <script>
         window.onload = function () {
@@ -114,16 +125,13 @@
         };
     </script>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Work Lanjoni - Todos os direitos reservados</p>
-        </div>
-    </footer>
+
 
     <script src="js/menu.js"></script>
     <script src="js/jobs.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/search.js"></script>
+    <script src="textoEmpresa.js"></script>
 
 </body>
 
