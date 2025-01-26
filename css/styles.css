@@ -650,9 +650,71 @@ footer .footer-bottom {
     }
 }
 
-
 /* Responsividade para telas de até 768px (telas médias e pequenas) */
 @media (max-width: 768px) {
+    /* Header e navegação */
+    header {
+        padding: 10px;
+    }
+    header .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    nav {
+        display: none; /* Esconde o menu padrão */
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        background-color: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        border-radius: 8px;
+        position: absolute;
+        top: 70px;
+        left: 10px;
+        right: 10px;
+        z-index: 1000;
+    }
+    nav.active {
+        display: flex; /* Mostra o menu quando ativo */
+    }
+    nav a {
+        font-size: 1rem;
+        text-decoration: none;
+        color: #333;
+        padding: 10px;
+        border-radius: 5px;
+        width: 100%;
+        text-align: center;
+    }
+    nav a:hover {
+        background-color: #f0f0f0;
+    }
+
+    /* Botão do menu móvel */
+    .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        z-index: 1100;
+    }
+    .menu-toggle span {
+        width: 30px;
+        height: 3px;
+        background-color: #333;
+        transition: all 0.3s ease;
+    }
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+
     /* Footer */
     footer .footer-content {
         flex-direction: column;
@@ -680,37 +742,10 @@ footer .footer-bottom {
         grid-template-columns: 1fr; /* Uma coluna por vez */
     }
 
-    /* Navegação */
-    nav {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    nav .logo {
-        font-size: 1.5rem;
-    }
-    nav a {
-        font-size: 1rem;
-    }
-
-    /* Menu móvel */
-    .menu-toggle {
-        display: flex;
-    }
-    nav.mobile-menu {
-        display: flex;
-    }
-
     /* Botão de publicar vaga */
     .btn-primary {
         width: 100%;
         margin-top: 10px;
-    }
-
-    /* Botão de busca */
-    .busca input,
-    .busca button {
-        width: 100%;
-        font-size: 1rem;
     }
 
     /* Visualização das vagas */
@@ -728,12 +763,14 @@ footer .footer-bottom {
 
 /* Responsividade para telas muito pequenas (480px ou menos) */
 @media (max-width: 480px) {
-    /* Ajustes de título e hero */
+    /* Header */
     header h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
+
+    /* Hero */
     .hero h2 {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
     .hero p {
         font-size: 1rem;
@@ -741,7 +778,7 @@ footer .footer-bottom {
 
     /* Campo de busca */
     #searchInput {
-        width: 90%;
+        width: 100%;
         font-size: 14px;
     }
 
@@ -758,5 +795,3 @@ footer .footer-bottom {
         font-size: 1rem;
     }
 }
-
-
