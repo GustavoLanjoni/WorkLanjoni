@@ -16,13 +16,18 @@
 
 <body>
 
+
+
     <header>
         <div class="container">
             <nav>
                 <a href="#link1">Home</a>
                 <a href="#link2">Sobre</a>
                 <a href="#link3">Contato</a>
-                <div class="btn-mobile"></div>
+                <div class="auth-buttons">
+                    <a href="logins.html" class="btn-login">Entrar</a>
+                    <a href="logins.html" class="btn-register">Cadastrar</a>
+                </div>
             </nav>
             <div class="menu-toggle">
                 <span></span>
@@ -33,13 +38,25 @@
     </header>
 
 
+    <!-- Pop-up de aviso de login/cadastro -->
+    <div id="loginSignupPopup" class="popup">
+        <div class="popup-content">
+            <h3>Por favor, faça login ou cadastro</h3>
+            <p>Para aproveitar todos os recursos do nosso site, você precisa estar logado.</p>
+            <div class="popup-buttons">
+                <a href="login.html" class="popup-btn">Entrar</a>
+                <a href="register.html" class="popup-btn">Cadastrar</a>
+            </div>
+            <button class="popup-close" onclick="closePopup()">Fechar</button>
+        </div>
+    </div>
 
 
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Buscar por vaga..." oninput="filterVagas()" />
 
-         <!-- Filtro de Cidade -->
-         <input type="text" id="cityFilter" placeholder="Cidade" oninput="filterVagas()" />
+        <!-- Filtro de Cidade -->
+        <input type="text" id="cityFilter" placeholder="Cidade" oninput="filterVagas()" />
 
         <!-- Filtro de Remoto/Presencial -->
         <select id="remoteFilter" onchange="filterVagas()">
@@ -65,7 +82,7 @@
             <option value="Efetivo CLT">Efetivo CLT</option>
         </select>
 
-       
+
     </div>
 
 
@@ -99,9 +116,9 @@
                 <!-- Informações de Contato -->
                 <div class="contact">
                     <h3>Contato</h3>
-                    <p>Email: <a href="mailto:contato@worklanjoni.com">contato@worklanjoni.com</a></p>
+                    <p>Email: <a href="gustavosilva94514@gmail.com">gustavosilva94514@gmail.com</a></p>
                     <p>Telefone: <a href="tel:+5517996489436">(17) 99648-9436</a></p>
-                    <p>Endereço: Rua Exemplo, 123 - Cosmorama, SP</p>
+                    <p>Endereço: Cosmorama, SP</p>
                 </div>
 
                 <!-- Redes Sociais -->
@@ -232,12 +249,27 @@
 
     </script>
 
+    <script>
+        // Seleciona os elementos
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav');
 
-    <script src="js/menu.js"></script>
+        // Adiciona evento de clique no ícone do menu
+        menuToggle.addEventListener('click', () => {
+            // Alterna o estado ativo do menu e do ícone
+            nav.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+    </script>
+
+
+
+
     <script src="js/jobs.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/search.js"></script>
     <script src="js/barraDePesquisa.js"></script>
+    <script src="pop-up.js"></script>
 
 
 

@@ -18,25 +18,83 @@ body {
     margin: 0 auto;
 }
 
-/* Cabeçalho */
+/* Estilo geral para o header */
 header {
-    background-color: #2c3e50;
-    color: #fff;
-    padding: 20px 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    background-color: #333;
+    padding: 15px 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-header h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
+
+/* Menu de navegação */
+header nav {
+   
+    gap: 20px;
+    align-items: center;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: color 0.3s;
+    text-align: left;
+}
+
+header nav a:hover {
+    color: #4CAF50;
+}
+
+/* Botões de autenticação */
+.auth-buttons {
+    display: flex;
+    margin-left: 100%;
+    
+}
+
+.auth-buttons a {
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+/* Botão "Entrar" */
+.btn-login {
+    
+    color: white;
+    
+}
+
+.btn-login:hover {
+    background-color: transparent;
+    color: #4CAF50;
+}
+
+/* Botão "Cadastrar" */
+.btn-register {
+   
+    color: white;
+    
+}
+
+.btn-register:hover {
+    background-color: transparent;
+    color: #008CBA;
+}
+
+
 
 /* Navegação */
 nav {
@@ -99,19 +157,20 @@ nav li {
     transform: scale(1.05);
 }
 
-/* Toggle Menu (Responsivo) */
+/* Ícone do menu */
 .menu-toggle {
-    display: none;
+    display: flex;
     flex-direction: column;
     cursor: pointer;
+    gap: 5px;
+    display: none;
 }
 
 .menu-toggle span {
-    background-color: #fff;
+    width: 30px;
     height: 3px;
-    width: 25px;
-    margin: 5px 0;
-    transition: transform 0.3s ease;
+    background-color: white;
+    transition: all 0.3s ease-in-out;
 }
 
 /* Estilo do menu móvel */
@@ -471,7 +530,8 @@ nav.mobile-menu .btn-primary {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 1000px;
-    margin: 40px auto 0; /* Margem superior de 40px para afastar do cabeçalho */
+    margin: 40px auto 0;
+    /* Margem superior de 40px para afastar do cabeçalho */
 }
 
 
@@ -540,20 +600,21 @@ option {
 
 
 /* Melhorias de usabilidade */
-input, select {
+input,
+select {
     transition: all 0.3s ease;
 }
 
 /* Hover nos campos */
-#searchInput:hover, 
-select:hover, 
+#searchInput:hover,
+select:hover,
 #cityFilter:hover {
     border-color: #4fa3f7;
 }
 
 /* Foco no campo de input */
-#searchInput:focus, 
-select:focus, 
+#searchInput:focus,
+select:focus,
 #cityFilter:focus {
     border-color: #4fa3f7;
     box-shadow: 0 0 8px rgba(79, 163, 247, 0.5);
@@ -561,8 +622,10 @@ select:focus,
 
 
 footer {
-    background-color: #2c3e50; /* Fundo escuro */
-    color: #ecf0f1; /* Texto claro */
+    background-color: #2c3e50;
+    /* Fundo escuro */
+    color: #ecf0f1;
+    /* Texto claro */
     padding: 40px 20px;
     font-family: 'Roboto', sans-serif;
 }
@@ -575,7 +638,7 @@ footer .footer-content {
     text-align: left;
 }
 
-footer .footer-content > div {
+footer .footer-content>div {
     flex: 1;
     min-width: 250px;
 }
@@ -636,36 +699,103 @@ footer .footer-bottom {
 .footer-bottom .heart {
     display: inline-block;
     animation: pulse 1.5s infinite;
-    color: #e74c3c; /* Vermelho vibrante */
+    color: #e74c3c;
+    /* Vermelho vibrante */
     font-size: 16px;
     transition: transform 0.3s ease;
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.2);
     }
 }
 
+
+/* Estilos para o pop-up */
+.popup {
+    display: none; /* Inicialmente o pop-up estará oculto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.popup-buttons {
+    margin-top: 20px;
+}
+
+.popup-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.popup-btn:hover {
+    background-color: #45a049;
+}
+
+.popup-close {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.popup-close:hover {
+    background-color: #e53935;
+}
+
+
+
+
 /* Responsividade para telas de até 768px (telas médias e pequenas) */
 @media (max-width: 768px) {
+
     /* Header e navegação */
     header {
         padding: 10px;
     }
+
     header .container {
         flex-direction: column;
         align-items: center;
     }
+
     nav {
-        display: none; /* Esconde o menu padrão */
+        display: none;
+        /* Esconde o menu padrão */
         flex-direction: column;
         align-items: center;
         gap: 10px;
-        background-color: #fff;
+        background-color: #000000;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         padding: 15px;
         border-radius: 8px;
@@ -675,9 +805,12 @@ footer .footer-bottom {
         right: 10px;
         z-index: 1000;
     }
+
     nav.active {
-        display: flex; /* Mostra o menu quando ativo */
+        display: flex;
+        /* Mostra o menu quando ativo */
     }
+
     nav a {
         font-size: 1rem;
         text-decoration: none;
@@ -687,6 +820,7 @@ footer .footer-bottom {
         width: 100%;
         text-align: center;
     }
+
     nav a:hover {
         background-color: #f0f0f0;
     }
@@ -699,18 +833,22 @@ footer .footer-bottom {
         cursor: pointer;
         z-index: 1100;
     }
+
     .menu-toggle span {
         width: 30px;
         height: 3px;
         background-color: #333;
         transition: all 0.3s ease;
     }
+
     .menu-toggle.active span:nth-child(1) {
         transform: rotate(45deg) translate(5px, 5px);
     }
+
     .menu-toggle.active span:nth-child(2) {
         opacity: 0;
     }
+
     .menu-toggle.active span:nth-child(3) {
         transform: rotate(-45deg) translate(5px, -5px);
     }
@@ -720,7 +858,8 @@ footer .footer-bottom {
         flex-direction: column;
         text-align: center;
     }
-    footer .footer-content > div {
+
+    footer .footer-content>div {
         min-width: unset;
     }
 
@@ -730,6 +869,7 @@ footer .footer-bottom {
         gap: 15px;
         padding: 15px;
     }
+
     #searchInput,
     #cityFilter,
     select {
@@ -739,7 +879,8 @@ footer .footer-bottom {
     /* Container de vagas */
     #vagasContainer {
         padding: 15px;
-        grid-template-columns: 1fr; /* Uma coluna por vez */
+        grid-template-columns: 1fr;
+        /* Uma coluna por vez */
     }
 
     /* Botão de publicar vaga */
@@ -750,7 +891,8 @@ footer .footer-bottom {
 
     /* Visualização das vagas */
     #jobList {
-        grid-template-columns: 1fr; /* Uma vaga por linha */
+        grid-template-columns: 1fr;
+        /* Uma vaga por linha */
     }
 
     /* Modal */
@@ -763,6 +905,7 @@ footer .footer-bottom {
 
 /* Responsividade para telas muito pequenas (480px ou menos) */
 @media (max-width: 480px) {
+
     /* Header */
     header h1 {
         font-size: 1.8rem;
@@ -772,6 +915,7 @@ footer .footer-bottom {
     .hero h2 {
         font-size: 1.5rem;
     }
+
     .hero p {
         font-size: 1rem;
     }
@@ -791,7 +935,57 @@ footer .footer-bottom {
     #vagasContainer .vaga-card h4 {
         font-size: 1.2rem;
     }
+
     #vagasContainer .vaga-card .resumo {
         font-size: 1rem;
     }
+}
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav {
+        display: none;
+        /* Menu oculto por padrão */
+        flex-direction: column;
+        width: 100%;
+        gap: 10px
+    }
+
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+    }
+
+    .menu-toggle span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: white;
+        margin: 5px 0;
+    }
+
+    /* Mostrar menu ao ativar */
+    nav.active {
+        display: flex;
+        width: 250px;
+        color: #000;
+        top: 50px;
+        left: 0;
+    }
+
+
+
+    .auth-buttons a {
+        text-align: center;
+        width: 100%;
+        
+    }
+
+   
 }
