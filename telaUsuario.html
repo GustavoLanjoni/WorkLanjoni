@@ -31,7 +31,7 @@
             <input type="password" id="senha" placeholder="Digite sua senha">
         </div>
 
-        <button onclick="login()">Entrar</button>
+        <button onclick="realizarLogin()">Entrar</button>
 
         <div class="footer">
             <a href="#">Esqueceu a senha?</a>
@@ -47,19 +47,32 @@
 
     <script>
         // Função de login
-        function login() {
+        function realizarLogin() {
             const role = document.getElementById("role").value;
             const email = document.getElementById("email").value;
             const senha = document.getElementById("senha").value;
 
             if (role === "usuario") {
-                // Redireciona para a página index.html após o login do usuário
+                // Salva o usuário no localStorage
+                localStorage.setItem('loggedInUser', email);
+
+                // Redireciona para a página principal (index.html)
                 window.location.href = 'index.html'; // Redireciona para a página de usuário
             } else if (role === "empresa") {
                 alert("Bem-vindo, Empresa!");
                 // Adicionar redirecionamento ou conteúdo específico da empresa
+            } else {
+                alert("Por favor, selecione uma opção válida.");
             }
         }
+
+        // Função de redirecionamento e verificação do login
+        window.onload = function () {
+            const loggedInUser = localStorage.getItem('loggedInUser'); // Verifica se o usuário está logado
+            if (loggedInUser) {
+                window.location.href = "index.html"; // Redireciona para a página principal
+            }
+        };
 
         // Volta para a tela de login
         function backToLogin() {

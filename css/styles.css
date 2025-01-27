@@ -21,7 +21,7 @@ body {
 /* Estilo geral para o header */
 header {
     background-color: #333;
-    padding: 15px 20px;
+    padding: 20px 20px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -787,12 +787,10 @@ footer .footer-bottom {
     color: #fff;
     font-weight: bold;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    
 }
 
-.profile-circle:hover {
-    transform: scale(1.1);
-}
+
 
 /* Estilo do botão de logout */
 .btn-logout {

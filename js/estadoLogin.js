@@ -1,39 +1,45 @@
 // Verifica o estado de login ao carregar a página
 window.onload = function () {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (isLoggedIn === 'true') {
-        showProfile();
+    const loggedInUser = localStorage.getItem('loggedInUser'); // Verifica o usuário logado
+    if (loggedInUser) {
+        showProfile(loggedInUser); // Exibe o perfil do usuário
     } else {
-        showAuthButtons();
+        showAuthButtons(); // Exibe os botões de autenticação
     }
 };
 
-// Função para simular login
+// Função de login
 function login() {
-    localStorage.setItem('isLoggedIn', 'true'); // Marca o usuário como logado
-    showProfile(); // Exibe o perfil
+    window.location.href = "telaUsuario.html"; // Redireciona para a página de login
 }
 
-// Função para simular cadastro
+// Função de cadastro
 function register() {
-    localStorage.setItem('isLoggedIn', 'true'); // Marca o usuário como logado
-    showProfile(); // Exibe o perfil
+    window.location.href = "register.html"; // Redireciona para a página de cadastro
 }
 
-// Função para fazer logout
-function logout() {
-    localStorage.removeItem('isLoggedIn'); // Remove o estado de login
-    showAuthButtons(); // Exibe os botões de autenticação
+// Exibe o perfil do usuário logado
+function showProfile(username) {
+    document.getElementById('auth-buttons').style.display = 'none'; // Oculta os botões de login e cadastro
+    document.getElementById('profile-icon').style.display = 'flex'; // Exibe a bola de perfil
+
+    // Atualiza a bola de perfil com as iniciais do usuário
+    const profileCircle = document.querySelector('.profile-circle');
+    if (profileCircle) {
+        // Calcula as iniciais do nome (caso seja um nome completo ou apenas e-mail)
+        const initials = username.split('@')[0].slice(0, 2).toUpperCase(); // Usa as primeiras 2 letras do nome ou e-mail
+        profileCircle.textContent = initials; // Exibe as iniciais na bola
+    }
 }
 
-// Exibe o perfil e oculta os botões de login/cadastro
-function showProfile() {
-    document.getElementById('auth-buttons').style.display = 'none';
-    document.getElementById('profile-icon').style.display = 'flex';
-}
-
-// Exibe os botões de login/cadastro e oculta o perfil
+// Exibe os botões de autenticação
 function showAuthButtons() {
-    document.getElementById('auth-buttons').style.display = 'flex';
-    document.getElementById('profile-icon').style.display = 'none';
+    document.getElementById('auth-buttons').style.display = 'flex'; // Exibe os botões de login e cadastro
+    document.getElementById('profile-icon').style.display = 'none'; // Oculta a bola de perfil
+}
+
+// Função de logout
+function logout() {
+    localStorage.removeItem('loggedInUser'); // Remove o estado do usuário logado
+    showAuthButtons(); // Exibe os botões de login e cadastro novamente
 }

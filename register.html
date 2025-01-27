@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/cadastro.css">
+    <title>Cadastro</title>
+</head>
+
+<body>
+    <div id="cadastro" class="cadastro">
+        <h2>Cadastro</h2>
+        <label for="usuario-cadastro">Nome de Usuário:</label>
+        <input type="text" id="usuario-cadastro" placeholder="Nome de Usuário">
+        <br><br>
+        <label for="senha-cadastro">Senha:</label>
+        <input type="password" id="senha-cadastro" placeholder="Senha">
+        <br><br>
+        <label for="email-cadastro">E-mail:</label>
+        <input type="email" id="email-cadastro" placeholder="E-mail">
+        <br><br>
+        <label for="tipo-usuario-cadastro">Tipo de Usuário:</label>
+        <select id="tipo-usuario-cadastro">
+            <option value="usuario">Usuário</option>
+            <option value="empresa">Empresa</option>
+        </select>
+        <br><br>
+        <label for="resposta-pergunta-cadastro">Qual é o nome do seu primeiro animal de estimação?</label>
+        <input type="text" id="resposta-pergunta-cadastro" placeholder="Resposta">
+        <br><br>
+        <button onclick="registrarUsuario()">Cadastrar</button>
+    </div>
+
+    <script>
+        // Função para registrar usuário
+        function registrarUsuario() {
+            const usuario = document.getElementById('usuario-cadastro').value;
+            const senha = document.getElementById('senha-cadastro').value;
+            const email = document.getElementById('email-cadastro').value;
+            const tipoUsuario = document.getElementById('tipo-usuario-cadastro').value;
+            const respostaSeguranca = document.getElementById('resposta-pergunta-cadastro').value;
+
+            // Verifica se os campos obrigatórios estão preenchidos
+            if (!usuario || !senha || !email || !respostaSeguranca) {
+                alert('Todos os campos devem ser preenchidos!');
+                return;
+            }
+
+            const novoUsuario = { usuario, senha, email, tipoUsuario, respostaSeguranca };
+
+            // Armazena o novo usuário no localStorage
+            localStorage.setItem(usuario, JSON.stringify(novoUsuario));
+
+            alert('Cadastro realizado com sucesso!');
+
+            // Redireciona para a página de login após o cadastro (se desejar alterar, modifique o href)
+            window.location.href = "telaUsuario.html";
+        }
+    </script>
+
+    <script>
+
+        window.onload = function () {
+            const loggedInUser = localStorage.getItem('loggedInUser'); // Verifica se o usuário está logado
+            if (loggedInUser) {
+                window.location.href = "index.html"; // Redireciona para a página principal
+            }
+        };
+
+        function realizarCadastro() {
+            // Aqui você pode adicionar a lógica de cadastro (por exemplo, criar um novo usuário)
+            const email = document.getElementById("email").value; // Supondo que haja um campo de e-mail no formulário
+            const senha = document.getElementById("senha").value; // Supondo que haja um campo de senha no formulário
+
+            if (email && senha) {
+                localStorage.setItem('loggedInUser', email); // Armazena o usuário logado após o cadastro
+                window.location.href = "index.html"; // Redireciona para a página principal
+            } else {
+                alert("Por favor, preencha todos os campos.");
+            }
+        }
+
+    </script>
+</body>
+
+</html>
