@@ -774,6 +774,96 @@ footer .footer-bottom {
 }
 
 
+/* Estilo da bola de perfil */
+.profile-circle {
+    width: 50px;
+    height: 50px;
+    background-color: #007bff;
+    border-radius: 50%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.profile-circle:hover {
+    transform: scale(1.1);
+}
+
+/* Estilo do botão de logout */
+.btn-logout {
+    background-color: transparent;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.btn-logout:hover {
+    text-decoration: underline;
+}
+
+
+
+/* Botões com design moderno */
+.btn-login, .btn-register {
+    display: inline-block;
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    background-color: #007bff;
+    border: 2px solid transparent;
+    border-radius: 30px; /* Botões com borda arredondada */
+    cursor: pointer;
+    transition: all 0.4s ease-in-out; /* Transição suave */
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Efeito hover */
+.btn-login:hover, .btn-register:hover {
+    color: #007bff; /* Texto azul */
+    background-color: transparent; /* Fundo transparente */
+    border-color: #ff0000; /* Borda vermelha */
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.5); /* Sombra azul */
+    transform: scale(1.05); /* Aumenta o botão ligeiramente */
+}
+
+/* Efeito de expansão da borda */
+.btn-login::after, .btn-register::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+  
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+    z-index: 0; /* Fica atrás do texto */
+}
+
+/* Aumenta o efeito de expansão no hover */
+.btn-login:hover::after, .btn-register:hover::after {
+    width: 400%;
+    height: 400%;
+}
+
+/* Garante que o texto fique por cima da animação */
+.btn-login, .btn-register {
+    position: relative;
+    z-index: 1;
+}
 
 
 /* Responsividade para telas de até 768px (telas médias e pequenas) */

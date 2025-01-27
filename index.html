@@ -24,9 +24,15 @@
                 <a href="#link1">Home</a>
                 <a href="#link2">Sobre</a>
                 <a href="#link3">Contato</a>
-                <div class="auth-buttons">
-                    <a href="logins.html" class="btn-login">Entrar</a>
-                    <a href="logins.html" class="btn-register">Cadastrar</a>
+                <div class="auth-buttons" id="auth-buttons">
+                    <button class="btn-login" onclick="login()">Entrar</button>
+                    <button class="btn-register" onclick="register()">Cadastrar</button>
+                </div>
+                <div class="profile-icon" id="profile-icon" style="display: none;">
+                    <a href="perfilUsuario.html">
+                        <div class="profile-circle">GL</div>
+                    </a>
+                    <button class="btn-logout" onclick="logout()">Sair</button>
                 </div>
             </nav>
             <div class="menu-toggle">
@@ -36,6 +42,8 @@
             </div>
         </div>
     </header>
+    
+    
 
 
     <!-- Pop-up de aviso de login/cadastro -->
@@ -270,6 +278,7 @@
     <script src="js/search.js"></script>
     <script src="js/barraDePesquisa.js"></script>
     <script src="js/pop-up.js"></script>
+    <script src="js/estadoLogin.js"></script>
 
 
 
