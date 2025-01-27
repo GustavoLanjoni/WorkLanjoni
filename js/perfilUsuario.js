@@ -9,8 +9,8 @@ function mostrarFoto(event) {
             const img = document.createElement("img");
             img.src = e.target.result; // A imagem será exibida com base no arquivo carregado
             img.alt = "Foto de Perfil";
-            img.style.width = "100px"; // Ajuste do tamanho da imagem
-            img.style.height = "100px";
+            img.style.width = "200px"; // Ajuste do tamanho da imagem
+            img.style.height = "200px";
             img.style.borderRadius = "50%"; // Torna a imagem redonda
             img.style.marginTop = "10px";
 

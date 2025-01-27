@@ -9,51 +9,309 @@
 </head>
 
 <body>
-
     <div class="container">
-        <h2>Formulário de Cadastro</h2>
+        <h2>Perfil Usuario</h2>
         <form id="formCadastro" onsubmit="return salvarDados(event)">
-            <!-- Foto do Usuário -->
-            <label for="foto">Foto de Perfil:</label>
-            <input type="file" id="foto" name="foto" accept="image/*" required onchange="mostrarFoto(event)">
+            <!-- Foto e Nome -->
+            <div class="form-row">
 
-            <!-- Nome Completo -->
-            <label for="nomeCompleto">Nome Completo:</label>
-            <input type="text" id="nomeCompleto" name="nomeCompleto" required>
+                <div class="foto-quadrado" id="fotoQuadrado">
+                    <div id="salvoFoto"></div>
+                    <img id="fotoPerfilPreview" src="" alt="Pré-visualização da foto de perfil"
+                        style="display:none; width:200px; height:200px; object-fit: cover;" />
+                </div>
+                <!-- Foto e Nome -->
+                <div class="foto-container">
+                    <label for="foto">Foto de Perfil:</label>
+                    <input type="file" id="foto" name="foto" accept="image/*" required onchange="mostrarFoto(event)">
+                    <div id="previewFoto"></div>
+                </div>
+                <div class="input-container">
+                    <label for="nomeCompleto">Nome Completo:</label>
+                    <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Digite seu nome completo"
+                        required>
+                </div>
+            </div>
 
-            <!-- Idade -->
-            <label for="idade">Idade:</label>
-            <input type="number" id="idade" name="idade" required>
+            <!-- Idade e Data de Nascimento -->
+            <div class="form-row">
+                <div class="input-container">
+                    <label for="idade">Idade:</label>
+                    <input type="number" id="idade" name="idade" placeholder="Digite sua idade" required>
+                </div>
+                <div class="input-container">
+                    <label for="dataNascimento">Data de Nascimento:</label>
+                    <input type="date" id="dataNascimento" name="dataNascimento" required>
+                </div>
+            </div>
 
-            <!-- Data de Nascimento -->
-            <label for="dataNascimento">Data de Nascimento:</label>
-            <input type="date" id="dataNascimento" name="dataNascimento" required>
+            <!-- Contato -->
+            <div class="form-row">
+                <div class="input-container">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+                </div>
+                <div class="input-container">
+                    <label for="telefone">Telefone:</label>
+                    <input type="tel" id="telefone" name="telefone" placeholder="Ex.: (11) 91234-5678" required>
+                </div>
+            </div>
 
-            <!-- Email -->
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <!-- Sobre Mim -->
+            <div class="form-row">
+                <label for="sobreMim">Sobre Mim:</label>
+                <textarea id="sobreMim" name="sobreMim" placeholder="Conte um pouco sobre você..." required></textarea>
+            </div>
 
-            <!-- Telefone -->
-            <label for="telefone">Telefone:</label>
-            <input type="tel" id="telefone" name="telefone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
-            
+            <!-- Habilidades -->
+            <div class="form-row">
+                <label>Habilidades:</label>
+                <div id="habilidadesList">
+                    <div class="habilidade-item">
+                        <input type="text" name="habilidade[]" placeholder="Digite uma habilidade">
+                        <button type="button" class="remove-item" onclick="removerItem(this)">-</button>
+                    </div>
+                </div>
+                <button type="button" class="add-item"
+                    onclick="adicionarItem('habilidadesList', 'habilidade-item')">Adicionar Habilidade</button>
+            </div>
 
-            <!-- Botão de Enviar -->
+            <!-- Experiência Profissional -->
+            <div class="form-row">
+                <label>Experiência Profissional:</label>
+                <div id="experienciaList">
+                    <div class="experiencia-item">
+                        <input type="text" name="empresa[]" placeholder="Nome da Empresa">
+                        <input type="text" name="cargo[]" placeholder="Cargo/Função">
+                        <input type="text" name="periodo[]" placeholder="Período (Ex.: 2019-2022)">
+                        <button type="button" class="remove-item" onclick="removerItem(this)">-</button>
+                    </div>
+                </div>
+                <button type="button" class="add-item"
+                    onclick="adicionarItem('experienciaList', 'experiencia-item')">Adicionar Experiência</button>
+            </div>
+
+            <!-- Currículo -->
+            <div class="form-row">
+                <label for="curriculo">Currículo:</label>
+                <div class="quadrado-upload" id="quadrado-upload">
+                    <input type="file" id="curriculo" name="curriculo" accept=".jpg, .jpeg, .png, .pdf, .doc, .docx"
+                        onchange="mostrarCurriculo(event)" />
+                    <span>Arraste e solte seu currículo aqui ou clique para selecionar</span>
+                    <div id="curriculo-preview" class="curriculo-preview">
+                        <!-- Exibição do nome do arquivo ou imagem -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <label for="redesSociais">Redes Sociais:</label>
+                <div id="linksContainer">
+                    <!-- Criando 5 campos de entrada de link -->
+                    <div class="link-item">
+                        <input type="url" name="redeSocial[]" placeholder="Cole seu link aqui"
+                            oninput="verificarLink(this)">
+                        <div class="icon-container" style="display:none;"></div>
+                    </div>
+                    <div class="link-item">
+                        <input type="url" name="redeSocial[]" placeholder="Cole seu link aqui"
+                            oninput="verificarLink(this)">
+                        <div class="icon-container" style="display:none;"></div>
+                    </div>
+                    <div class="link-item">
+                        <input type="url" name="redeSocial[]" placeholder="Cole seu link aqui"
+                            oninput="verificarLink(this)">
+                        <div class="icon-container" style="display:none;"></div>
+                    </div>
+                    <div class="link-item">
+                        <input type="url" name="redeSocial[]" placeholder="Cole seu link aqui"
+                            oninput="verificarLink(this)">
+                        <div class="icon-container" style="display:none;"></div>
+                    </div>
+                    <div class="link-item">
+                        <input type="url" name="redeSocial[]" placeholder="Cole seu link aqui"
+                            oninput="verificarLink(this)">
+                        <div class="icon-container" style="display:none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Área para exibir mensagens de sucesso -->
+            <div id="mensagemSucesso" style="display:none; color: green; margin-top: 20px;">
+                Dados salvos com sucesso!
+            </div>
+            <div id="mensagemCurriculo" style="display:none; color: green; margin-top: 20px;">
+                Currículo adicionado com sucesso!
+            </div>
+            <!-- Mensagem de Sucesso -->
+            <div id="mensagemSucesso" class="mensagem" style="display: none;">
+                <p id="textoMensagem"></p>
+            </div>
+
+
+
+
+            <!-- Botão de Salvar -->
             <button type="submit">Salvar Dados</button>
         </form>
 
-        <div id="dadosSalvos" class="dados-salvos">
-            <h3>Dados Salvos</h3>
-            <div id="salvoFoto"></div>
-            <div id="salvoNome"></div>
-            <div id="salvoIdade"></div>
-            <div id="salvoDataNascimento"></div>
-            <div id="salvoEmail"></div>
-            <div id="salvoTelefone"></div>
-        </div>
+        <h2>Dados Salvos</h2>
+        <!-- Exibição dos dados salvos -->
+        <div id="salvoNome"></div>
+        <div id="salvoIdade"></div>
+        <div id="salvoDataNascimento"></div>
+        <div id="salvoEmail"></div>
+        <div id="salvoTelefone"></div>
+        <div id="salvoCurriculo"></div>
+        <div id="salvoSobreMim"></div>
+
     </div>
 
+    <!-- Foto Perfil -->
+    <script>
+        function mostrarFoto(event) {
+            const input = event.target;
+            const file = input.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                // Encontrar a div foto-quadrado
+                const fotoQuadrado = document.getElementById('fotoQuadrado');
+
+                // Encontrar a imagem pré-existente dentro da div
+                const fotoPerfilPreview = document.getElementById('fotoPerfilPreview');
+
+                // Atualizar o src da imagem e tornar visível
+                fotoPerfilPreview.src = e.target.result;
+                fotoPerfilPreview.style.display = 'block';  // Tornar a imagem visível
+            };
+
+            if (file) {
+                reader.readAsDataURL(file); // Carrega a imagem selecionada
+            }
+        }
+
+        function adicionarItem(containerId, itemClass) {
+            const container = document.getElementById(containerId);
+            const newItem = document.createElement('div');
+            newItem.className = itemClass;
+
+            if (itemClass === 'habilidade-item') {
+                newItem.innerHTML = `
+                    <input type="text" name="habilidade[]" placeholder="Digite uma habilidade">
+                    <button type="button" class="remove-item" onclick="removerItem(this)">-</button>
+                `;
+            } else if (itemClass === 'experiencia-item') {
+                newItem.innerHTML = `
+                    <input type="text" name="empresa[]" placeholder="Nome da Empresa">
+                    <input type="text" name="cargo[]" placeholder="Cargo/Função">
+                    <input type="text" name="periodo[]" placeholder="Período (Ex.: 2019-2022)">
+                    <button type="button" class="remove-item" onclick="removerItem(this)">-</button>
+                `;
+            }
+
+            container.appendChild(newItem);
+        }
+
+        function removerItem(button) {
+            button.parentElement.remove();
+        }
+
+        function mostrarCurriculo(event) {
+            const curriculoInput = event.target;
+            const curriculoName = curriculoInput.files[0] ? curriculoInput.files[0].name : '';
+            const previewContainer = document.getElementById('curriculo-preview');
+
+            if (curriculoName) {
+                previewContainer.innerHTML = `Currículo Selecionado: ${curriculoName}`;
+            } else {
+                previewContainer.innerHTML = '';
+            }
+        }
+
+        function salvarDados(event) {
+            event.preventDefault();
+
+            // Exibindo os dados básicos
+            document.getElementById('salvoNome').textContent = "Nome: " + document.getElementById('nomeCompleto').value;
+            document.getElementById('salvoIdade').textContent = "Idade: " + document.getElementById('idade').value;
+            document.getElementById('salvoDataNascimento').textContent = "Data de Nascimento: " + document.getElementById('dataNascimento').value;
+            document.getElementById('salvoEmail').textContent = "Email: " + document.getElementById('email').value;
+            document.getElementById('salvoTelefone').textContent = "Telefone: " + document.getElementById('telefone').value;
+            document.getElementById('salvoCurriculo').textContent = "Currículo: " + (document.getElementById('curriculo').files[0] ? document.getElementById('curriculo').files[0].name : 'Não enviado');
+            document.getElementById('salvoSobreMim').textContent = "Sobre Mim: " + document.getElementById('sobreMim').value;
+
+            // Exibindo a foto de perfil
+            const fotoPerfil = document.getElementById('fotoPerfilPreview').src;
+            const salvoFoto = document.getElementById('salvoFoto');
+            if (fotoPerfil) {
+                salvoFoto.innerHTML = `<img src="${fotoPerfil}" alt="Foto de Perfil" style="width: 200px; height: 200px; object-fit: cover;">`;
+            } else {
+                salvoFoto.innerHTML = "Foto de Perfil não selecionada";
+            }
+        }
+    </script>
+
+    <script>
+
+        function salvarDados(event) {
+            event.preventDefault();
+
+            // Exibindo os dados básicos
+            document.getElementById('salvoNome').textContent = "Nome: " + document.getElementById('nomeCompleto').value;
+            document.getElementById('salvoIdade').textContent = "Idade: " + document.getElementById('idade').value;
+            document.getElementById('salvoDataNascimento').textContent = "Data de Nascimento: " + document.getElementById('dataNascimento').value;
+            document.getElementById('salvoEmail').textContent = "Email: " + document.getElementById('email').value;
+            document.getElementById('salvoTelefone').textContent = "Telefone: " + document.getElementById('telefone').value;
+            document.getElementById('salvoCurriculo').textContent = "Currículo: " + (document.getElementById('curriculo').files[0] ? document.getElementById('curriculo').files[0].name : 'Não enviado');
+            document.getElementById('salvoSobreMim').textContent = "Sobre Mim: " + document.getElementById('sobreMim').value;
+
+            // Exibindo a foto de perfil
+            const fotoPerfil = document.getElementById('fotoPerfilPreview').src;
+            const salvoFoto = document.getElementById('salvoFoto');
+            if (fotoPerfil) {
+                salvoFoto.innerHTML = `<img src="${fotoPerfil}" alt="Foto de Perfil" style="width: 200px; height: 200px; object-fit: cover;">`;
+            } else {
+                salvoFoto.innerHTML = "Foto de Perfil não selecionada";
+            }
+
+            // Exibe mensagem de sucesso
+            exibirMensagem("Dados salvos com sucesso!");
+        }
+
+        function mostrarCurriculo(event) {
+            const curriculoInput = event.target;
+            const curriculoName = curriculoInput.files[0] ? curriculoInput.files[0].name : '';
+            const previewContainer = document.getElementById('curriculo-preview');
+
+            if (curriculoName) {
+                previewContainer.innerHTML = `Currículo Selecionado: ${curriculoName}`;
+                exibirMensagem("Currículo adicionado com sucesso!");
+            } else {
+                previewContainer.innerHTML = '';
+            }
+        }
+
+        // Função para exibir a mensagem
+        function exibirMensagem(mensagem) {
+            const mensagemDiv = document.getElementById('mensagemSucesso');
+            const textoMensagem = document.getElementById('textoMensagem');
+            textoMensagem.textContent = mensagem;
+
+            // Exibe a mensagem
+            mensagemDiv.style.display = 'block';
+
+            // Remove a mensagem após 3 segundos
+            setTimeout(function () {
+                mensagemDiv.style.display = 'none';
+            }, 3000);
+        }
+
+
+    </script>
+
     <script src="js/perfilUsuario.js"></script>
+    <script src="js/redesSociais.js"></script>
 </body>
 
 </html>
