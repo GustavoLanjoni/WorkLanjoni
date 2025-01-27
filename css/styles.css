@@ -50,7 +50,7 @@ header nav a {
 }
 
 header nav a:hover {
-    color: #4CAF50;
+    color: #008CBA;
 }
 
 /* Botões de autenticação */
@@ -79,7 +79,7 @@ header nav a:hover {
 
 .btn-login:hover {
     background-color: transparent;
-    color: #4CAF50;
+    color: #008CBA;
 }
 
 /* Botão "Cadastrar" */
