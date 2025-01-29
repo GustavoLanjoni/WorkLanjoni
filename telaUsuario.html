@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Vagas</title>
+    <title>Login</title>
     <link rel="stylesheet" href="/css/telaUsuario.css">
 </head>
 
@@ -59,8 +59,11 @@
                 // Redireciona para a página principal (index.html)
                 window.location.href = 'index.html'; // Redireciona para a página de usuário
             } else if (role === "empresa") {
-                alert("Bem-vindo, Empresa!");
-                // Adicionar redirecionamento ou conteúdo específico da empresa
+                // Salva o usuário da empresa no localStorage
+                localStorage.setItem('loggedInEmpresa', email);
+
+                // Redireciona para a página da empresa (telaEmpresa.html)
+                window.location.href = 'telaEmpresa.html'; // Redireciona para a página da empresa
             } else {
                 alert("Por favor, selecione uma opção válida.");
             }

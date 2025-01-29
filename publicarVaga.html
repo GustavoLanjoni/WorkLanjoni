@@ -90,16 +90,23 @@
                 local: document.getElementById('local').value,
                 cargaHoraria: document.getElementById('cargaHoraria').value,
                 tipoContratacao: document.getElementById('tipoContratacao').value,
-                topoVaga: document.getElementById('tipoVaga').value
+                tipoVaga: document.getElementById('tipoVaga').value
             };
 
-            console.log('Vaga Publicada:', vaga);
+            // Salva as vagas publicadas no localStorage
+            let vagasPublicadas = JSON.parse(localStorage.getItem('vagasPublicadas')) || [];
+            vagasPublicadas.push(vaga);
+            localStorage.setItem('vagasPublicadas', JSON.stringify(vagasPublicadas));
 
+            // Mensagem de sucesso
             alert('Vaga publicada com sucesso!');
+
+            // Redireciona para a página index.html
+            window.location.href = 'index.html'; // Isso leva o usuário à página principal
         });
     </script>
 
-    <script src="js/enviarTelaUsuario.js"></script>
+    
     <script src="js/enviarTelaVagasPublicadas.js"></script>
 
 </body>

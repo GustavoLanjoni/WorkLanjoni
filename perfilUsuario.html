@@ -8,8 +8,13 @@
     <link rel="stylesheet" href="css/perfilUsuario.css">
 </head>
 
+
 <body>
     <div class="container">
+        <a href="index.html"
+            style="text-decoration: none; display: inline-flex; align-items: center; font-size: 16px; margin-bottom: 20px;">
+            &#8592; Voltar para a Página Inicial
+        </a>
         <h2>Perfil Usuario</h2>
         <form id="formCadastro" onsubmit="return salvarDados(event)">
             <!-- Foto e Nome -->
@@ -151,6 +156,7 @@
 
 
 
+
             <!-- Botão de Salvar -->
             <button type="submit">Salvar Dados</button>
         </form>
@@ -167,151 +173,15 @@
 
     </div>
 
-    <!-- Foto Perfil -->
-    <script>
-        function mostrarFoto(event) {
-            const input = event.target;
-            const file = input.files[0];
-            const reader = new FileReader();
+    
 
-            reader.onload = function (e) {
-                // Encontrar a div foto-quadrado
-                const fotoQuadrado = document.getElementById('fotoQuadrado');
+ 
 
-                // Encontrar a imagem pré-existente dentro da div
-                const fotoPerfilPreview = document.getElementById('fotoPerfilPreview');
+   
 
-                // Atualizar o src da imagem e tornar visível
-                fotoPerfilPreview.src = e.target.result;
-                fotoPerfilPreview.style.display = 'block';  // Tornar a imagem visível
-            };
-
-            if (file) {
-                reader.readAsDataURL(file); // Carrega a imagem selecionada
-            }
-        }
-
-        function adicionarItem(containerId, itemClass) {
-            const container = document.getElementById(containerId);
-            const newItem = document.createElement('div');
-            newItem.className = itemClass;
-
-            if (itemClass === 'habilidade-item') {
-                newItem.innerHTML = `
-                    <input type="text" name="habilidade[]" placeholder="Digite uma habilidade">
-                    <button type="button" class="remove-item" onclick="removerItem(this)">-</button>
-                `;
-            } else if (itemClass === 'experiencia-item') {
-                newItem.innerHTML = `
-                    <input type="text" name="empresa[]" placeholder="Nome da Empresa">
-                    <input type="text" name="cargo[]" placeholder="Cargo/Função">
-                    <input type="text" name="periodo[]" placeholder="Período (Ex.: 2019-2022)">
-                    <button type="button" class="remove-item" onclick="removerItem(this)">-</button>
-                `;
-            }
-
-            container.appendChild(newItem);
-        }
-
-        function removerItem(button) {
-            button.parentElement.remove();
-        }
-
-        function mostrarCurriculo(event) {
-            const curriculoInput = event.target;
-            const curriculoName = curriculoInput.files[0] ? curriculoInput.files[0].name : '';
-            const previewContainer = document.getElementById('curriculo-preview');
-
-            if (curriculoName) {
-                previewContainer.innerHTML = `Currículo Selecionado: ${curriculoName}`;
-            } else {
-                previewContainer.innerHTML = '';
-            }
-        }
-
-        function salvarDados(event) {
-            event.preventDefault();
-
-            // Exibindo os dados básicos
-            document.getElementById('salvoNome').textContent = "Nome: " + document.getElementById('nomeCompleto').value;
-            document.getElementById('salvoIdade').textContent = "Idade: " + document.getElementById('idade').value;
-            document.getElementById('salvoDataNascimento').textContent = "Data de Nascimento: " + document.getElementById('dataNascimento').value;
-            document.getElementById('salvoEmail').textContent = "Email: " + document.getElementById('email').value;
-            document.getElementById('salvoTelefone').textContent = "Telefone: " + document.getElementById('telefone').value;
-            document.getElementById('salvoCurriculo').textContent = "Currículo: " + (document.getElementById('curriculo').files[0] ? document.getElementById('curriculo').files[0].name : 'Não enviado');
-            document.getElementById('salvoSobreMim').textContent = "Sobre Mim: " + document.getElementById('sobreMim').value;
-
-            // Exibindo a foto de perfil
-            const fotoPerfil = document.getElementById('fotoPerfilPreview').src;
-            const salvoFoto = document.getElementById('salvoFoto');
-            if (fotoPerfil) {
-                salvoFoto.innerHTML = `<img src="${fotoPerfil}" alt="Foto de Perfil" style="width: 200px; height: 200px; object-fit: cover;">`;
-            } else {
-                salvoFoto.innerHTML = "Foto de Perfil não selecionada";
-            }
-        }
-    </script>
-
-    <script>
-
-        function salvarDados(event) {
-            event.preventDefault();
-
-            // Exibindo os dados básicos
-            document.getElementById('salvoNome').textContent = "Nome: " + document.getElementById('nomeCompleto').value;
-            document.getElementById('salvoIdade').textContent = "Idade: " + document.getElementById('idade').value;
-            document.getElementById('salvoDataNascimento').textContent = "Data de Nascimento: " + document.getElementById('dataNascimento').value;
-            document.getElementById('salvoEmail').textContent = "Email: " + document.getElementById('email').value;
-            document.getElementById('salvoTelefone').textContent = "Telefone: " + document.getElementById('telefone').value;
-            document.getElementById('salvoCurriculo').textContent = "Currículo: " + (document.getElementById('curriculo').files[0] ? document.getElementById('curriculo').files[0].name : 'Não enviado');
-            document.getElementById('salvoSobreMim').textContent = "Sobre Mim: " + document.getElementById('sobreMim').value;
-
-            // Exibindo a foto de perfil
-            const fotoPerfil = document.getElementById('fotoPerfilPreview').src;
-            const salvoFoto = document.getElementById('salvoFoto');
-            if (fotoPerfil) {
-                salvoFoto.innerHTML = `<img src="${fotoPerfil}" alt="Foto de Perfil" style="width: 200px; height: 200px; object-fit: cover;">`;
-            } else {
-                salvoFoto.innerHTML = "Foto de Perfil não selecionada";
-            }
-
-            // Exibe mensagem de sucesso
-            exibirMensagem("Dados salvos com sucesso!");
-        }
-
-        function mostrarCurriculo(event) {
-            const curriculoInput = event.target;
-            const curriculoName = curriculoInput.files[0] ? curriculoInput.files[0].name : '';
-            const previewContainer = document.getElementById('curriculo-preview');
-
-            if (curriculoName) {
-                previewContainer.innerHTML = `Currículo Selecionado: ${curriculoName}`;
-                exibirMensagem("Currículo adicionado com sucesso!");
-            } else {
-                previewContainer.innerHTML = '';
-            }
-        }
-
-        // Função para exibir a mensagem
-        function exibirMensagem(mensagem) {
-            const mensagemDiv = document.getElementById('mensagemSucesso');
-            const textoMensagem = document.getElementById('textoMensagem');
-            textoMensagem.textContent = mensagem;
-
-            // Exibe a mensagem
-            mensagemDiv.style.display = 'block';
-
-            // Remove a mensagem após 3 segundos
-            setTimeout(function () {
-                mensagemDiv.style.display = 'none';
-            }, 3000);
-        }
-
-
-    </script>
-
-    <script src="js/perfilUsuario.js"></script>
+    
     <script src="js/redesSociais.js"></script>
+    
 </body>
 
 </html>
