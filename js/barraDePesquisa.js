@@ -19,7 +19,8 @@ window.onload = function () {
                     <div class="vaga-card">
                         <h3>${vaga.nome}</h3>
                         <p><strong>Descrição:</strong> ${vaga.descricao}</p>
-                        <button onclick="verDetalhes(${index})">Ver</button>
+                        <p><strong>Local:</strong> ${vaga.local}</p>
+                        <button onclick="verDetalhes(${index})">Ver Detalhes</button>
                     </div>
                 `;
                 vagasContainer.appendChild(vagaElement);
@@ -27,6 +28,12 @@ window.onload = function () {
         } else {
             vagasContainer.innerHTML = '<p>Não há vagas disponíveis.</p>';
         }
+    }
+
+    // Função para ver detalhes da vaga
+    function verDetalhes(index) {
+        const vaga = vagasPublicadas[index];
+        alert(`Detalhes da Vaga:\n\nNome: ${vaga.nome}\nDescrição: ${vaga.descricao}\nLocal: ${vaga.local}\nData de Publicação: ${vaga.dataPublicacao}`);
     }
 
     // Função para filtrar as vagas com base nos critérios
@@ -43,7 +50,7 @@ window.onload = function () {
                                       vaga.local.toLowerCase().includes(termoBusca);
             
             const matchesRemoto = remoto ? vaga.remoto === remoto : true;
-            const matchesData = data ? vaga.dataPublicacao === data : true;
+            const matchesData = data ? new Date(vaga.dataPublicacao) >= new Date(new Date() - (parseInt(data) * 24 * 60 * 60 * 1000)) : true;
             const matchesTipoVaga = tipoVaga ? vaga.tipoVaga === tipoVaga : true;
             const matchesCidade = cidade ? vaga.local.toLowerCase().includes(cidade) : true;
 

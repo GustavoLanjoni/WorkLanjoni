@@ -10,7 +10,7 @@ window.onload = function () {
 
 // Função de login
 function login() {
-    window.location.href = "telaUsuario.html"; // Redireciona para a página de login
+    window.location.href = "login.html"; // Redireciona para a página de login
 }
 
 // Função de cadastro

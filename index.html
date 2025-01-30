@@ -58,7 +58,7 @@
             <h3>Por favor, faça login ou cadastro</h3>
             <p>Para aproveitar todos os recursos do nosso site, você precisa estar logado.</p>
             <div class="popup-buttons">
-                <a href="logins.html" class="popup-btn">Entrar</a>
+                <a href="login.html" class="popup-btn">Entrar</a>
                 <a href="register.html" class="popup-btn">Cadastrar</a>
             </div>
             <button class="popup-close" onclick="closePopup()">Fechar</button>
@@ -68,18 +68,12 @@
 
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Buscar por vaga..." oninput="filterVagas()" />
-
-        <!-- Filtro de Cidade -->
         <input type="text" id="cityFilter" placeholder="Cidade" oninput="filterVagas()" />
-
-        <!-- Filtro de Remoto/Presencial -->
         <select id="remoteFilter" onchange="filterVagas()">
             <option value="">Tipo de Trabalho</option>
             <option value="Home Office">Home Office</option>
             <option value="Presencial">Presencial</option>
         </select>
-
-        <!-- Filtro de Data do Anúncio -->
         <select id="dateFilter" onchange="filterVagas()">
             <option value="">Data do Anúncio</option>
             <option value="24h">Últimas 24 horas</option>
@@ -87,17 +81,14 @@
             <option value="7d">Últimos 7 dias</option>
             <option value="14d">Últimos 14 dias</option>
         </select>
-
-        <!-- Filtro de Tipo de Vaga -->
         <select id="jobTypeFilter" onchange="filterVagas()">
             <option value="">Tipo de Vaga</option>
             <option value="Tempo Integral">Tempo Integral</option>
-            <option value="Autonomo/PJ">Autônomo/PJ</option>
+            <option value="Autônomo/PJ">Autônomo/PJ</option>
             <option value="Efetivo CLT">Efetivo CLT</option>
         </select>
-
-
     </div>
+    
 
 
 
