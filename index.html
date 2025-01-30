@@ -32,18 +32,21 @@
                     <a href="perfilUsuario.html">
                         <div class="profile-circle"
                             style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background-color: #ccc; display: flex; align-items: center; justify-content: center;">
-                            <!-- A imagem será inserida aqui -->
+                            <img id="fotoPerfilMenu" src="img/usuarioPadrao.png" alt="Foto de Perfil"
+                                style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
+
                     </a>
                     <button class="btn-logout" onclick="logout()">Sair</button>
                 </div>
+        </div>
 
-            </nav>
-            <div class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+        </nav>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         </div>
     </header>
 
@@ -107,7 +110,7 @@
         </div>
     </div>
 
-  
+
 
 
     <footer>
@@ -161,7 +164,7 @@
 
 
 
-   
+
 
     <script>
         function debounce(func, delay) {
@@ -200,6 +203,22 @@
         });
     </script>
 
+    <!--carrega a foto perfil-->
+    <script>
+
+window.onload = function () {
+    const fotoSalva = localStorage.getItem("fotoPerfil");
+    if (fotoSalva) {
+        const fotoNoMenu = document.getElementById("fotoPerfilMenu");
+        if (fotoNoMenu) {
+            fotoNoMenu.src = fotoSalva;
+        }
+    }
+};
+
+
+
+    </script>
 
 
     <script src="js/vagasUsuario.js"></script>

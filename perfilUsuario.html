@@ -4,10 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Cadastro</title>
+    <title>Perfil</title>
     <link rel="stylesheet" href="css/perfilUsuario.css">
-</head>
+    <style>
+        /* Estilos para as abas */
+        .tab-container {
+            display: flex;
+            border-bottom: 2px solid #ccc;
+        }
 
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .tab:hover {
+            background-color: #f0f0f0;
+        }
+
+        .active-tab {
+            border-bottom: 3px solid #007bff;
+            color: #007bff;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .container {
+            padding: 20px;
+        }
+    </style>
+</head>
 
 <body>
     <div class="container">
@@ -15,173 +51,131 @@
             style="text-decoration: none; display: inline-flex; align-items: center; font-size: 16px; margin-bottom: 20px;">
             &#8592; Voltar para a Página Inicial
         </a>
-        <h2>Perfil Usuario</h2>
+        <h2>Perfil Usuário</h2>
+
+        <!-- Abas de navegação -->
+        <div class="tab-container">
+            <div class="tab active-tab" onclick="mostrarAba('aba1')">Dados Pessoais</div>
+            <div class="tab" onclick="mostrarAba('aba2')">Contato</div>
+            <div class="tab" onclick="mostrarAba('aba3')">Currículo</div>
+        </div>
+
         <form id="formCadastro" onsubmit="return salvarDados(event)">
-            <!-- Foto e Nome -->
-            <div class="form-row">
-
-                <div class="foto-quadrado" id="fotoQuadrado">
-                    <div id="salvoFoto"></div>
-                    <img id="fotoPerfilPreview" src="" alt="Pré-visualização da foto de perfil"
-                        style="display:none; width:200px; height:200px; object-fit: cover;" />
-                </div>
-                <!-- Foto e Nome -->
-                <div class="foto-container">
-                    <label for="foto">Foto de Perfil:</label>
-                    <input type="file" id="foto" name="foto" accept="image/*" required onchange="mostrarFoto(event)">
-                    <div id="previewFoto"></div>
-                </div>
-                <div class="input-container">
-                    <label for="nomeCompleto">Nome Completo:</label>
-                    <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Digite seu nome completo"
-                        required>
-                </div>
-            </div>
-
-            <!-- Idade e Data de Nascimento -->
-            <div class="form-row">
-                <div class="input-container">
-                    <label for="idade">Idade:</label>
-                    <input type="number" id="idade" name="idade" placeholder="Digite sua idade" required>
-                </div>
-                <div class="input-container">
-                    <label for="dataNascimento">Data de Nascimento:</label>
-                    <input type="date" id="dataNascimento" name="dataNascimento" required>
-                </div>
-            </div>
-
-            <!-- Contato -->
-            <div class="form-row">
-                <div class="input-container">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Digite seu email" required>
-                </div>
-                <div class="input-container">
-                    <label for="telefone">Telefone:</label>
-                    <input type="tel" id="telefone" name="telefone" placeholder="Ex.: (11) 91234-5678" required>
-                </div>
-            </div>
-
-            <!-- Sobre Mim -->
-            <div class="form-row">
-                <label for="sobreMim">Sobre Mim:</label>
-                <textarea id="sobreMim" name="sobreMim" placeholder="Conte um pouco sobre você..." required></textarea>
-            </div>
-
-            <!-- Habilidades -->
-            <div class="form-row">
-                <label>Habilidades:</label>
-                <div id="habilidadesList">
-                    <div class="habilidade-item">
-                        <input type="text" name="habilidade[]" placeholder="Digite uma habilidade">
-                        <button type="button" class="remove-item" onclick="removerItem(this)">-</button>
+            <!-- Aba 1: Dados Pessoais -->
+            <div id="aba1" class="tab-content active">
+                <div class="form-row">
+                    <div class="foto-quadrado" id="fotoQuadrado">
+                        <div id="salvoFoto"></div>
+                        <img id="fotoPerfilPreview" src="" alt="Pré-visualização da foto de perfil"
+                            style="display:none; width:200px; height:200px; object-fit: cover;" />
+                    </div>
+                    <div class="foto-container">
+                        <label for="foto">Foto de Perfil:</label>
+                        <input type="file" id="foto" name="foto" accept="image/*" required
+                            onchange="mostrarFoto(event)">
+                    </div>
+                    <div class="input-container">
+                        <label for="nomeCompleto">Nome Completo:</label>
+                        <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Digite seu nome completo"
+                            required>
                     </div>
                 </div>
-                <button type="button" class="add-item"
-                    onclick="adicionarItem('habilidadesList', 'habilidade-item')">Adicionar Habilidade</button>
-            </div>
 
-            <!-- Experiência Profissional -->
-            <div class="form-row">
-                <label>Experiência Profissional:</label>
-                <div id="experienciaList">
-                    <div class="experiencia-item">
-                        <input type="text" name="empresa[]" placeholder="Nome da Empresa">
-                        <input type="text" name="cargo[]" placeholder="Cargo/Função">
-                        <input type="text" name="periodo[]" placeholder="Período (Ex.: 2019-2022)">
-                        <button type="button" class="remove-item" onclick="removerItem(this)">-</button>
+                <div class="form-row">
+                    <div class="input-container">
+                        <label for="idade">Idade:</label>
+                        <input type="number" id="idade" name="idade" placeholder="Digite sua idade" required>
                     </div>
+                    <div class="input-container">
+                        <label for="dataNascimento">Data de Nascimento:</label>
+                        <input type="date" id="dataNascimento" name="dataNascimento" required>
+                    </div>
+                    <div class="input-container">
+                        <label for="sobreMim">Sobre Mim:</label>
+                        <input type="text" id="sobreMim" name="sobreMim" placeholder="Digite um pouco sobre você!"
+                            required>
+                    </div>
+
                 </div>
-                <button type="button" class="add-item"
-                    onclick="adicionarItem('experienciaList', 'experiencia-item')">Adicionar Experiência</button>
             </div>
 
-            <!-- Currículo -->
-            <div class="form-row">
-                <label for="curriculo">Currículo:</label>
-                <div class="quadrado-upload" id="quadrado-upload">
-                    <input type="file" id="curriculo" name="curriculo" accept=".jpg, .jpeg, .png, .pdf, .doc, .docx"
-                        onchange="mostrarCurriculo(event)" />
-                    <span>Arraste e solte seu currículo aqui ou clique para selecionar</span>
-                    <div id="curriculo-preview" class="curriculo-preview">
-                        <!-- Exibição do nome do arquivo ou imagem -->
+            <!-- Aba 2: Contato -->
+            <div id="aba2" class="tab-content">
+                <div class="form-row">
+                    <div class="input-container">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+                    </div>
+                    <div class="input-container">
+                        <label for="telefone">Telefone:</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="Ex.: (11) 91234-5678" required>
                     </div>
                 </div>
             </div>
 
-            <div class="form-row">
-                <label for="redesSociais">Redes Sociais:</label>
-                <div id="linksContainer">
-                    <!-- Criando 5 campos de entrada de link -->
-                    <div class="link-item">
-                        <input type="url" name="redeSocial[]" placeholder="Cole seu link aqui"
-                            oninput="verificarLink(this)">
-                        <div class="icon-container" style="display:none;"></div>
-                    </div>
-                    <div class="link-item">
-                        <input type="url" name="redeSocial[]" placeholder="Cole seu link aqui"
-                            oninput="verificarLink(this)">
-                        <div class="icon-container" style="display:none;"></div>
-                    </div>
-                    <div class="link-item">
-                        <input type="url" name="redeSocial[]" placeholder="Cole seu link aqui"
-                            oninput="verificarLink(this)">
-                        <div class="icon-container" style="display:none;"></div>
-                    </div>
-                    <div class="link-item">
-                        <input type="url" name="redeSocial[]" placeholder="Cole seu link aqui"
-                            oninput="verificarLink(this)">
-                        <div class="icon-container" style="display:none;"></div>
-                    </div>
-                    <div class="link-item">
-                        <input type="url" name="redeSocial[]" placeholder="Cole seu link aqui"
-                            oninput="verificarLink(this)">
-                        <div class="icon-container" style="display:none;"></div>
+            <!-- Aba 3: Currículo -->
+            <div id="aba3" class="tab-content">
+                <div class="form-row">
+                    <label for="curriculo">Currículo:</label>
+                    <div class="quadrado-upload" id="quadrado-upload">
+                        <input type="file" id="curriculo" name="curriculo" accept=".jpg, .jpeg, .png, .pdf, .doc, .docx"
+                            onchange="mostrarCurriculo(event)" />
+                        <span>Arraste e solte seu currículo aqui ou clique para selecionar</span>
+                        <div id="curriculo-preview" class="curriculo-preview">
+                            <!-- Exibição do nome do arquivo ou imagem -->
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Área para exibir mensagens de sucesso -->
-            <div id="mensagemSucesso" style="display:none; color: green; margin-top: 20px;">
-                Dados salvos com sucesso!
-            </div>
-            <div id="mensagemCurriculo" style="display:none; color: green; margin-top: 20px;">
-                Currículo adicionado com sucesso!
-            </div>
-            <!-- Mensagem de Sucesso -->
-            <div id="mensagemSucesso" class="mensagem" style="display: none;">
-                <p id="textoMensagem"></p>
-            </div>
-
-
-
-
-
-            <!-- Botão de Salvar -->
             <button type="submit">Salvar Dados</button>
         </form>
 
-        <h2>Dados Salvos</h2>
-        <!-- Exibição dos dados salvos -->
-        <div id="salvoNome"></div>
-        <div id="salvoIdade"></div>
-        <div id="salvoDataNascimento"></div>
-        <div id="salvoEmail"></div>
-        <div id="salvoTelefone"></div>
-        <div id="salvoCurriculo"></div>
-        <div id="salvoSobreMim"></div>
-
     </div>
 
+    <script src="js/perfilUsuario.js"></script>
+
+    <script>
+        function mostrarFoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // Exibir a foto na página de perfil
+                    document.getElementById("fotoPerfilPreview").src = e.target.result;
+    
+                    // Salvar a foto no localStorage
+                    localStorage.setItem("fotoPerfil", e.target.result);
+    
+                    // Atualizar a foto no menu principal
+                    const fotoNoMenu = document.getElementById("fotoPerfilMenu");
+                    if (fotoNoMenu) {
+                        fotoNoMenu.src = e.target.result;
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
     
 
- 
+    <script>
+        function mostrarAba(abaId) {
+            // Remove a classe active de todas as abas
+            const abas = document.querySelectorAll('.tab');
+            abas.forEach(aba => aba.classList.remove('active-tab'));
 
-   
+            // Adiciona a classe active à aba clicada
+            document.querySelector(`.tab[onclick="mostrarAba('${abaId}')"]`).classList.add('active-tab');
 
-    
-    <script src="js/redesSociais.js"></script>
-    
+            // Esconde todas as abas de conteúdo
+            const conteudos = document.querySelectorAll('.tab-content');
+            conteudos.forEach(conteudo => conteudo.classList.remove('active'));
+
+            // Exibe a aba de conteúdo correspondente
+            document.getElementById(abaId).classList.add('active');
+        }
+    </script>
 </body>
 
 </html>
