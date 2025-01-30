@@ -863,6 +863,36 @@ footer .footer-bottom {
     z-index: 1;
 }
 
+.vaga-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.vaga-card:hover {
+    transform: scale(1.02);
+}
+
+.ver-detalhes {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin-top: 10px;
+}
+
+.ver-detalhes:hover {
+    background-color: #0056b3;
+}
+
+
 
 /* Responsividade para telas de até 768px (telas médias e pequenas) */
 @media (max-width: 768px) {

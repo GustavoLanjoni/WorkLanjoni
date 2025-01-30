@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Vaga</title>
+    <style>
+        /* Estilização global */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Estilização do container de detalhes da vaga */
+        .vaga-detalhes {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Título da vaga */
+        .vaga-detalhes h2 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        /* Informações da vaga */
+        .vaga-detalhes p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.5;
+            margin: 8px 0;
+        }
+
+        /* Botão */
+        button {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 12px 18px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 15px;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #0056b3, #004494);
+            transform: scale(1.05);
+        }
+
+        /* Animação */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .vaga-detalhes {
+                width: 95%;
+                padding: 20px;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="vaga-detalhes">
+        <h2 id="vagaNome"></h2>
+        <p><strong>Descrição:</strong> <span id="vagaDescricao"></span></p>
+        <p><strong>Contato:</strong> <span id="vagaContato"></span></p>
+        <p><strong>Benefício:</strong> <span id="vagaBeneficio"></span></p>
+        <p><strong>Salário:</strong> R$ <span id="vagaSalario"></span></p>
+        <p><strong>Requisitos:</strong> <span id="vagaRequisitos"></span></p>
+        <p><strong>Local:</strong> <span id="vagaLocal"></span></p>
+        <p><strong>Carga Horária:</strong> <span id="vagaCargaHoraria"></span></p>
+        <p><strong>Tipo de Contratação:</strong> <span id="vagaTipoContratacao"></span></p>
+        <p><strong>Tipo de Vaga:</strong> <span id="vagaTipoVaga"></span></p>
+        <button onclick="voltar()">Voltar</button>
+    </div>
+
+    <script>
+        // Pega o ID da vaga na URL
+        const params = new URLSearchParams(window.location.search);
+        const vagaId = params.get("id");
+
+        // Recupera as vagas do localStorage
+        const vagasUsuario = JSON.parse(localStorage.getItem('vagasUsuario')) || [];
+
+        if (vagaId !== null && vagasUsuario[vagaId]) {
+            const vaga = vagasUsuario[vagaId];
+
+            document.getElementById("vagaNome").innerText = vaga.nome;
+            document.getElementById("vagaDescricao").innerText = vaga.descricao;
+            document.getElementById("vagaContato").innerText = vaga.contato;
+            document.getElementById("vagaBeneficio").innerText = vaga.beneficio;
+            document.getElementById("vagaSalario").innerText = vaga.salario;
+            document.getElementById("vagaRequisitos").innerText = vaga.requisitos;
+            document.getElementById("vagaLocal").innerText = vaga.local;
+            document.getElementById("vagaCargaHoraria").innerText = vaga.cargaHoraria;
+            document.getElementById("vagaTipoContratacao").innerText = vaga.tipoContratacao;
+            document.getElementById("vagaTipoVaga").innerText = vaga.tipoVaga;
+        } else {
+            document.body.innerHTML = "<h2>Vaga não encontrada.</h2><button onclick='voltar()'>Voltar</button>";
+        }
+
+        function voltar() {
+            window.history.back();
+        }
+    </script>
+
+</body>
+
+</html>

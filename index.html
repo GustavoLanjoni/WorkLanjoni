@@ -30,13 +30,14 @@
                 </div>
                 <div class="profile-icon" id="profile-icon" style="display: block;">
                     <a href="perfilUsuario.html">
-                        <div class="profile-circle" style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background-color: #ccc; display: flex; align-items: center; justify-content: center;">
+                        <div class="profile-circle"
+                            style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background-color: #ccc; display: flex; align-items: center; justify-content: center;">
                             <!-- A imagem será inserida aqui -->
                         </div>
                     </a>
                     <button class="btn-logout" onclick="logout()">Sair</button>
                 </div>
-                
+
             </nav>
             <div class="menu-toggle">
                 <span></span>
@@ -45,8 +46,8 @@
             </div>
         </div>
     </header>
-    
-    
+
+
 
 
     <!-- Pop-up de aviso de login/cadastro -->
@@ -96,9 +97,9 @@
 
     </div>
 
-    
 
 
+    <!--Faz as vagas aparecer para os usuarios-->
     <div id="vagasContainer" class="vagas-container">
         <h2>Vagas Disponíveis</h2>
         <div id="vagasList">
@@ -106,13 +107,7 @@
         </div>
     </div>
 
-    <div id="vagaDetalhesContainer" class="vaga-detalhes-container" style="display: none;">
-        <h2>Detalhes da Vaga</h2>
-        <div id="vagaDetalhesContent">
-            <!-- Detalhes da vaga selecionada serão exibidos aqui -->
-        </div>
-        <button onclick="closeDetalhes()">Fechar</button>
-    </div>
+  
 
 
     <footer>
@@ -164,114 +159,9 @@
     </footer>
 
 
+
+
    
-
-    <script>
-        window.onload = function () {
-            // Recupera as vagas publicadas do localStorage
-            let vagasPublicadas = JSON.parse(localStorage.getItem('vagasPublicadas')) || [];
-
-            const vagasContainer = document.getElementById('vagasContainer');
-
-            // Verifica se há vagas e exibe-as
-            if (vagasPublicadas.length > 0) {
-                vagasPublicadas.forEach(vaga => {
-                    const vagaDiv = document.createElement('div');
-                    vagaDiv.classList.add('vaga');
-                    vagaDiv.innerHTML = `
-                        <h3>${vaga.nome}</h3>
-                        <p><strong>Descrição:</strong> ${vaga.descricao}</p>
-                        <p><strong>Contato:</strong> ${vaga.contato}</p>
-                        <p><strong>Benefícios:</strong> ${vaga.beneficio}</p>
-                        <p><strong>Salário:</strong> ${vaga.salario}</p>
-                        <p><strong>Requisitos:</strong> ${vaga.requisitos}</p>
-                        <p><strong>Local:</strong> ${vaga.local}</p>
-                        <p><strong>Carga Horária:</strong> ${vaga.cargaHoraria}</p>
-                        <p><strong>Tipo de Contratação:</strong> ${vaga.tipoContratacao}</p>
-                        <p><strong>Tipo de Vaga:</strong> ${vaga.tipoVaga}</p>
-                    `;
-                    vagasContainer.appendChild(vagaDiv);
-                });
-            } else {
-                vagasContainer.innerHTML = '<p>Não há vagas publicadas ainda.</p>';
-            }
-        };
-    </script>
-
-
-
-    <script>
-        window.onload = function () {
-            const vagasPublicadas = JSON.parse(localStorage.getItem('vagasPublicadas')) || [];
-            const vagasContainer = document.getElementById('vagasContainer');
-            const vagaDetalhesContainer = document.getElementById('vagaDetalhesContainer');
-            const searchInput = document.getElementById('searchInput');
-
-            // Função para exibir as vagas
-            function exibirVagas(vagas) {
-                vagasContainer.innerHTML = ''; // Limpa o conteúdo existente
-                if (vagas.length > 0) {
-                    vagas.forEach((vaga, index) => {
-                        const vagaElement = document.createElement('div');
-                        vagaElement.classList.add('vaga');
-
-                        vagaElement.innerHTML = `
-                            <div class="vaga-card">
-                                <h3>${vaga.nome}</h3>
-                                <p><strong>Descrição:</strong> ${vaga.descricao}</p>
-                                <button onclick="verDetalhes(${index})">Ver</button>
-                            </div>
-                        `;
-                        vagasContainer.appendChild(vagaElement);
-                    });
-                } else {
-                    vagasContainer.innerHTML = '<p>Não há vagas disponíveis.</p>';
-                }
-            }
-
-            // Exibe as vagas inicialmente
-            exibirVagas(vagasPublicadas);
-
-            // Filtrando as vagas com base no texto da busca
-            searchInput.addEventListener('input', function () {
-                const termoBusca = searchInput.value.toLowerCase();
-                const vagasFiltradas = vagasPublicadas.filter(vaga => {
-                    return vaga.nome.toLowerCase().includes(termoBusca) ||
-                        vaga.descricao.toLowerCase().includes(termoBusca) ||
-                        vaga.local.toLowerCase().includes(termoBusca);
-                });
-
-                exibirVagas(vagasFiltradas);
-            });
-
-            // Exibe os detalhes da vaga selecionada
-            window.verDetalhes = function (index) {
-                const vagaSelecionada = vagasPublicadas[index];
-                vagaDetalhesContainer.style.display = 'block'; // Exibe a seção de detalhes
-                vagasContainer.style.display = 'none'; // Esconde a lista de vagas
-
-                vagaDetalhesContainer.innerHTML = `
-                    <h3>${vagaSelecionada.nome}</h3>
-                    <p><strong>Descrição:</strong> ${vagaSelecionada.descricao}</p>
-                    <p><strong>Contato:</strong> ${vagaSelecionada.contato}</p>
-                    <p><strong>Benefícios:</strong> ${vagaSelecionada.beneficio}</p>
-                    <p><strong>Salário:</strong> ${vagaSelecionada.salario}</p>
-                    <p><strong>Requisitos:</strong> ${vagaSelecionada.requisitos}</p>
-                    <p><strong>Local:</strong> ${vagaSelecionada.local}</p>
-                    <p><strong>Carga Horária:</strong> ${vagaSelecionada.cargaHoraria}</p>
-                    <p><strong>Tipo de Contratação:</strong> ${vagaSelecionada.tipoContratacao}</p>
-                    <p><strong>Tipo de Vaga:</strong> ${vagaSelecionada.tipoVaga}</p>
-                    <button onclick="voltar()">Voltar</button>
-                `;
-            };
-
-            // Função para voltar à lista de vagas
-            window.voltar = function () {
-                vagaDetalhesContainer.style.display = 'none'; // Esconde a seção de detalhes
-                vagasContainer.style.display = 'block'; // Exibe a lista de vagas
-            };
-        };
-    </script>
 
     <script>
         function debounce(func, delay) {
@@ -312,7 +202,7 @@
 
 
 
-
+    <script src="js/vagasUsuario.js"></script>
     <script src="js/jobs.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/search.js"></script>
