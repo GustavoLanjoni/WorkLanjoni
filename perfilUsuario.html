@@ -143,10 +143,10 @@
                 reader.onload = function (e) {
                     // Exibir a foto na página de perfil
                     document.getElementById("fotoPerfilPreview").src = e.target.result;
-    
+
                     // Salvar a foto no localStorage
                     localStorage.setItem("fotoPerfil", e.target.result);
-    
+
                     // Atualizar a foto no menu principal
                     const fotoNoMenu = document.getElementById("fotoPerfilMenu");
                     if (fotoNoMenu) {
@@ -156,8 +156,25 @@
                 reader.readAsDataURL(file);
             }
         }
+
+        function salvarFoto() {
+            // Salvar foto automaticamente após a mudança no input
+            const fotoSalva = document.getElementById("fotoPerfilPreview").src;
+            localStorage.setItem("fotoPerfil", fotoSalva);
+            alert("Foto salva com sucesso!");
+        }
+
+        // Quando a página for carregada, a foto do perfil será atualizada
+        window.onload = function () {
+            const fotoSalva = localStorage.getItem("fotoPerfil");
+            if (fotoSalva) {
+                document.getElementById("fotoPerfilMenu").src = fotoSalva;
+                document.getElementById("fotoPerfilPreview").src = fotoSalva;
+            }
+        };
+
     </script>
-    
+
 
     <script>
         function mostrarAba(abaId) {

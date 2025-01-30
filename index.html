@@ -18,12 +18,13 @@
 
 
 
+
+
     <header>
         <div class="container">
             <nav>
                 <a href="index.html">Página inicial</a>
-                <a href="#link2">Sobre</a>
-                <a href="#link3">Contato</a>
+                <a href="sobre.html" target="_blank">Sobre</a>
                 <div class="auth-buttons" id="auth-buttons">
                     <button class="btn-login" onclick="login()">Entrar</button>
                     <button class="btn-register" onclick="register()">Cadastrar</button>
@@ -35,12 +36,10 @@
                             <img id="fotoPerfilMenu" src="img/usuarioPadrao.png" alt="Foto de Perfil"
                                 style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
-
                     </a>
                     <button class="btn-logout" onclick="logout()">Sair</button>
                 </div>
         </div>
-
         </nav>
         <div class="menu-toggle">
             <span></span>
@@ -205,19 +204,14 @@
 
     <!--carrega a foto perfil-->
     <script>
-
-window.onload = function () {
-    const fotoSalva = localStorage.getItem("fotoPerfil");
-    if (fotoSalva) {
-        const fotoNoMenu = document.getElementById("fotoPerfilMenu");
-        if (fotoNoMenu) {
-            fotoNoMenu.src = fotoSalva;
-        }
-    }
-};
-
-
-
+        // Quando a página inicial for carregada, a foto do perfil será atualizada
+        window.onload = function () {
+            const fotoSalva = localStorage.getItem("fotoPerfil");
+            if (fotoSalva) {
+                // Atualiza a foto de perfil no menu
+                document.getElementById("fotoPerfilMenu").src = fotoSalva;
+            }
+        };
     </script>
 
 
