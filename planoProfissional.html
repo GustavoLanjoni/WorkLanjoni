@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/planoProfissional.css">
 </head>
+
 <body>
     <div class="container">
         <div class="plano">
@@ -19,15 +21,61 @@
                     <li><strong>Publicação de vagas:</strong> Até 10 vagas por mês</li>
                     <li><strong>Visibilidade:</strong> Destaque nas buscas (topo da listagem)</li>
                     <li><strong>Duração das vagas:</strong> Ativas por 30 dias</li>
-                    <li><strong>Acesso ao painel:</strong> Dashboard com estatísticas de visualizações e candidaturas</li>
+                    <li><strong>Acesso ao painel:</strong> Dashboard com estatísticas de visualizações e candidaturas
+                    </li>
                     <li><strong>Compartilhamento automático:</strong> Divulgação das vagas em redes sociais</li>
                     <li><strong>Suporte:</strong> Prioritário via e-mail e WhatsApp</li>
                 </ul>
             </div>
             <div class="call-to-action">
-                <a href="#" class="btn-cta">Comece agora</a>
+                <button id="checkout-button">Comece agora</button>
             </div>
         </div>
     </div>
+
+
+    <footer class="plano-footer">
+        <p>Quer conhecer mais opções? <a href="planos.html" class="link-planos">Veja todos os nossos planos aqui.</a>
+        </p>
+    </footer>
+    <script>
+        document.getElementById("checkout-button").addEventListener("click", async () => {
+            const response = await fetch("http://localhost:3000/create_preference", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    title: "Plano Premium",
+                    price: 100.00
+                }),
+            });
+
+            const data = await response.json();
+            window.location.href = data.init_point; // Redireciona para o checkout do Mercado Pago
+        });
+    </script>
+
+
+    <style>
+        .plano-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .link-planos {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .link-planos:hover {
+            text-decoration: underline;
+        }
+    </style>
+
 </body>
+
 </html>

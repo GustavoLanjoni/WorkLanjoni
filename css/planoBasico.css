@@ -123,6 +123,52 @@ body {
     transform: translateY(2px);
 }
 
+.plano-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #333;
+}
+
+.link-planos {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link-planos:hover {
+    text-decoration: underline;
+}
+
+.mensagem-sucesso {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Animação para suavizar a aparição */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
 /* Responsividade */
 @media (max-width: 1200px) {
     .plano-header h1 {

@@ -26,15 +26,33 @@
                 </ul>
             </div>
             <footer class="call-to-action">
-                <a href="#cadastro" class="btn-cta">Comece agora</a>
+                <a href="#" class="btn-cta" onclick="ativarPlano()">Comece agora</a>
             </footer>
         </div>
     </section>
 
+    <!-- Mensagem de sucesso -->
+    <div id="mensagem" class="mensagem-sucesso" style="display: none;">
+        🎉 Plano ativado com sucesso! Redirecionando...
+    </div>
 
+    <footer class="plano-footer">
+        <p>Quer conhecer mais opções? <a href="planos.html" class="link-planos">Veja todos os nossos planos aqui.</a>
+        </p>
+    </footer>
 
+    <script>
+        function ativarPlano() {
+            // Exibir a mensagem personalizada
+            let mensagem = document.getElementById("mensagem");
+            mensagem.style.display = "block";
 
-    
+            // Esconder a mensagem após o redirecionamento
+            setTimeout(function () {
+                window.location.href = "telaEmpresa.html";
+            }, 2000);
+        }
+    </script>
 
 </body>
 
