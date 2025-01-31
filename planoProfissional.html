@@ -28,7 +28,7 @@
                 </ul>
             </div>
             <div class="call-to-action">
-                <button id="checkout-button">Pagar Agora</button>
+                <a href="#" class="btn-cta">Assine Agora</a>
             </div>
         </div>
     </div>
@@ -37,38 +37,8 @@
         <p>Quer conhecer mais opções? <a href="planos.html" class="link-planos">Veja todos os nossos planos aqui.</a></p>
     </footer>
 
-    <!-- Script do MercadoPago -->
-    <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
 
-    <script>
-        // Inicializa o MercadoPago com a sua chave pública
-        const mp = new MercadoPago('APP_USR-5993932174646917-013111-e4cd72e3d0f7698ae162a2c84a2bfdef-393981790', {
-            locale: 'pt-BR' // Configuração de idioma
-        });
 
-        // Configuração do botão de checkout
-        const checkoutButton = document.getElementById('checkout-button');
-
-        checkoutButton.addEventListener('click', function (event) {
-            // Criação da preferência de pagamento
-            mp.checkout.createPreference({
-                items: [
-                    {
-                        title: 'Plano Profissional', // Nome do produto
-                        unit_price: 49.90, // Preço do produto
-                        quantity: 1, // Quantidade
-                    }
-                ]
-            }).then(function (response) {
-                // Redireciona para a página de pagamento
-                window.location.href = response.body.init_point;
-            }).catch(function (error) {
-                alert('Ocorreu um erro ao criar a preferência: ' + error);
-            });
-        });
-    </script>
-
-    <!-- Script adicional (se necessário) -->
     <script src="js/checkoutProfissional.js"></script>
 </body>
 
