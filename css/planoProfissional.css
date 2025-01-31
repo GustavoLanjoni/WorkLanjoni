@@ -123,6 +123,23 @@ body {
     transform: translateY(2px);
 }
 
+.plano-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #333;
+}
+
+.link-planos {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link-planos:hover {
+    text-decoration: underline;
+}
+
 /* Responsividade */
 @media (max-width: 1200px) {
     .plano-header h1 {

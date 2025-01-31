@@ -1,38 +1,29 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('payment-form');
-    const submitButton = form.querySelector('button[type="submit"]');
+// Substitua pelo seu Public Key do Mercado Pago
+const publicKey = "APP_USR-24391161-62dc-4596-9fa2-c538ee4b5304";
+const mercadopago = new MercadoPago(publicKey, {
+    locale: "pt-BR",
+});
 
-    // Função para validar o formulário
-    function validateForm() {
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const cardNumber = document.getElementById('card_number').value;
-        const expirationDate = document.getElementById('expiration_date').value;
-        const cvv = document.getElementById('cvv').value;
-        const address = document.getElementById('address').value;
+// Criar um checkout ao clicar no botão
+document.getElementById("checkout-btn").addEventListener("click", async () => {
+    try {
+        const response = await fetch("https://YOUR_NETLIFY_FUNCTION.netlify.app/.netlify/functions/create_preference", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: "Plano Profissional",
+                price: 100.00
+            }),
+        });
 
-        // Validar se os campos estão preenchidos
-        if (name && email && cardNumber && expirationDate && cvv && address) {
-            submitButton.disabled = false;
+        const data = await response.json();
+
+        if (data.init_point) {
+            window.location.href = data.init_point; // Redireciona para o pagamento
         } else {
-            submitButton.disabled = true;
+            console.error("Erro ao gerar pagamento:", data);
         }
+    } catch (error) {
+        console.error("Erro na API:", error);
     }
-
-    // Adiciona um ouvinte de evento para cada campo do formulário
-    form.addEventListener('input', validateForm);
-
-    // Ao enviar o formulário, simular um processo de pagamento
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        alert('Pagamento processado com sucesso!');
-
-        // Aqui você pode fazer a integração com a API de pagamento
-        // Como exemplo: enviar os dados para um servidor ou um gateway de pagamento
-        form.reset();
-        submitButton.disabled = true;
-    });
-
-    // Desabilitar o botão de envio inicialmente
-    submitButton.disabled = true;
 });
