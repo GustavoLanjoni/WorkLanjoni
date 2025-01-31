@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolha o Plano Ideal</title>
+    <link rel="stylesheet" href="css/formPlanos.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Descubra o Melhor Plano para sua Empresa</h1>
+            <p>Responda algumas perguntas e veja qual plano se encaixa melhor para você.</p>
+        </div>
+    </header>
+
+    <section class="formulario">
+        <div class="container">
+            <form id="planoForm">
+                <div class="form-group">
+                    <label for="vagas">Quantas vagas deseja publicar por mês?</label>
+                    <select id="vagas" name="vagas">
+                        <option value="2">Até 2 vagas</option>
+                        <option value="10">Até 10 vagas</option>
+                        <option value="ilimitado">Mais de 10 vagas</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Deseja mais visibilidade nas buscas?</label>
+                    <div class="radio-group">
+                        <input type="radio" name="destaque" value="sim" id="destaqueSim">
+                        <label for="destaqueSim">Sim, quero destaque</label>
+                        <input type="radio" name="destaque" value="nao" id="destaqueNao">
+                        <label for="destaqueNao">Não, listagem padrão</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="duracao">Por quanto tempo as vagas devem ficar ativas?</label>
+                    <select id="duracao" name="duracao">
+                        <option value="15">15 dias</option>
+                        <option value="30">30 dias</option>
+                        <option value="60">60 dias</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Quer ver estatísticas de visualizações e candidaturas?</label>
+                    <div class="radio-group">
+                        <input type="radio" name="estatisticas" value="sim" id="estatisticasSim">
+                        <label for="estatisticasSim">Sim</label>
+                        <input type="radio" name="estatisticas" value="nao" id="estatisticasNao">
+                        <label for="estatisticasNao">Não</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Deseja compartilhamento automático das vagas nas redes sociais?</label>
+                    <div class="radio-group">
+                        <input type="radio" name="compartilhamento" value="sim" id="compartilhamentoSim">
+                        <label for="compartilhamentoSim">Sim</label>
+                        <input type="radio" name="compartilhamento" value="nao" id="compartilhamentoNao">
+                        <label for="compartilhamentoNao">Não</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Precisa de suporte prioritário?</label>
+                    <div class="radio-group">
+                        <input type="radio" name="suporte" value="sim" id="suporteSim">
+                        <label for="suporteSim">Sim, WhatsApp e e-mail</label>
+                        <input type="radio" name="suporte" value="nao" id="suporteNao">
+                        <label for="suporteNao">Não</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Quer acessar um banco de talentos com currículos cadastrados?</label>
+                    <div class="radio-group">
+                        <input type="radio" name="bancoTalentos" value="sim" id="bancoSim">
+                        <label for="bancoSim">Sim</label>
+                        <input type="radio" name="bancoTalentos" value="nao" id="bancoNao">
+                        <label for="bancoNao">Não</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">Descobrir Meu Plano</button>
+            </form>
+
+            <div id="resultado"></div>
+        </div>
+    </section>
+
+    <script src="js/formPlanos.js"></script>
+</body>
+</html>

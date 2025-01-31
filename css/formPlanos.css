@@ -1,0 +1,161 @@
+/* Geral */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: #f5f7fa; /* fundo suave e mais moderno */
+    color: #333;
+    line-height: 1.6;
+    font-size: 16px;
+    padding: 0 10px; /* Adicionando espaçamento nas laterais */
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px; /* Ajustado para um layout mais compacto */
+    margin: 0 auto;
+}
+
+/* Cabeçalho */
+header {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+    border-radius: 0 0 30px 30px; /* Bordas mais arredondadas */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+header p {
+    font-size: 1.2em;
+    font-weight: 300;
+    color: #f0f4f8;
+}
+
+/* Formulário */
+.formulario {
+    background-color: #fff;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    border-radius: 20px;
+    margin-top: -50px;
+    transition: all 0.3s ease; /* Suavizando transições */
+}
+
+.formulario:hover {
+    transform: translateY(-10px); /* Leve efeito de elevação ao passar o mouse */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); /* Aumento da sombra no hover */
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1.1em;
+    color: #444;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Campos de entrada e seleção */
+select,
+input[type="radio"] {
+    width: 100%;
+    padding: 14px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 12px; /* Bordas mais arredondadas */
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+}
+
+select:focus,
+input[type="radio"]:focus {
+    border-color: #007bff;
+    background-color: #e6f1ff;
+}
+
+input[type="radio"] {
+    width: auto;
+    margin-right: 12px;
+    transform: scale(1.5); /* Aumenta o tamanho da bolinha */
+}
+
+.radio-group {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+    align-items: center;
+}
+
+.radio-group label {
+    font-size: 1em;
+    color: #555;
+    margin-left: 5px;
+}
+
+/* Botão */
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border-radius: 12px;
+    width: 100%;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: #218838;
+    transform: translateY(-3px); /* Leve movimento no hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+    transform: translateY(2px); /* Efeito de pressão no clique */
+}
+
+/* Resultado */
+#resultado {
+    margin-top: 20px;
+    font-size: 1.3em;
+    text-align: center;
+    color: #007bff;
+    font-weight: 600;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.4em;
+    }
+
+    .formulario {
+        padding: 30px;
+    }
+
+    button {
+        font-size: 1em;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+    }
+}

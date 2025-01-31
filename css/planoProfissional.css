@@ -1,0 +1,236 @@
+/* Estilos Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #ffffff; /* Fundo claro */
+    color: #333; /* Texto escuro */
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    padding: 20px; /* Adiciona espaço ao redor */
+}
+
+/* Container Principal */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Estilos do Plano */
+.plano {
+    width: 100%;
+    max-width: 900px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px; /* Bordas mais arredondadas */
+    padding: 30px; /* Menos padding para se ajustar melhor */
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra mais intensa */
+    margin: 20px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.plano:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.plano-header h1 {
+    font-size: 2.2em; /* Tamanho de fonte mais compacto */
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px; /* Menos espaçamento entre letras */
+    text-align: center;
+}
+
+.plano-header .descricao {
+    font-size: 1em; /* Ajusta o tamanho da descrição */
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.plano-detalhes {
+    margin-top: 20px;
+}
+
+.detalhes-lista {
+    list-style-type: none;
+    margin-top: 20px;
+    padding-left: 0;
+}
+
+.detalhes-lista li {
+    font-size: 1em; /* Tamanho de fonte mais ajustado */
+    margin-bottom: 10px;
+    color: #555;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.detalhes-lista li:hover {
+    color: #222;
+    transform: translateX(5px);
+}
+
+.detalhes-lista li strong {
+    color: #111;
+    font-weight: 600;
+}
+
+/* Botão Call to Action */
+.call-to-action {
+    margin-top: 30px; /* Menos espaçamento */
+}
+
+.btn-cta {
+    display: inline-block;
+    padding: 16px 32px;
+    background-color: #333;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s, transform 0.3s ease;
+}
+
+.btn-cta:hover {
+    background-color: #555;
+    transform: translateY(-5px);
+}
+
+.btn-cta:active {
+    transform: translateY(2px);
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+    .plano-header h1 {
+        font-size: 2em;
+    }
+
+    .plano-header .descricao {
+        font-size: 1em;
+    }
+
+    .detalhes-lista li {
+        font-size: 1em;
+    }
+
+    .btn-cta {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 992px) {
+    .plano-header h1 {
+        font-size: 1.8em;
+    }
+
+    .plano-header .descricao {
+        font-size: 0.95em;
+    }
+
+    .detalhes-lista li {
+        font-size: 0.95em;
+    }
+
+    .btn-cta {
+        font-size: 0.95em;
+        padding: 14px 28px;
+    }
+
+    .plano {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .plano-header h1 {
+        font-size: 1.6em;
+    }
+
+    .plano-header .descricao {
+        font-size: 0.9em;
+    }
+
+    .detalhes-lista li {
+        font-size: 0.9em;
+    }
+
+    .btn-cta {
+        font-size: 0.9em;
+        padding: 12px 24px;
+    }
+
+    .plano {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .plano-header h1 {
+        font-size: 1.4em;
+    }
+
+    .plano-header .descricao {
+        font-size: 0.8em;
+    }
+
+    .detalhes-lista li {
+        font-size: 0.8em;
+    }
+
+    .btn-cta {
+        font-size: 0.8em;
+        padding: 10px 20px;
+    }
+
+    .plano {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .plano-header h1 {
+        font-size: 1.3em;
+    }
+
+    .plano-header .descricao {
+        font-size: 0.7em;
+    }
+
+    .detalhes-lista li {
+        font-size: 0.7em;
+    }
+
+    .btn-cta {
+        font-size: 0.7em;
+        padding: 8px 16px;
+    }
+
+    .plano {
+        padding: 8px;
+    }
+}
