@@ -100,10 +100,15 @@ body {
     margin-top: 30px; /* Menos espaçamento */
 }
 
+/* Botão Call to Action */
+.call-to-action {
+    margin-top: 30px; /* Menos espaçamento */
+}
+
 .btn-cta {
     display: inline-block;
     padding: 16px 32px;
-    background-color: #333;
+    background-color: #333; /* Cor de fundo azul */
     color: #fff;
     font-size: 1em;
     font-weight: 600;
@@ -115,30 +120,14 @@ body {
 }
 
 .btn-cta:hover {
-    background-color: #555;
-    transform: translateY(-5px);
+    background-color: #555; /* Cor mais escura no hover */
+    transform: translateY(-5px); /* Levanta o botão */
 }
 
 .btn-cta:active {
-    transform: translateY(2px);
+    transform: translateY(2px); /* Diminui o botão ao clicar */
 }
 
-.plano-footer {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 16px;
-    color: #333;
-}
-
-.link-planos {
-    color: #3498db;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.link-planos:hover {
-    text-decoration: underline;
-}
 
 /* Responsividade */
 @media (max-width: 1200px) {
