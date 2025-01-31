@@ -1,0 +1,267 @@
+/* Reset de margens e preenchimentos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #2c3e50;
+    color: #fff;
+    padding: 15px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Estilo para o nav */
+nav {
+    
+    justify-content: space-between;
+    align-items: center;
+    
+    width: 100%;
+    position: relative;
+}
+
+/* Estilo para os links dentro do nav */
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 10px;
+    position: relative;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s ease;
+}
+
+/* Efeito de transição para o link */
+
+
+/* Adicionando uma linha colorida abaixo do texto */
+nav a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #e74c3c;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+/* Mostrando a linha colorida ao passar o mouse */
+nav a:hover::after {
+    transform: scaleX(1);
+}
+
+/* Menu Toggle (para dispositivos móveis) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.menu-toggle span {
+    background-color: #fff;
+    width: 25px;
+    height: 3px;
+    transition: transform 0.3s ease;
+}
+
+/* Animando o menu toggle */
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Estilo principal */
+.main {
+    padding: 50px 20px;
+}
+
+/* Estilo para a seção de contato */
+.contato {
+    background-color: #fff;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contato h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.meios-contato p {
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+form button {
+    background-color: #e74c3c;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+form button:hover {
+    background-color: #c0392b;
+}
+
+/* Rodapé */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    /* Ajustando o layout do nav para dispositivos de tela menor */
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    nav a {
+        margin-bottom: 10px;
+    }
+}
+
+/* Responsividade para telas menores que 768px (tablets) */
+@media (max-width: 768px) {
+    /* Exibindo o botão do menu toggle no mobile */
+    .menu-toggle {
+        display: flex;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        background-color: #2c3e50;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        display: none;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    nav.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    nav a {
+       
+        padding: 15px;
+        width: 100%;
+    }
+
+    /* Ajustando o conteúdo da página */
+    .main {
+        padding: 20px;
+    }
+
+    /* Reduzindo o tamanho da seção de contato */
+    .contato {
+        padding: 20px;
+        width: 90%;
+    }
+
+    /* Ajustando os inputs e botão no formulário */
+    form input, form textarea, form button {
+        padding: 10px;
+    }
+}
+
+/* Responsividade para telas menores que 480px (smartphones) */
+@media (max-width: 480px) {
+    /* Tamanho da fonte dos links no nav */
+    nav a {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    /* Tamanho da fonte dos campos de formulário */
+    form label, form input, form textarea {
+        font-size: 0.9rem;
+    }
+
+    /* Ajustando o botão */
+    form button {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    /* Melhorando o espaçamento e layout geral */
+    .contato h1 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Estilos para o menu ativo (mobile) */
+nav.active {
+    display: block;
+    background-color: #2c3e50;
+    padding: 10px;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}
+
+nav.active a {
+    display: block;
+    padding: 15px;
+    
+}

@@ -9,9 +9,16 @@
 </head>
 
 <body>
-    <h2>Vagas Postadas</h2>
-    <div id="vagasPostadasContainer"></div>
+    <!-- Botão de voltar -->
+    <a href="telaEmpresa1.html" class="voltar-btn">
+        &#8592; Voltar
+    </a>
 
+    <h2>Vagas Postadas</h2>
+
+    
+
+    <div id="vagasPostadasContainer"></div>
 
     <!-- Modal para editar vaga -->
     <div id="editModal" class="modal">
@@ -19,6 +26,7 @@
             <span class="close-button" onclick="fecharModal()">&times;</span>
             <h2>Editar Vaga</h2>
             <form id="editForm">
+                <!-- Campos de edição da vaga -->
                 <label for="editNome">Nome:</label>
                 <input type="text" id="editNome" required>
 
@@ -57,13 +65,10 @@
         </div>
     </div>
 
-  
-
-
-    <!--Atuliza a vaga quando editada-->
+    <!-- Script para gerenciar as vagas -->
     <script>
-
         let vagaEditandoIndex = null;
+        const VAGA_EXPIRACAO_DIAS = 15; // Definindo a expiração de 15 dias
 
         // Função para abrir o modal
         function abrirModal(vaga, index) {
@@ -117,17 +122,80 @@
             renderVagas(); // Atualiza a exibição
         });
 
-        // Função para editar a vaga ao clicar no botão
-        function editarVaga(index) {
-            const vaga = vagasPostadas[index];
-            abrirModal(vaga, index);
+        // Função para verificar e remover vagas expiradas
+        function verificarVagasExpiradas() {
+            const vagasValidas = vagasPostadas.filter(vaga => {
+                const dataPostagem = new Date(vaga.dataPostagem);
+                const dataAtual = new Date();
+                const tempoPassado = (dataAtual - dataPostagem) / (1000 * 3600 * 24); // Diferença em dias
+                return tempoPassado <= VAGA_EXPIRACAO_DIAS; // Só mantém as vagas dentro do prazo de 15 dias
+            });
+
+            // Atualiza as vagas no localStorage após a filtragem
+            vagasPostadas = vagasValidas;
+            localStorage.setItem('vagasUsuario', JSON.stringify(vagasPostadas));
+            renderVagas(); // Atualiza a exibição das vagas
         }
 
+        // Função para renderizar as vagas na tela
+        function renderVagas() {
+            const vagasContainer = document.getElementById('vagasPostadasContainer');
+            vagasContainer.innerHTML = ''; // Limpa as vagas exibidas
 
+            vagasPostadas.forEach((vaga, index) => {
+                const vagaDiv = document.createElement('div');
+                vagaDiv.classList.add('vaga');
+                
+                // Calculando o tempo que a vaga está no ar
+                const dataPostagem = new Date(vaga.dataPostagem);
+                const dataAtual = new Date();
+                const tempoPassado = Math.floor((dataAtual - dataPostagem) / (1000 * 3600 * 24)); // Diferença em dias
+
+                vagaDiv.innerHTML = `
+                    <h3>${vaga.nome}</h3>
+                    <p>${vaga.descricao}</p>
+                    <p><strong>Contato:</strong> ${vaga.contato}</p>
+                    <p><strong>Benefício:</strong> ${vaga.beneficio}</p>
+                    <p><strong>Salário:</strong> ${vaga.salario}</p>
+                    <p><strong>Requisitos:</strong> ${vaga.requisitos}</p>
+                    <p><strong>Local:</strong> ${vaga.local}</p>
+                    <p><strong>Carga Horária:</strong> ${vaga.cargaHoraria}</p>
+                    <p><strong>Tipo de Contratação:</strong> ${vaga.tipoContratacao}</p>
+                    <p><strong>Tipo de Vaga:</strong> ${vaga.tipoVaga}</p>
+                    <p><strong>Data de Expiração:</strong> ${vaga.expiracao}</p>
+                    <p><strong>Tempo no ar:</strong> ${tempoPassado} dias</p>
+                    <button onclick="editarVaga(${index})">Editar</button>
+                `;
+                vagasContainer.appendChild(vagaDiv);
+            });
+        }
+
+        // Chama a função de verificação ao carregar a página
+        document.addEventListener('DOMContentLoaded', function () {
+            // Carrega as vagas do localStorage
+            const vagasData = localStorage.getItem('vagasUsuario');
+            if (vagasData) {
+                vagasPostadas = JSON.parse(vagasData);
+            } else {
+                vagasPostadas = [];
+            }
+
+            // Verifica as vagas expiradas e as remove, se necessário
+            verificarVagasExpiradas();
+        });
+
+        // Verifica as vagas expiradas a cada 24 horas (86400000 ms)
+        setInterval(verificarVagasExpiradas, 86400000);
 
     </script>
 
     <script src="/js/vagasPostadas.js"></script>
+
+    
+     <!-- Mensagem de atenção sobre a expiração das vagas -->
+     <div class="alerta-expiracao">
+        <p><strong>Atenção:</strong> As vagas serão excluídas automaticamente após 15 dias de postagem. Caso queira mudar seu plano para mais tempo de visibilidade, <a href="planos.html">clique aqui</a>.</p>
+    </div>
 </body>
 
 </html>

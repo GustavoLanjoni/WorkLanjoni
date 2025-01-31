@@ -110,3 +110,44 @@ textarea {
     outline: none;
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
 }
+
+/* Estilo do modal */
+.modal {
+    display: none;
+    /* Escondido por padrão */
+    position: fixed;
+    /* Fica fixo na tela */
+    z-index: 1;
+    /* Fica por cima do conteúdo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fundo escuro semitransparente */
+    overflow: auto;
+    /* Permite rolar se necessário */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    /* Centraliza na tela */
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    /* Tamanho do modal */
+    max-width: 400px;
+    /* Largura máxima */
+    text-align: center;
+}
+
+.modal-header {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.modal-body {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}

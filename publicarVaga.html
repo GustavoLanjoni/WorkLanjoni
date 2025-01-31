@@ -11,12 +11,21 @@
 
 <body>
     <div class="container">
-        <!-- Botão de Voltar -->
-        <a href="telaEmpresa.html" class="btn-back">
+        <a href="telaEmpresa1.html" class="btn-back">
             <i class="fas fa-arrow-left"></i> Voltar
         </a>
 
         <h1>Publicar Vaga</h1>
+
+        <div id="myModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Alerta</h2>
+                </div>
+                <div class="modal-body" id="mensagemLimite"></div>
+            </div>
+        </div>
+
         <form id="vagaForm">
             <div class="form-group">
                 <label for="nomeVaga">Nome da Vaga</label>
@@ -75,9 +84,34 @@
             </div>
         </form>
     </div>
+
     <script>
         document.getElementById('vagaForm').addEventListener('submit', (event) => {
-            event.preventDefault(); // Evita o envio padrão do formulário
+            event.preventDefault();
+
+            const hoje = new Date();
+            const mesAtual = hoje.getMonth();
+            const anoAtual = hoje.getFullYear();
+
+            let vagasPublicadas = JSON.parse(localStorage.getItem('vagasPublicadas')) || [];
+
+            const vagasNoMes = vagasPublicadas.filter(vaga => {
+                const dataPublicacao = new Date(vaga.dataPublicacao);
+                return dataPublicacao.getMonth() === mesAtual && dataPublicacao.getFullYear() === anoAtual;
+            });
+
+            if (vagasNoMes.length >= 5) {
+                const proximoMes = new Date(anoAtual, mesAtual + 1, 1);
+                const diasRestantes = Math.ceil((proximoMes - hoje) / (1000 * 3600 * 24));
+
+                document.getElementById('mensagemLimite').innerHTML = `Você já publicou 5 vagas neste mês. Tente novamente em ${diasRestantes} dias.`;
+                document.getElementById('myModal').style.display = "block";
+                setTimeout(() => {
+                    document.getElementById('myModal').style.display = "none";
+                }, 5000);
+                return;
+            }
+
 
             const vaga = {
                 nome: document.getElementById('nomeVaga').value,
@@ -89,25 +123,22 @@
                 local: document.getElementById('local').value,
                 cargaHoraria: document.getElementById('cargaHoraria').value,
                 tipoContratacao: document.getElementById('tipoContratacao').value,
-                tipoVaga: document.getElementById('tipoVaga').value
+                tipoVaga: document.getElementById('tipoVaga').value,
+                dataPublicacao: hoje.toISOString()
             };
 
-            // Salva as vagas publicadas no localStorage
-            let vagasPublicadas = JSON.parse(localStorage.getItem('vagasPublicadas')) || [];
             vagasPublicadas.push(vaga);
             localStorage.setItem('vagasPublicadas', JSON.stringify(vagasPublicadas));
 
-            // Mensagem de sucesso
-            alert('Vaga publicada com sucesso!');
-
-            // Redireciona para a página index.html
-            window.location.href = 'index.html'; // Isso leva o usuário à página principal
+            document.getElementById('mensagemLimite').innerHTML = `Vaga publicada com sucesso!`;
+            document.getElementById('myModal').style.display = "block";
+            setTimeout(() => {
+                document.getElementById('myModal').style.display = "none";
+            }, 5000);
         });
     </script>
-
-    
     <script src="js/enviarTelaVagasPublicadas.js"></script>
-
+    <script src="js/enviarTelaUsuario.js"></script>
 </body>
 
 </html>

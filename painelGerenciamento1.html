@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Gerenciamento de Vagas</title>
+    <link rel="stylesheet" href="css/painelEmpresa1.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header>
+        <a href="telaEmpresa1.html" class="voltar-btn"> &#8592; Voltar</a>
+        <h1>Painel de Gerenciamento de Vagas</h1>
+    </header>
+
+    <main>
+        <section id="informacoesVagas">
+            <div class="painel-box">
+                <h3>Vagas Ativas</h3>
+                <p id="vagasAtivas">0</p>
+            </div>
+            <div class="painel-box">
+                <h3>Vagas Expiradas</h3>
+                <p id="vagasExpiradas">0</p>
+            </div>
+            <div class="painel-box">
+                <h3>Média de Dias no Ar</h3>
+                <p id="mediaDias">0</p>
+            </div>
+        </section>
+
+        <section id="graficoContainer">
+            <canvas id="vagaTipoContratacaoChart"></canvas>
+        </section>
+    </main>
+
+    <script>
+        // Função para calcular o número de vagas ativas e expiradas
+        function calcularVagas() {
+            const vagas = JSON.parse(localStorage.getItem('vagasUsuario')) || [];
+            let vagasAtivas = 0;
+            let vagasExpiradas = 0;
+            let diasNoArTotal = 0;
+
+            vagas.forEach(vaga => {
+                const dataPostagem = new Date(vaga.dataPostagem);
+                const dataAtual = new Date();
+                const tempoPassado = (dataAtual - dataPostagem) / (1000 * 3600 * 24);
+
+                if (vaga.expiracao && new Date(vaga.expiracao) < dataAtual) {
+                    vagasExpiradas++;
+                } else {
+                    vagasAtivas++;
+                }
+
+                diasNoArTotal += tempoPassado;
+            });
+
+            const mediaDias = vagas.length ? (diasNoArTotal / vagas.length).toFixed(2) : 0;
+
+            // Atualizando a interface
+            document.getElementById('vagasAtivas').textContent = vagasAtivas;
+            document.getElementById('vagasExpiradas').textContent = vagasExpiradas;
+            document.getElementById('mediaDias').textContent = mediaDias;
+
+            return vagas;
+        }
+
+        // Função para gerar o gráfico de distribuição de vagas por tipo de contratação
+        function gerarGrafico(vagas) {
+            const tipoContratacao = vagas.reduce((acc, vaga) => {
+                if (vaga.tipoContratacao) {
+                    acc[vaga.tipoContratacao] = (acc[vaga.tipoContratacao] || 0) + 1;
+                }
+                return acc;
+            }, {});
+
+            const labels = Object.keys(tipoContratacao);
+            const data = Object.values(tipoContratacao);
+
+            const ctx = document.getElementById('vagaTipoContratacaoChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Vagas por Tipo de Contratação',
+                        data: data,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        // Carregar os dados e gerar o painel
+        document.addEventListener('DOMContentLoaded', function () {
+            const vagas = calcularVagas();
+            gerarGrafico(vagas);
+        });
+    </script>
+</body>
+
+</html>

@@ -106,3 +106,47 @@ form button {
 form button:hover {
     background-color: #45a049;
 }
+
+.voltar-btn {
+    font-size: 20px;
+    color: #000;
+    text-decoration: none;
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 20px 0;
+}
+
+.voltar-btn:hover {
+    background-color: #ddd;
+}
+
+/* Estilo para a mensagem de alerta de expiração */
+.alerta-expiracao {
+    background-color: #ffeb3b; /* Cor de fundo amarela */
+    color: #856404; /* Texto marrom escuro */
+    border: 1px solid #ffe082; /* Borda amarela mais suave */
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.alerta-expiracao a {
+    color: #007bff; /* Cor azul para o link */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.alerta-expiracao a:hover {
+    text-decoration: underline; /* Sublinha o link ao passar o mouse */
+}
+
+.alerta-expiracao p {
+    margin: 0;
+}
