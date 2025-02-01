@@ -5,17 +5,17 @@ document.getElementById('vagaForm').addEventListener('submit', (event) => {
     const mesAtual = hoje.getMonth();
     const anoAtual = hoje.getFullYear();
 
-    let vagasPublicadas = JSON.parse(localStorage.getItem('vagasPublicadas')) || [];
+    let vagasUsuario = JSON.parse(localStorage.getItem('vagasUsuario')) || [];
 
     // Filtrar vagas publicadas no mesmo mês e ano
-    const vagasNoMes = vagasPublicadas.filter(vaga => {
+    const vagasNoMes = vagasUsuario.filter(vaga => {
         const dataPublicacao = new Date(vaga.dataPublicacao);
         return dataPublicacao.getMonth() === mesAtual && dataPublicacao.getFullYear() === anoAtual;
     });
 
     if (vagasNoMes.length >= 15) {
         alert('Você já publicou 15 vagas neste mês. Tente novamente no próximo mês.');
-        return; // Impede que a vaga seja salva e publicada
+        return; // Impede que a vaga seja salva e enviada
     }
 
     const vaga = {
@@ -33,9 +33,9 @@ document.getElementById('vagaForm').addEventListener('submit', (event) => {
     };
 
     // Adiciona a vaga e salva no localStorage
-    vagasPublicadas.push(vaga);
-    localStorage.setItem('vagasPublicadas', JSON.stringify(vagasPublicadas));
+    vagasUsuario.push(vaga);
+    localStorage.setItem('vagasUsuario', JSON.stringify(vagasUsuario));
 
-    alert('Vaga publicada com sucesso!');
+    alert('Vaga enviada para a tela do usuário com sucesso!');
     document.getElementById('vagaForm').reset(); // Limpa o formulário
 });
