@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Vaga</title>
+    <link rel="stylesheet" href="css/publicarVaga.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .vaga-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            background-color: #fafafa;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .vaga-container h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .vaga-container input, .vaga-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-save {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        .btn-save:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-cancel {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Vaga</h1>
+
+        <div class="vaga-container">
+            <form id="editForm">
+                <label for="nomeVaga">Nome da Vaga</label>
+                <input type="text" id="nomeVaga" name="nomeVaga" required>
+
+                <label for="descricaoVaga">Descrição</label>
+                <textarea id="descricaoVaga" name="descricaoVaga" required></textarea>
+
+                <label for="contato">Contato</label>
+                <input type="text" id="contato" name="contato" required>
+
+                <label for="beneficio">Benefícios</label>
+                <input type="text" id="beneficio" name="beneficio" required>
+
+                <label for="salario">Salário</label>
+                <input type="text" id="salario" name="salario" required>
+
+                <label for="requisitos">Requisitos</label>
+                <input type="text" id="requisitos" name="requisitos" required>
+
+                <label for="local">Local</label>
+                <input type="text" id="local" name="local" required>
+
+                <label for="cargaHoraria">Carga Horária</label>
+                <input type="text" id="cargaHoraria" name="cargaHoraria" required>
+
+                <label for="tipoContratacao">Tipo de Contratação</label>
+                <input type="text" id="tipoContratacao" name="tipoContratacao" required>
+
+                <label for="tipoVaga">Tipo de Vaga</label>
+                <input type="text" id="tipoVaga" name="tipoVaga" required>
+
+                <div class="actions">
+                    <button type="submit" class="btn btn-save">Salvar</button>
+                    <a href="vagasPostada2.html" class="btn btn-cancel">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Recupera os dados armazenados no localStorage
+        const vaga = JSON.parse(localStorage.getItem('vagaPublicada'));
+
+        // Preenche os campos do formulário com os dados da vaga
+        if (vaga) {
+            document.getElementById('nomeVaga').value = vaga.nome;
+            document.getElementById('descricaoVaga').value = vaga.descricao;
+            document.getElementById('contato').value = vaga.contato;
+            document.getElementById('beneficio').value = vaga.beneficio;
+            document.getElementById('salario').value = vaga.salario;
+            document.getElementById('requisitos').value = vaga.requisitos;
+            document.getElementById('local').value = vaga.local;
+            document.getElementById('cargaHoraria').value = vaga.cargaHoraria;
+            document.getElementById('tipoContratacao').value = vaga.tipoContratacao;
+            document.getElementById('tipoVaga').value = vaga.tipoVaga;
+        }
+
+        // Ao enviar o formulário, atualiza os dados no localStorage
+        document.getElementById('editForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const updatedVaga = {
+                nome: document.getElementById('nomeVaga').value,
+                descricao: document.getElementById('descricaoVaga').value,
+                contato: document.getElementById('contato').value,
+                beneficio: document.getElementById('beneficio').value,
+                salario: document.getElementById('salario').value,
+                requisitos: document.getElementById('requisitos').value,
+                local: document.getElementById('local').value,
+                cargaHoraria: document.getElementById('cargaHoraria').value,
+                tipoContratacao: document.getElementById('tipoContratacao').value,
+                tipoVaga: document.getElementById('tipoVaga').value
+            };
+
+            // Atualiza os dados no localStorage
+            localStorage.setItem('vagaPublicada', JSON.stringify(updatedVaga));
+
+            // Redireciona para a página de detalhes
+            window.location.href = 'detalhesVaga.html';
+        });
+    </script>
+</body>
+</html>
