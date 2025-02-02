@@ -1,1 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vagas Postada</title>
+    <link rel="stylesheet" href="css/publicarVaga.css">
+    <style>
+        .vaga-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .vaga-container h1 {
+            text-align: center;
+        }
+        .vaga-container p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .vaga-container .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .vaga-container .btn-edit {
+            background-color: #28a745;
+        }
+        .vaga-container .btn-delete {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalhes da Vaga</h1>
 
+        <div class="vaga-container">
+            <div id="vagaDetalhes">
+                <p><strong>Nome da Vaga:</strong> <span id="nomeVaga"></span></p>
+                <p><strong>Descrição:</strong> <span id="descricaoVaga"></span></p>
+                <p><strong>Contato:</strong> <span id="contato"></span></p>
+                <p><strong>Benefícios:</strong> <span id="beneficio"></span></p>
+                <p><strong>Salário:</strong> <span id="salario"></span></p>
+                <p><strong>Requisitos:</strong> <span id="requisitos"></span></p>
+                <p><strong>Local:</strong> <span id="local"></span></p>
+                <p><strong>Carga Horária:</strong> <span id="cargaHoraria"></span></p>
+                <p><strong>Tipo de Contratação:</strong> <span id="tipoContratacao"></span></p>
+                <p><strong>Tipo de Vaga:</strong> <span id="tipoVaga"></span></p>
+            </div>
+
+            <div class="actions">
+                <a href="editarVaga.html" class="btn btn-edit">Editar</a>
+                <button class="btn btn-delete" id="deleteBtn">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Recupera os dados armazenados no localStorage
+        const vaga = JSON.parse(localStorage.getItem('vagaPublicada'));
+
+        // Verifica se há dados e exibe
+        if (vaga) {
+            document.getElementById('nomeVaga').textContent = vaga.nome;
+            document.getElementById('descricaoVaga').textContent = vaga.descricao;
+            document.getElementById('contato').textContent = vaga.contato;
+            document.getElementById('beneficio').textContent = vaga.beneficio;
+            document.getElementById('salario').textContent = vaga.salario;
+            document.getElementById('requisitos').textContent = vaga.requisitos;
+            document.getElementById('local').textContent = vaga.local;
+            document.getElementById('cargaHoraria').textContent = vaga.cargaHoraria;
+            document.getElementById('tipoContratacao').textContent = vaga.tipoContratacao;
+            document.getElementById('tipoVaga').textContent = vaga.tipoVaga;
+        } else {
+            document.getElementById('vagaDetalhes').innerHTML = '<p>Nenhuma vaga encontrada.</p>';
+        }
+
+        // Função para excluir a vaga
+        document.getElementById('deleteBtn').addEventListener('click', function() {
+            const confirmDelete = confirm('Você tem certeza que deseja excluir esta vaga?');
+            if (confirmDelete) {
+                localStorage.removeItem('vagaPublicada');
+                window.location.href = 'index.html'; // Redireciona para a página inicial
+            }
+        });
+    </script>
+</body>
+</html>

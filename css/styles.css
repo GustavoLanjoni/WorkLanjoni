@@ -412,15 +412,6 @@ nav.mobile-menu .btn-primary {
     font-family: 'Roboto', sans-serif;
 }
 
-/* Barra de pesquisa */
-.search-container {
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-
 /* Cards de Vagas */
 .vagas-container {
     max-width: 1200px;
@@ -534,6 +525,13 @@ nav.mobile-menu .btn-primary {
     /* Margem superior de 40px para afastar do cabeçalho */
 }
 
+/* Barra de pesquisa */
+.search-container {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
 
 /* Input de busca */
 #searchInput {

@@ -1,15 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
     const vagasList = document.getElementById("vagasList");
+    const mensagemContainer = document.getElementById("mensagem");
+
+    function exibirMensagem(texto, tipo = "info") {
+        mensagemContainer.innerHTML = `<p class="${tipo}">${texto}</p>`;
+        mensagemContainer.style.display = "block";
+
+        // Remove a mensagem após 5 segundos
+        setTimeout(() => {
+            mensagemContainer.style.display = "none";
+        }, 5000);
+    }
+
+    if (!vagasList) {
+        exibirMensagem("Erro: Elemento 'vagasList' não encontrado!", "erro");
+        return;
+    }
 
     // Recupera as vagas do localStorage
     let vagasPublicadas = JSON.parse(localStorage.getItem("vagasPublicadas")) || [];
 
     if (vagasPublicadas.length === 0) {
-        vagasList.innerHTML = "<p>Nenhuma vaga disponível no momento.</p>";
+        exibirMensagem("Nenhuma vaga disponível no momento.", "aviso");
+        vagasList.innerHTML = "<p class='aviso'>Nenhuma vaga disponível no momento.</p>";
         return;
     }
 
-    // Ordena as vagas pela data de publicação (mais recentes primeiro)
+    // Ordenar as vagas pela data de publicação (mais recentes primeiro)
     vagasPublicadas.sort((a, b) => new Date(b.dataPublicacao) - new Date(a.dataPublicacao));
 
     // Adiciona as vagas na div
@@ -33,4 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         vagasList.appendChild(vagaElement);
     });
+
+    exibirMensagem("Vagas carregadas com sucesso!", "sucesso");
 });

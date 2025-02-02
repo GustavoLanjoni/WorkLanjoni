@@ -87,7 +87,7 @@
     </div>
 
 
-    
+
     <script src="js/enviarIndex.js"></script>
 
 
@@ -152,6 +152,31 @@
             setTimeout(() => {
                 document.getElementById('myModal').style.display = "none";
             }, 5000);
+        });
+    </script>
+
+    <script>
+        document.getElementById('vagaForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const vaga = {
+                nome: document.getElementById('nomeVaga').value,
+                descricao: document.getElementById('descricaoVaga').value,
+                contato: document.getElementById('contato').value,
+                beneficio: document.getElementById('beneficio').value,
+                salario: document.getElementById('salario').value,
+                requisitos: document.getElementById('requisitos').value,
+                local: document.getElementById('local').value,
+                cargaHoraria: document.getElementById('cargaHoraria').value,
+                tipoContratacao: document.getElementById('tipoContratacao').value,
+                tipoVaga: document.getElementById('tipoVaga').value,
+                dataPublicacao: new Date().toISOString()
+            };
+
+            // Armazenar as informações no LocalStorage
+            localStorage.setItem('vagaPublicada', JSON.stringify(vaga));
+
+       
         });
     </script>
 </body>
