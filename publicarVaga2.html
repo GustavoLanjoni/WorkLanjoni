@@ -26,7 +26,6 @@
             </div>
         </div>
 
-
         <form id="vagaForm">
             <div class="form-group">
                 <label for="nomeVaga">Nome da Vaga</label>
@@ -34,13 +33,11 @@
             </div>
             <div class="form-group">
                 <label for="descricaoVaga">Descrição da Vaga</label>
-                <textarea id="descricaoVaga" name="descricaoVaga" rows="5" placeholder="Descreva a vaga"
-                    required></textarea>
+                <textarea id="descricaoVaga" name="descricaoVaga" rows="5" placeholder="Descreva a vaga" required></textarea>
             </div>
             <div class="form-group">
                 <label for="contato">Contato</label>
-                <input type="text" id="contato" name="contato" placeholder="Informe o contato (e-mail ou telefone)"
-                    required>
+                <input type="text" id="contato" name="contato" placeholder="Informe o contato (e-mail ou telefone)" required>
             </div>
             <div class="form-group">
                 <label for="beneficio">Benefícios</label>
@@ -52,8 +49,7 @@
             </div>
             <div class="form-group">
                 <label for="requisitos">Requisitos</label>
-                <textarea id="requisitos" name="requisitos" rows="4"
-                    placeholder="Liste os requisitos necessários"></textarea>
+                <textarea id="requisitos" name="requisitos" rows="4" placeholder="Liste os requisitos necessários"></textarea>
             </div>
             <div class="form-group">
                 <label for="local">Local</label>
@@ -89,9 +85,10 @@
 
 
     <script src="js/enviarIndex.js"></script>
+    <script src="js/vagasPlanoPro.js"></script>
 
 
-    <!--Script de quantas vagas a empresa pode postar e tempo que ela tem postada-->
+
     <script>
         document.getElementById('vagaForm').addEventListener('submit', (event) => {
             event.preventDefault();
@@ -100,32 +97,24 @@
             const mesAtual = hoje.getMonth();
             const anoAtual = hoje.getFullYear();
 
-            // Recupera as vagas publicadas do localStorage ou cria um array vazio caso não haja
             let vagasPublicadas = JSON.parse(localStorage.getItem('vagasPublicadas')) || [];
 
-            // Filtra as vagas publicadas no mês e ano atual
+            // Filtra as vagas do mês atual
             const vagasNoMes = vagasPublicadas.filter(vaga => {
                 const dataPublicacao = new Date(vaga.dataPublicacao);
                 return dataPublicacao.getMonth() === mesAtual && dataPublicacao.getFullYear() === anoAtual;
             });
 
-            // Verifica se o usuário já publicou 15 vagas no mês atual
+            // Verifica o limite de vagas no mês
             if (vagasNoMes.length >= 15) {
                 const proximoMes = new Date(anoAtual, mesAtual + 1, 1);
                 const diasRestantes = Math.ceil((proximoMes - hoje) / (1000 * 3600 * 24));
 
-                // Exibe a mensagem de limite atingido
-                document.getElementById('mensagemLimite').innerHTML = `Você já publicou 15 vagas neste mês. Tente novamente em ${diasRestantes} dias.`;
-                document.getElementById('myModal').style.display = "block";
-
-                // Fecha o modal após 5 segundos
-                setTimeout(() => {
-                    document.getElementById('myModal').style.display = "none";
-                }, 5000);
+                mostrarAlerta(`Você já publicou 15 vagas neste mês. Tente novamente em ${diasRestantes} dias.`);
                 return;
             }
 
-            // Cria o objeto da vaga com os dados do formulário
+            // Cria o objeto da vaga
             const vaga = {
                 nome: document.getElementById('nomeVaga').value,
                 descricao: document.getElementById('descricaoVaga').value,
@@ -140,44 +129,23 @@
                 dataPublicacao: hoje.toISOString()
             };
 
-            // Adiciona a vaga ao array de vagas publicadas
+            // Adiciona a vaga ao localStorage
             vagasPublicadas.push(vaga);
             localStorage.setItem('vagasPublicadas', JSON.stringify(vagasPublicadas));
 
-            // Exibe a mensagem de sucesso
-            document.getElementById('mensagemLimite').innerHTML = `Vaga publicada com sucesso!`;
+            
+
+            // Redireciona ou faz a integração com outro site aqui, se necessário
+        });
+
+        function mostrarAlerta(mensagem) {
+            document.getElementById('mensagemLimite').innerHTML = mensagem;
             document.getElementById('myModal').style.display = "block";
 
-            // Fecha o modal após 5 segundos
             setTimeout(() => {
                 document.getElementById('myModal').style.display = "none";
             }, 5000);
-        });
-    </script>
-
-    <script>
-        document.getElementById('vagaForm').addEventListener('submit', (event) => {
-            event.preventDefault();
-
-            const vaga = {
-                nome: document.getElementById('nomeVaga').value,
-                descricao: document.getElementById('descricaoVaga').value,
-                contato: document.getElementById('contato').value,
-                beneficio: document.getElementById('beneficio').value,
-                salario: document.getElementById('salario').value,
-                requisitos: document.getElementById('requisitos').value,
-                local: document.getElementById('local').value,
-                cargaHoraria: document.getElementById('cargaHoraria').value,
-                tipoContratacao: document.getElementById('tipoContratacao').value,
-                tipoVaga: document.getElementById('tipoVaga').value,
-                dataPublicacao: new Date().toISOString()
-            };
-
-            // Armazenar as informações no LocalStorage
-            localStorage.setItem('vagaPublicada', JSON.stringify(vaga));
-
-       
-        });
+        }
     </script>
 </body>
 

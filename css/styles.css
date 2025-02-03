@@ -402,6 +402,7 @@ nav.mobile-menu .btn-primary {
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 /* Estilo do Container das Vagas */
+/*Plano Basico*/
 #vagasContainer {
     margin-top: 40px;
     background: linear-gradient(145deg, #ffffff, #f0f0f0);
@@ -422,8 +423,11 @@ nav.mobile-menu .btn-primary {
     gap: 20px;
 }
 
+
+
 .vaga-card {
     background-color: #ffffff;
+    width: 300px;
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
@@ -433,10 +437,8 @@ nav.mobile-menu .btn-primary {
     justify-content: space-between;
 }
 
-.vaga-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
+
+
 
 .vaga-card h3 {
     font-size: 22px;
@@ -462,9 +464,6 @@ nav.mobile-menu .btn-primary {
     transition: all 0.3s ease;
 }
 
-.vaga-card button:hover {
-    background-color: #005bb5;
-}
 
 /* Detalhes da Vaga */
 .vaga-detalhes-container {
@@ -503,9 +502,107 @@ nav.mobile-menu .btn-primary {
     transition: all 0.3s ease;
 }
 
-.vaga-detalhes-container button:hover {
-    background-color: #e05c4d;
+
+
+/* Estilo do Container das Vagas */
+/*Plano Profissional*/
+#listaVagas {
+    margin-top: 40px;
+    background: white;
+    padding: 40px;
+    margin-bottom: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
 }
+
+/* Cards de Vagas */
+#listaVagas  {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+#listaVagas .vaga-card {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+
+#listaVagas .vaga-card h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#listaVagas .vaga-card p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+#listaVagas .vaga-card button {
+    align-self: flex-start;
+    background-color: #0073e6;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+
+
+/* Detalhes da Vaga */
+.vaga-detalhes-container {
+    display: none;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.vaga-detalhes-container h3 {
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.vaga-detalhes-container p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.vaga-detalhes-container button {
+    background-color: #ff6f61;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    font-size: 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+
 
 
 /* Container principal da barra de pesquisa */
@@ -861,19 +958,6 @@ footer .footer-bottom {
     z-index: 1;
 }
 
-.vaga-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    margin: 10px 0;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.vaga-card:hover {
-    transform: scale(1.02);
-}
 
 .ver-detalhes {
     background-color: #007bff;
