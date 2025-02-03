@@ -401,166 +401,67 @@ nav.mobile-menu .btn-primary {
 /* Importação da fonte moderna */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-/* Estilo do Container das Vagas */
-/*Plano Basico*/
-#vagasContainer {
-    margin-top: 40px;
-    background: linear-gradient(145deg, #ffffff, #f0f0f0);
-    padding: 40px;
-    margin-bottom: 40px;
-    border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    font-family: 'Roboto', sans-serif;
-}
 
-/* Cards de Vagas */
-.vagas-container {
-    max-width: 1200px;
-    margin: 0 auto;
+h2 {
+
+    text-align: center;
     padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+
 }
 
-
-
-.vaga-card {
-    background-color: #ffffff;
-    width: 300px;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-
-
-
-.vaga-card h3 {
-    font-size: 22px;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.vaga-card p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 20px;
-}
-
-.vaga-card button {
-    align-self: flex-start;
-    background-color: #0073e6;
-    color: #fff;
-    border: none;
-    padding: 12px 20px;
-    font-size: 16px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-
-/* Detalhes da Vaga */
-.vaga-detalhes-container {
-    display: none;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    border: 1px solid #e1e1e1;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-    max-width: 900px;
-    margin: 0 auto;
-    margin-top: 20px;
-}
-
-.vaga-detalhes-container h3 {
-    font-size: 26px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.vaga-detalhes-container p {
-    font-size: 18px;
-    color: #555;
-    margin-bottom: 15px;
-    line-height: 1.6;
-}
-
-.vaga-detalhes-container button {
-    background-color: #ff6f61;
-    color: #fff;
-    border: none;
-    padding: 12px 25px;
-    font-size: 18px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-
-
-/* Estilo do Container das Vagas */
-/*Plano Profissional*/
+/* Container Principal */
 #listaVagas {
-    margin-top: 40px;
-    background: white;
-    padding: 40px;
-    margin-bottom: 40px;
-    border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    font-family: 'Roboto', sans-serif;
-}
-
-/* Cards de Vagas */
-#listaVagas  {
-    max-width: 300px;
-    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 15px;
     padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    border-radius: 10px;
 }
 
-#listaVagas .vaga-card {
-    background-color: #ffffff;
-    padding: 25px;
+/* Estilização de cada vaga */
+.vaga {
+    width: 220px;
+    min-height: 160px;
+    background: white;
     border-radius: 12px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-
-
-#listaVagas .vaga-card h3 {
-    font-size: 22px;
+/* Título */
+.vaga h3 {
+    font-size: 18px;
     color: #333;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
 
-#listaVagas .vaga-card p {
-    font-size: 16px;
+/* Texto da vaga */
+.vaga p {
+    font-size: 14px;
     color: #555;
-    margin-bottom: 20px;
+    margin: 5px 0;
 }
 
-#listaVagas .vaga-card button {
-    align-self: flex-start;
+/* Botão */
+.ver-detalhes {
     background-color: #0073e6;
-    color: #fff;
+    color: white;
     border: none;
-    padding: 12px 20px;
-    font-size: 16px;
-    border-radius: 25px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 20px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background 0.3s ease;
+}
+
+.ver-detalhes:hover {
+    background-color: #005bb5;
 }
 
 
@@ -601,7 +502,6 @@ nav.mobile-menu .btn-primary {
     cursor: pointer;
     transition: all 0.3s ease;
 }
-
 
 
 
