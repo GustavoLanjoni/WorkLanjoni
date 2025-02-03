@@ -31,6 +31,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            // Recuperar a vaga selecionada do localStorage
             const vaga = JSON.parse(localStorage.getItem("vagaSelecionada"));
 
             if (!vaga) {
@@ -38,6 +39,7 @@
                 return;
             }
 
+            // Exibir os detalhes da vaga
             document.getElementById("vagaDetalhes").innerHTML = `
                 <h2>${vaga.nome}</h2>
                 <p><strong>Descrição:</strong> ${vaga.descricao}</p>
