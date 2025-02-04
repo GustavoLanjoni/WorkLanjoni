@@ -92,16 +92,29 @@
 
 
 
-    <!--Faz as vagas aparecer para os usuarios-->
+    <!-- Contêiner de Vagas -->
     <div id="vagasContainer" class="vagas-container">
         <h2>Vagas Disponíveis</h2>
         <div id="vagalists"></div>
         <div id="listaVagas"></div>
-
-    </div>
     </div>
 
- 
+    <!-- Modal para Detalhes da Vaga -->
+    <div id="modalDetalhes" class="modal">
+        <div class="modal-conteudo">
+            <span class="fechar">&times;</span>
+            <h2 id="modalNome"></h2>
+            <p><strong>Descrição:</strong> <span id="modalDescricao"></span></p>
+            <p><strong>Contato:</strong> <span id="modalContato"></span></p>
+            <p><strong>Benefícios:</strong> <span id="modalBeneficio"></span></p>
+            <p><strong>Salário:</strong> <span id="modalSalario"></span></p>
+            <p><strong>Requisitos:</strong> <span id="modalRequisitos"></span></p>
+            <p><strong>Local:</strong> <span id="modalLocal"></span></p>
+            <p><strong>Carga Horária:</strong> <span id="modalCargaHoraria"></span></p>
+            <p><strong>Tipo de Contratação:</strong> <span id="modalTipoContratacao"></span></p>
+            <p><strong>Tipo de Vaga:</strong> <span id="modalTipoVaga"></span></p>
+        </div>
+    </div>
 
 
 
@@ -158,7 +171,6 @@
 
 
 
-   
 
     <script>
         function debounce(func, delay) {

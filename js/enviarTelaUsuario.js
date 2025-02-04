@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    carregarVagas(); // Carrega as vagas ao abrir a página
+    carregarVagas();
 
     document.getElementById("vagaForm").addEventListener("submit", function (event) {
         event.preventDefault();
@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let vagasPublicadas = JSON.parse(localStorage.getItem("vagasPublicadas")) || [];
 
-        // Filtrar vagas publicadas no mesmo mês e ano
         const vagasNoMes = vagasPublicadas.filter(vaga => {
             const dataPublicacao = new Date(vaga.dataPublicacao);
             return dataPublicacao.getMonth() === mesAtual && dataPublicacao.getFullYear() === anoAtual;
@@ -22,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const vaga = {
-            id: Date.now(), // ID único para evitar problemas de indexação
+            id: Date.now(),
             nome: document.getElementById("nomeVaga").value,
             descricao: document.getElementById("descricaoVaga").value,
             contato: document.getElementById("contato").value,
@@ -36,30 +35,25 @@ document.addEventListener("DOMContentLoaded", function () {
             dataPublicacao: hoje.toISOString()
         };
 
-        // Adiciona a vaga e salva no localStorage
         vagasPublicadas.push(vaga);
         localStorage.setItem("vagasPublicadas", JSON.stringify(vagasPublicadas));
 
         alert("Vaga publicada com sucesso!");
         document.getElementById("vagaForm").reset();
 
-        carregarVagas(); // Atualiza a lista de vagas
+        carregarVagas();
     });
 });
 
 function carregarVagas() {
-    console.log("Carregando vagas...");
-
     const listaVagas = document.getElementById("vagalists");
     if (!listaVagas) {
         console.error("Elemento vagalists não encontrado!");
         return;
     }
 
-    listaVagas.innerHTML = ""; // Limpa a lista antes de adicionar as vagas
+    listaVagas.innerHTML = "";
     const vagasPublicadas = JSON.parse(localStorage.getItem("vagasPublicadas")) || [];
-
-    console.log("Vagas encontradas:", vagasPublicadas);
 
     if (vagasPublicadas.length === 0) {
         listaVagas.innerHTML = "<p>Nenhuma vaga disponível no momento.</p>";
@@ -74,7 +68,6 @@ function carregarVagas() {
             <div class="vaga-info">
                 <h2>${vaga.nome}</h2>
                 <p><strong>Descrição:</strong> ${vaga.descricao.slice(0, 100)}...</p>
-                <p><strong>Contato:</strong> ${vaga.contato}</p>
                 <button class="btn-detalhes" data-id="${vaga.id}">Ver Detalhes</button>
             </div>
         `;
@@ -82,13 +75,44 @@ function carregarVagas() {
         listaVagas.appendChild(vagaElement);
     });
 
-    // Ajuste do botão de "Ver Detalhes"
     document.querySelectorAll(".btn-detalhes").forEach((botao) => {
         botao.addEventListener("click", function () {
             const id = this.getAttribute("data-id");
-            window.location.href = `detalhes.html?id=${id}`; // Redireciona para a página de detalhes com o ID da vaga
+            exibirDetalhesVaga(id);
         });
     });
+}
 
-    console.log("Vagas adicionadas ao DOM.");
+function exibirDetalhesVaga(id) {
+    const vagasPublicadas = JSON.parse(localStorage.getItem("vagasPublicadas")) || [];
+    const vaga = vagasPublicadas.find(v => v.id == id);
+
+    if (!vaga) {
+        alert("Vaga não encontrada!");
+        return;
+    }
+
+    document.getElementById("modalNome").innerText = vaga.nome;
+    document.getElementById("modalDescricao").innerText = vaga.descricao;
+    document.getElementById("modalContato").innerText = vaga.contato;
+    document.getElementById("modalBeneficio").innerText = vaga.beneficio;
+    document.getElementById("modalSalario").innerText = vaga.salario;
+    document.getElementById("modalRequisitos").innerText = vaga.requisitos;
+    document.getElementById("modalLocal").innerText = vaga.local;
+    document.getElementById("modalCargaHoraria").innerText = vaga.cargaHoraria;
+    document.getElementById("modalTipoContratacao").innerText = vaga.tipoContratacao;
+    document.getElementById("modalTipoVaga").innerText = vaga.tipoVaga;
+
+    const modal = document.getElementById("modalDetalhes");
+    modal.style.display = "flex";
+
+    document.querySelector(".fechar").addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
 }

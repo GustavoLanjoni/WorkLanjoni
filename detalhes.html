@@ -23,7 +23,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const urlParams = new URLSearchParams(window.location.search);
-            const vagaId = urlParams.get("id"); // Obtém o id da URL
+            const vagaId = urlParams.get("id"); // Obtém o ID da URL
 
             if (!vagaId) {
                 alert("ID da vaga não encontrado.");
@@ -39,17 +39,21 @@
             }
 
             // Preenche os detalhes da vaga na página
-            document.getElementById("nomeVaga").textContent = vaga.nome;
-            document.getElementById("descricaoVaga").textContent = vaga.descricao;
-            document.getElementById("contato").textContent = vaga.contato;
-            document.getElementById("beneficio").textContent = vaga.beneficio;
-            document.getElementById("salario").textContent = vaga.salario;
-            document.getElementById("requisitos").textContent = vaga.requisitos;
-            document.getElementById("local").textContent = vaga.local;
-            document.getElementById("cargaHoraria").textContent = vaga.cargaHoraria;
-            document.getElementById("tipoContratacao").textContent = vaga.tipoContratacao;
-            document.getElementById("tipoVaga").textContent = vaga.tipoVaga;
+            const detalhesVaga = document.getElementById("detalhesVaga");
+            detalhesVaga.innerHTML = `
+        <h2>${vaga.nome}</h2>
+        <p><strong>Descrição:</strong> ${vaga.descricao}</p>
+        <p><strong>Contato:</strong> ${vaga.contato}</p>
+        <p><strong>Benefícios:</strong> ${vaga.beneficio}</p>
+        <p><strong>Salário:</strong> ${vaga.salario}</p>
+        <p><strong>Requisitos:</strong> ${vaga.requisitos}</p>
+        <p><strong>Local:</strong> ${vaga.local}</p>
+        <p><strong>Carga Horária:</strong> ${vaga.cargaHoraria}</p>
+        <p><strong>Tipo de Contratação:</strong> ${vaga.tipoContratacao}</p>
+        <p><strong>Tipo de Vaga:</strong> ${vaga.tipoVaga}</p>
+    `;
         });
+
 
 
     </script>
