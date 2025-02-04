@@ -408,204 +408,128 @@ h2 {
     color: #333;
 }
 
-/* Container principal das vagas */
+/* Contêiner principal para o layout */
 .vagas-container {
-    padding: 30px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
-    max-width: 1200px; /* Limita a largura máxima */
-}
-
-.vagas-container h2 {
-    text-align: center;
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-/* Container da lista de vagas */
-#vagalists, #listaVagas {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
-    gap: 15px; /* Espaço entre os itens */
+    gap: 20px;  /* Espaçamento entre a lista de vagas e os detalhes */
+    padding: 20px;
+    flex-wrap: wrap;  /* Responsividade */
 }
 
-/* Estilo para as vagas individuais */
-.vaga {
-    background-color: #ffffff;
+/* Lista de vagas à esquerda */
+.vagas-list {
+    width: 50%;  /* Aumentar a largura da lista de vagas */
+    border-right: 2px solid #e0e0e0;
+    padding-right: 20px;
+    max-height: 600px;
+    overflow-y: auto;  /* Barra de rolagem se necessário */
+    background-color: #fff;  /* Fundo branco */
+    border-radius: 8px;  /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Sombrinha suave */
+    padding: 30px;  /* Aumentar o padding interno */
+}
+
+/* Estilo das vagas individuais */
+.vagas-list .vaga {
+    padding: 20px;  /* Aumentando o padding da vaga */
+    margin-bottom: 20px;  /* Aumentando a margem entre as vagas */
+    cursor: pointer;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    flex: 1 1 22%; /* 22% para cada vaga, ajusta dependendo do tamanho da tela */
-    box-sizing: border-box;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    min-width: 200px; /* Garante que o tamanho não fique menor que 200px */
-    max-width: 22%;
+    border-radius: 12px;  /* Bordas mais arredondadas */
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Adicionando uma sombra suave */
 }
 
-.vaga:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.vagas-list .vaga:hover {
+    background-color: #e6f7ff;  /* Cor de fundo ao passar o mouse */
+    border-color: #007bff;  /* Borda azul ao passar o mouse */
 }
 
-.vaga-info h2 {
-    font-size: 1.2rem;
+/* Vaga selecionada */
+.vagas-list .vaga.selecionada {
+    background-color: #e6f7ff;  /* Cor de fundo quando selecionada */
+    border: 2px solid #007bff;  /* Borda azul */
+}
+
+/* Detalhes da vaga à direita */
+.detalhes-vaga {
+    width: 45%;  /* Largura da seção de detalhes */
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;  /* Bordas mais arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Sombrinha suave */
+    height: 600px;  /* Altura fixa */
+    overflow-y: auto;  /* Barra de rolagem apenas quando necessário */
+    transition: all 0.3s ease;  /* Transição suave para expandir/recolher */
+}
+
+/* Título do detalhe */
+.detalhes-vaga h2 {
+    color: #007bff;
+    font-size: 26px;  /* Tamanho maior para o título */
+    margin-bottom: 15px;
+}
+
+/* Parágrafos com informações sobre a vaga */
+.detalhes-vaga p {
+    font-size: 18px;  /* Tamanho de fonte maior */
+    line-height: 1.6;
+    margin-bottom: 12px;
     color: #333;
-    margin-bottom: 10px;
-    line-height: 1.4;
 }
 
-.vaga-info p {
-    font-size: 0.9rem;
-    color: #555;
-    margin-bottom: 10px;
-    line-height: 1.4;
+/* Destacando as informações dos detalhes */
+.detalhes-vaga span {
+    font-weight: bold;
+    color: #007bff;  /* Azul para as informações importantes */
 }
 
-/* Estilo do botão de detalhes */
-.btn-detalhes {
+/* Responsividade para dispositivos móveis */
+@media screen and (max-width: 768px) {
+    .vagas-container {
+        flex-direction: column;
+    }
+
+    .vagas-list {
+        width: 100%;
+        margin-bottom: 20px;
+        border-right: none;  /* Remover a borda à direita em telas pequenas */
+    }
+
+    .detalhes-vaga {
+        width: 100%;
+    }
+}
+
+#salvarVagaBtn, #compartilharVagaBtn {
     background-color: #007bff;
     color: white;
-    padding: 8px 12px;
     border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
 }
 
-.btn-detalhes:hover {
+#salvarVagaBtn:hover, #compartilharVagaBtn:hover {
     background-color: #0056b3;
 }
 
-/* Detalhes da vaga */
-.vaga-detalhes {
-    background-color: #f1f1f1;
-    padding: 15px;
-    border-radius: 8px;
+#linkCompartilhar {
     margin-top: 10px;
-    font-size: 0.9rem;
+    color: #007bff;
 }
 
-.detalles-conteudo p {
-    color: #555;
-    margin-bottom: 10px;
-    line-height: 1.4;
-}
-
-/* Estilo para o botão de voltar */
-.btn-voltar {
-    background-color: #dc3545;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s;
-}
-
-.btn-voltar:hover {
-    background-color: #c82333;
-}
-
-/* Responsividade para telas menores */
-@media screen and (max-width: 768px) {
-    .vaga {
-        flex: 1 1 48%; /* Cada vaga ocupará quase metade da largura da tela */
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .vaga {
-        flex: 1 1 100%; /* Cada vaga ocupará 100% da largura em telas pequenas */
-    }
-
-    .vagas-container {
-        padding: 20px;
-    }
-
-    .vagas-container h2 {
-        font-size: 1.5rem;
-    }
-}
-
-
-.modal {
-    display: none; 
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    width: 50%;
-    max-width: 600px;
-    text-align: left;
-}
-
-.close {
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
+#linkCompartilhar a {
+    color: #007bff;
+    text-decoration: none;
 }
 
 
 
-
-
-
-/* Detalhes da Vaga */
-.vaga-detalhes-container {
-    display: none;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    border: 1px solid #e1e1e1;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-    max-width: 900px;
-    margin: 0 auto;
-    margin-top: 20px;
-}
-
-.vaga-detalhes-container h3 {
-    font-size: 26px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.vaga-detalhes-container p {
-    font-size: 18px;
-    color: #555;
-    margin-bottom: 15px;
-    line-height: 1.6;
-}
-
-.vaga-detalhes-container button {
-    background-color: #ff6f61;
-    color: #fff;
-    border: none;
-    padding: 12px 25px;
-    font-size: 18px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
 
 
 

@@ -21,6 +21,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h2>Alerta</h2>
+                    <span class="close" onclick="closeModal()">&times;</span>
                 </div>
                 <div class="modal-body" id="mensagemLimite"></div>
             </div>
@@ -100,18 +101,14 @@
                 return dataPublicacao.getMonth() === mesAtual && dataPublicacao.getFullYear() === anoAtual;
             });
 
-            if (vagasNoMes.length >= 105) {
+            if (vagasNoMes.length >= 15) {
                 const proximoMes = new Date(anoAtual, mesAtual + 1, 1);
                 const diasRestantes = Math.ceil((proximoMes - hoje) / (1000 * 3600 * 24));
 
                 document.getElementById('mensagemLimite').innerHTML = `Você já publicou 15 vagas neste mês. Tente novamente em ${diasRestantes} dias.`;
                 document.getElementById('myModal').style.display = "block";
-                setTimeout(() => {
-                    document.getElementById('myModal').style.display = "none";
-                }, 5000);
                 return;
             }
-
 
             const vaga = {
                 nome: document.getElementById('nomeVaga').value,
@@ -132,17 +129,18 @@
 
             document.getElementById('mensagemLimite').innerHTML = `Vaga publicada com sucesso!`;
             document.getElementById('myModal').style.display = "block";
-            setTimeout(() => {
-                document.getElementById('myModal').style.display = "none";
-            }, 5000);
         });
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = "none";
+        }
     </script>
 
     <!--Envia para tela index-->
-    <script src="js/enviarTelaVagasPublicadas.js"></script>
+    <script src="js/enviarTelaUsuario.js"></script>
 
     <!---->
-    <script src="js/enviarTelaUsuario.js"></script>
+    <script src="js/enviarTelaVagasPublicadas.js"></script>
 </body>
 
 </html>

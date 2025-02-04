@@ -92,29 +92,39 @@
 
 
 
-    <!-- Contêiner de Vagas -->
     <div id="vagasContainer" class="vagas-container">
-        <h2>Vagas Disponíveis</h2>
-        <div id="vagalists"></div>
-        <div id="listaVagas"></div>
-    </div>
-
-    <!-- Modal para Detalhes da Vaga -->
-    <div id="modalDetalhes" class="modal">
-        <div class="modal-conteudo">
-            <span class="fechar">&times;</span>
-            <h2 id="modalNome"></h2>
-            <p><strong>Descrição:</strong> <span id="modalDescricao"></span></p>
-            <p><strong>Contato:</strong> <span id="modalContato"></span></p>
-            <p><strong>Benefícios:</strong> <span id="modalBeneficio"></span></p>
-            <p><strong>Salário:</strong> <span id="modalSalario"></span></p>
-            <p><strong>Requisitos:</strong> <span id="modalRequisitos"></span></p>
-            <p><strong>Local:</strong> <span id="modalLocal"></span></p>
-            <p><strong>Carga Horária:</strong> <span id="modalCargaHoraria"></span></p>
-            <p><strong>Tipo de Contratação:</strong> <span id="modalTipoContratacao"></span></p>
-            <p><strong>Tipo de Vaga:</strong> <span id="modalTipoVaga"></span></p>
+        <div id="listaVagas" class="vagas-list">
+            <h2>Vagas Disponíveis</h2>
+            <div id="vagalists"></div>
         </div>
+    
+        <div id="vagaDetalhes" class="detalhes-vaga">
+            <h2 id="modalNome"></h2>
+            <p id="modalDescricao"></p>
+            <p><span>Contato:</span> <span id="modalContato"></span></p>
+            <p><span>Benefício:</span> <span id="modalBeneficio"></span></p>
+            <p><span>Salário:</span> <span id="modalSalario"></span></p>
+            <p><span>Requisitos:</span></p>
+            <ul id="modalRequisitos"></ul> <!-- Agora será uma lista com requisitos -->
+            <p><span>Local:</span> <span id="modalLocal"></span></p>
+            <p><span>Carga Horária:</span> <span id="modalCargaHoraria"></span></p>
+            <p><span>Tipo de Contratação:</span> <span id="modalTipoContratacao"></span></p>
+            <p><span>Tipo de Vaga:</span> <span id="modalTipoVaga"></span></p>
+        
+            <button id="salvarVagaBtn">
+                <i class="fa fa-bookmark"></i> Salvar Vaga
+            </button>
+        
+            <button id="compartilharVagaBtn">
+                <i class="fa fa-share-alt"></i> Compartilhar
+            </button>
+        
+            <p id="linkCompartilhar"></p> <!-- Exibe o link para compartilhamento -->
+        </div>
+        
     </div>
+    
+
 
 
 
@@ -208,6 +218,8 @@
             menuToggle.classList.toggle('active');
         });
     </script>
+
+
 
     <!--carrega a foto perfil-->
     <script>
