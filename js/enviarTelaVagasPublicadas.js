@@ -13,8 +13,8 @@ document.getElementById('vagaForm').addEventListener('submit', (event) => {
         return dataPublicacao.getMonth() === mesAtual && dataPublicacao.getFullYear() === anoAtual;
     });
 
-    if (vagasNoMes.length >= 5) {
-        alert('Você já publicou 5 vagas neste mês. Tente novamente no próximo mês.');
+    if (vagasNoMes.length >= 15) {
+        alert('Você já publicou 15 vagas neste mês. Tente novamente no próximo mês.');
         return; // Impede que a vaga seja salva e enviada
     }
 

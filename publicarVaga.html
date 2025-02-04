@@ -100,11 +100,11 @@
                 return dataPublicacao.getMonth() === mesAtual && dataPublicacao.getFullYear() === anoAtual;
             });
 
-            if (vagasNoMes.length >= 5) {
+            if (vagasNoMes.length >= 105) {
                 const proximoMes = new Date(anoAtual, mesAtual + 1, 1);
                 const diasRestantes = Math.ceil((proximoMes - hoje) / (1000 * 3600 * 24));
 
-                document.getElementById('mensagemLimite').innerHTML = `Você já publicou 5 vagas neste mês. Tente novamente em ${diasRestantes} dias.`;
+                document.getElementById('mensagemLimite').innerHTML = `Você já publicou 15 vagas neste mês. Tente novamente em ${diasRestantes} dias.`;
                 document.getElementById('myModal').style.display = "block";
                 setTimeout(() => {
                     document.getElementById('myModal').style.display = "none";
@@ -137,7 +137,11 @@
             }, 5000);
         });
     </script>
+
+    <!--Envia para tela index-->
     <script src="js/enviarTelaVagasPublicadas.js"></script>
+
+    <!---->
     <script src="js/enviarTelaUsuario.js"></script>
 </body>
 

@@ -1,0 +1,103 @@
+    /* Reset básico */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+
+        /* Body e fundo */
+        body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f9;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        }
+
+        /* Container principal */
+        .detalhes-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 800px;
+        text-align: center;
+        }
+
+        /* Título */
+        h1 {
+        font-size: 2.5rem;
+        color: #4CAF50;
+        margin-bottom: 20px;
+        }
+
+        /* Detalhes da vaga */
+        .vaga-detalhes {
+        text-align: left;
+        margin-top: 20px;
+        }
+
+        .vaga-detalhes h2 {
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 15px;
+        }
+
+        .vaga-detalhes p {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        line-height: 1.6;
+        }
+
+        .vaga-detalhes strong {
+        color: #4CAF50;
+        }
+
+        /* Botões */
+        button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+        background-color: #45a049;
+        }
+
+        /* Botão de voltar */
+        .btn-voltar {
+        margin-top: 30px;
+        font-size: 1.2rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+        .detalhes-container {
+        padding: 20px;
+        }
+
+        h1 {
+        font-size: 2rem;
+        }
+
+        .vaga-detalhes h2 {
+        font-size: 1.8rem;
+        }
+
+        .vaga-detalhes p {
+        font-size: 1rem;
+        }
+
+        button {
+        font-size: 1rem;
+        padding: 10px 16px;
+        }
+        }
