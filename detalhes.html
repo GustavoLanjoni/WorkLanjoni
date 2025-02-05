@@ -1,62 +1,109 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes da Vaga</title>
     <link rel="stylesheet" href="css/detalhes1.css">
-    <link rel="stylesheet" href="styles.css">
+    <title>Detalhes da Vaga</title>
 </head>
-
 <body>
     <div class="detalhes-container">
         <h1>Detalhes da Vaga</h1>
-        <div id="detalhesVaga">
-            <!-- Detalhes da vaga serão carregados aqui -->
+
+        <div id="vaga-detalhes">
+            <p><strong>Nome:</strong> <span id="modal-titulo"></span></p>
+            <p><strong>Descrição:</strong> <span id="modal-descricao"></span></p>
+            <p><strong>Contato:</strong> <span id="modal-contato"></span></p>
+            <p><strong>Benefício:</strong> <span id="modal-beneficio"></span></p>
+            <p><strong>Salário:</strong> <span id="modal-salario"></span></p>
+            <p><strong>Local:</strong> <span id="modal-local"></span></p>
+            <p><strong>Carga Horária:</strong> <span id="modal-cargaHoraria"></span></p>
+            <p><strong>Tipo de Contratação:</strong> <span id="modal-tipoContratacao"></span></p>
+            <p><strong>Tipo de Vaga:</strong> <span id="modal-tipoVaga"></span></p>
+
+            <h3>Requisitos</h3>
+            <ul id="modal-requisitos"></ul>
+
+            <div class="botao-container">
+                <button onclick="voltarParaLista()" class="btn-voltar">Voltar</button>
+                <button onclick="salvarVaga()" class="btn-salvar">Salvar</button>
+                <button onclick="compartilharVaga()" class="btn-compartilhar">Compartilhar</button>
+            </div>
         </div>
-        <button class="btn-voltar" onclick="window.history.back();">Voltar</button>
     </div>
-
-
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const vagaId = urlParams.get("id"); // Obtém o ID da URL
+            const vaga = JSON.parse(localStorage.getItem("vagaSelecionada"));
 
-            if (!vagaId) {
-                alert("ID da vaga não encontrado.");
-                return;
+            if (vaga) {
+                document.getElementById("modal-titulo").innerText = vaga.nome || "Nome não disponível";
+                document.getElementById("modal-descricao").innerText = vaga.descricao || "Descrição não disponível";
+                document.getElementById("modal-contato").innerText = vaga.contato || "Contato não disponível";
+                document.getElementById("modal-beneficio").innerText = vaga.beneficio || "Benefício não disponível";
+                document.getElementById("modal-salario").innerText = vaga.salario || "Salário não disponível";
+                document.getElementById("modal-local").innerText = vaga.local || "Local não informado";
+                document.getElementById("modal-cargaHoraria").innerText = vaga.cargaHoraria || "Carga horária não informada";
+                document.getElementById("modal-tipoContratacao").innerText = vaga.tipoContratacao || "Tipo de contratação não informado";
+                document.getElementById("modal-tipoVaga").innerText = vaga.tipoVaga || "Tipo de vaga não informado";
+
+                const requisitosList = document.getElementById("modal-requisitos");
+                requisitosList.innerHTML = "";
+                if (vaga.requisitos) {
+                    vaga.requisitos.split("\n").forEach(requisito => {
+                        const listItem = document.createElement("li");
+                        listItem.innerText = requisito;
+                        requisitosList.appendChild(listItem);
+                    });
+                } else {
+                    const listItem = document.createElement("li");
+                    listItem.innerText = "Nenhum requisito listado";
+                    requisitosList.appendChild(listItem);
+                }
+            } else {
+                alert("Vaga não encontrada!");
+                window.location.href = "index.html";
             }
-
-            const vagasPublicadas = JSON.parse(localStorage.getItem("vagasPublicadas")) || [];
-            const vaga = vagasPublicadas.find(v => v.id === parseInt(vagaId));
-
-            if (!vaga) {
-                alert("Vaga não encontrada.");
-                return;
-            }
-
-            // Preenche os detalhes da vaga na página
-            const detalhesVaga = document.getElementById("detalhesVaga");
-            detalhesVaga.innerHTML = `
-        <h2>${vaga.nome}</h2>
-        <p><strong>Descrição:</strong> ${vaga.descricao}</p>
-        <p><strong>Contato:</strong> ${vaga.contato}</p>
-        <p><strong>Benefícios:</strong> ${vaga.beneficio}</p>
-        <p><strong>Salário:</strong> ${vaga.salario}</p>
-        <p><strong>Requisitos:</strong> ${vaga.requisitos}</p>
-        <p><strong>Local:</strong> ${vaga.local}</p>
-        <p><strong>Carga Horária:</strong> ${vaga.cargaHoraria}</p>
-        <p><strong>Tipo de Contratação:</strong> ${vaga.tipoContratacao}</p>
-        <p><strong>Tipo de Vaga:</strong> ${vaga.tipoVaga}</p>
-    `;
         });
 
+        function voltarParaLista() {
+            window.location.href = "index.html"; // Volta para a página inicial
+        }
 
+        function salvarVaga() {
+            // Salva a vaga no localStorage ou em outro sistema de persistência
+            const vaga = JSON.parse(localStorage.getItem("vagaSelecionada"));
+            if (vaga) {
+                const vagasSalvas = JSON.parse(localStorage.getItem("vagasSalvas")) || [];
+                vagasSalvas.push(vaga);
+                localStorage.setItem("vagasSalvas", JSON.stringify(vagasSalvas));
+                window.location.href = "salvas.html"; // Redireciona para a página de vagas salvas
+            }
+        }
 
+        function compartilharVaga() {
+            // Compartilha a vaga (gera um link para compartilhar)
+            const vaga = JSON.parse(localStorage.getItem("vagaSelecionada"));
+            if (vaga) {
+                const vagaLink = window.location.href; // Link da página atual
+                const textoCompartilhar = `Confira esta vaga: ${vaga.nome} - ${vagaLink}`;
+                if (navigator.share) {
+                    navigator.share({
+                        title: "Vaga de Emprego",
+                        text: textoCompartilhar,
+                        url: vagaLink,
+                    }).catch(error => {
+                        // Caso o navegador não tenha suporte ao Share API
+                        alert("Erro ao compartilhar a vaga: " + error);
+                    });
+                } else {
+                    // Caso o navegador não tenha suporte ao Share API, copia o link para a área de transferência
+                    navigator.clipboard.writeText(textoCompartilhar).catch(error => {
+                        alert("Erro ao copiar o link: " + error);
+                    });
+                }
+            }
+        }
     </script>
 </body>
-
 </html>

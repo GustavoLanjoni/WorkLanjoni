@@ -54,13 +54,16 @@
 
             alert('Cadastro realizado com sucesso!');
 
-            // Redireciona para a página de login após o cadastro (se desejar alterar, modifique o href)
-            window.location.href = "formPlanos.html";
+            // Se for uma empresa, redireciona para a página de cadastro de empresa
+            if (tipoUsuario === "empresa") {
+                window.location.href = "formPlanos.html"; // Página de cadastro de empresa
+            } else {
+                window.location.href = "index.html"; // Página principal do usuário
+            }
         }
     </script>
 
     <script>
-
         window.onload = function () {
             const loggedInUser = localStorage.getItem('loggedInUser'); // Verifica se o usuário está logado
             if (loggedInUser) {
@@ -80,7 +83,6 @@
                 alert("Por favor, preencha todos os campos.");
             }
         }
-
     </script>
 </body>
 

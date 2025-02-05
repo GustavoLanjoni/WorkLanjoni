@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/salvas.css">
+    <title>Vagas Salvas</title>
+</head>
+<body>
+    <div class="salvas-container">
+        <h1>Vagas Salvas</h1>
+        <div id="vagas-salvas">
+            <p>Você ainda não salvou nenhuma vaga.</p>
+        </div>
+        <button onclick="voltarParaLista()" class="btn-voltar">Voltar para a Lista de Vagas</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const vagasSalvas = JSON.parse(localStorage.getItem("vagasSalvas")) || [];
+
+            const vagasContainer = document.getElementById("vagas-salvas");
+
+            if (vagasSalvas.length === 0) {
+                vagasContainer.innerHTML = "<p>Você ainda não salvou nenhuma vaga.</p>";
+            } else {
+                vagasContainer.innerHTML = ""; // Limpa o conteúdo anterior
+                vagasSalvas.forEach(vaga => {
+                    const vagaDiv = document.createElement("div");
+                    vagaDiv.classList.add("vaga");
+
+                    vagaDiv.innerHTML = `
+                        <h3>${vaga.nome}</h3>
+                        <p><strong>Descrição:</strong> ${vaga.descricao}</p>
+                        <p><strong>Local:</strong> ${vaga.local}</p>
+                        <p><strong>Salário:</strong> ${vaga.salario}</p>
+                        <button onclick="removerVaga('${vaga.nome}')">Remover</button>
+                    `;
+
+                    vagasContainer.appendChild(vagaDiv);
+                });
+            }
+        });
+
+        function voltarParaLista() {
+            window.location.href = "index.html";
+        }
+
+        function removerVaga(nome) {
+            const vagasSalvas = JSON.parse(localStorage.getItem("vagasSalvas")) || [];
+            const vagasAtualizadas = vagasSalvas.filter(vaga => vaga.nome !== nome);
+            localStorage.setItem("vagasSalvas", JSON.stringify(vagasAtualizadas));
+
+            // Atualiza a lista na página
+            document.location.reload();
+        }
+    </script>
+</body>
+</html>

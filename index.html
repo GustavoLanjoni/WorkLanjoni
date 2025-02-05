@@ -18,36 +18,63 @@
 
 
 
-
-
     <header>
         <div class="container">
-            <nav>
-                <a href="index.html">Página inicial</a>
-                <a href="sobre.html" target="_blank">Sobre</a>
-                <div class="auth-buttons" id="auth-buttons">
-                    <button class="btn-login" onclick="login()">Entrar</button>
-                    <button class="btn-register" onclick="register()">Cadastrar</button>
-                </div>
-                <div class="profile-icon" id="profile-icon" style="display: block;">
-                    <a href="perfilUsuario.html">
-                        <div class="profile-circle"
-                            style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background-color: #ccc; display: flex; align-items: center; justify-content: center;">
-                            <img id="fotoPerfilMenu" src="img/usuarioPadrao.png" alt="Foto de Perfil"
-                                style="width: 100%; height: 100%; object-fit: cover;">
+            <nav class="nav-container">
+                <div class="desktop-menu">
+                    <a href="index.html" class="nav-link">Página Inicial</a>
+                    <a href="sobre.html" class="nav-link" target="_blank">Sobre</a>
+                    <a href="planosUsuario.html" class="nav-link"> Planos</a>
+
+                    <!-- Menu de autenticação para desktop -->
+                    <div class="auth-buttons" id="authButtons">
+                        <button class="btn-login" onclick="login()">Entrar</button>
+                        <button class="btn-register" onclick="register()">Cadastrar</button>
+                    </div>
+
+                    <!-- Menu de usuário (Perfil, Salvos e Sair) -->
+                    <div class="user-menu" id="userMenu" style="display: none;">
+                        <button class="profile-btn">
+                            <div class="profile-circle">
+                                <img id="fotoPerfilMenu" src="img/usuarioPadrao.png" alt="Foto de Perfil">
+                            </div>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="perfilUsuario.html" class="dropdown-item">Perfil</a>
+                            <a href="salvas.html" class="dropdown-item">Salvos</a>
+                            <button class="btn-logout" onclick="logout()">Sair</button>
                         </div>
-                    </a>
-                    <button class="btn-logout" onclick="logout()">Sair</button>
-                </div>
-        </div>
-        </nav>
-        <div class="menu-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+                    </div>
+
+
+                    <!-- Ícone do Menu Hambúrguer (apenas para telas pequenas) -->
+                    <div class="menu-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+            </nav>
+
+            <!-- Menu suspenso para telas pequenas -->
+            <div class="mobile-menu">
+                <a href="index.html" class="mobile-link">Página Inicial</a>
+                <a href="sobre.html" class="mobile-link">Sobre</a>
+                <a href="salvas.html" class="mobile-link">
+                    <a href="planosUsuario.html" class="mobile-link"> Planos Usauarios</a>
+
+                    <i class="fa fa-bookmark" style="font-size: 24px;"></i> Salvos
+                </a>
+                <a href="perfilUsuario.html" class="mobile-link">
+                    <div class="profile-circle">
+                        <img id="fotoPerfilMenu" src="img/usuarioPadrao.png" alt="Foto de Perfil">
+                    </div>
+                </a>
+                <button class="btn-logout" onclick="logout()">Sair</button>
+            </div>
         </div>
     </header>
+
+
 
 
 
@@ -65,7 +92,7 @@
         </div>
     </div>
 
-
+    <!--Barra de PEsquisa-->
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Buscar por vaga..." oninput="filterVagas()" />
         <input type="text" id="cityFilter" placeholder="Cidade" oninput="filterVagas()" />
@@ -92,39 +119,15 @@
 
 
 
+
     <div id="vagasContainer" class="vagas-container">
         <div id="listaVagas" class="vagas-list">
             <h2>Vagas Disponíveis</h2>
-            <div id="vagalists"></div>
+            <div id="vagalists">
+                <!-- As vagas serão inseridas dinamicamente aqui -->
+            </div>
         </div>
-    
-        <div id="vagaDetalhes" class="detalhes-vaga">
-            <h2 id="modalNome"></h2>
-            <p id="modalDescricao"></p>
-            <p><span>Contato:</span> <span id="modalContato"></span></p>
-            <p><span>Benefício:</span> <span id="modalBeneficio"></span></p>
-            <p><span>Salário:</span> <span id="modalSalario"></span></p>
-            <p><span>Requisitos:</span></p>
-            <ul id="modalRequisitos"></ul> <!-- Agora será uma lista com requisitos -->
-            <p><span>Local:</span> <span id="modalLocal"></span></p>
-            <p><span>Carga Horária:</span> <span id="modalCargaHoraria"></span></p>
-            <p><span>Tipo de Contratação:</span> <span id="modalTipoContratacao"></span></p>
-            <p><span>Tipo de Vaga:</span> <span id="modalTipoVaga"></span></p>
-        
-            <button id="salvarVagaBtn">
-                <i class="fa fa-bookmark"></i> Salvar Vaga
-            </button>
-        
-            <button id="compartilharVagaBtn">
-                <i class="fa fa-share-alt"></i> Compartilhar
-            </button>
-        
-            <p id="linkCompartilhar"></p> <!-- Exibe o link para compartilhamento -->
-        </div>
-        
     </div>
-    
-
 
 
 
@@ -180,7 +183,15 @@
 
 
 
+    <!--Menu-->
+    <script>
+        document.querySelector('.menu-button').addEventListener('click', function () {
+            document.querySelector('.user-menu').classList.toggle('active');
+        });
+        ;
 
+
+    </script>
 
     <script>
         function debounce(func, delay) {
@@ -244,6 +255,8 @@
     <script src="js/utils.js"></script>
     <script src="js/barraDePesquisa.js"></script>
     <script src="js/pop-up.js"></script>
+
+    <!--Verfica se o usuario esta lagado ou não-->
     <script src="js/estadoLogin.js"></script>
 
 

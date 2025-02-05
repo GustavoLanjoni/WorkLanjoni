@@ -1,103 +1,142 @@
-    /* Reset básico */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        }
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        /* Body e fundo */
-        body {
-        font-family: 'Arial', sans-serif;
-        background-color: #f4f4f9;
-        color: #333;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        }
+/* Body e fundo */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 20px;
+}
 
-        /* Container principal */
-        .detalhes-container {
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 800px;
-        text-align: center;
-        }
+/* Container principal */
+.detalhes-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px;
+    text-align: left;
+    margin: 20px;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
-        /* Título */
-        h1 {
-        font-size: 2.5rem;
-        color: #4CAF50;
-        margin-bottom: 20px;
-        }
+/* Título */
+h1 {
+    font-size: 2.8rem;
+    color: #3f51b5;
+    margin-bottom: 20px;
+    text-align: center;
+}
 
-        /* Detalhes da vaga */
-        .vaga-detalhes {
-        text-align: left;
-        margin-top: 20px;
-        }
+/* Detalhes da vaga */
+#vaga-detalhes p {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
 
-        .vaga-detalhes h2 {
-        font-size: 2rem;
-        color: #333;
-        margin-bottom: 15px;
-        }
+#vaga-detalhes strong {
+    color: #3f51b5;
+}
 
-        .vaga-detalhes p {
-        font-size: 1.1rem;
-        margin-bottom: 10px;
-        line-height: 1.6;
-        }
+h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-top: 20px;
+}
 
-        .vaga-detalhes strong {
-        color: #4CAF50;
-        }
+/* Botões */
+button {
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    padding: 14px 22px;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+    width: 100%;
+    max-width: 250px;
+    margin: 5px;
+}
 
-        /* Botões */
-        button {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        padding: 12px 20px;
-        border-radius: 5px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        }
+button:hover {
+    background-color: #303f9f;
+    transform: translateY(-2px);
+}
 
-        button:hover {
-        background-color: #45a049;
-        }
+/* Botão de voltar */
+.btn-voltar {
+    background-color: transparent;
+    color: #3f51b5;
+    border: 1px solid #3f51b5;
+}
 
-        /* Botão de voltar */
-        .btn-voltar {
-        margin-top: 30px;
-        font-size: 1.2rem;
-        }
+.btn-voltar:hover {
+    background-color: #3f51b5;
+    color: white;
+}
 
-        /* Responsividade */
-        @media (max-width: 768px) {
-        .detalhes-container {
+/* Botões de salvar e compartilhar */
+.btn-salvar {
+    background-color: #2196F3;
+}
+
+.btn-compartilhar {
+    background-color: #FFC107;
+}
+
+.btn-salvar:hover {
+    background-color: #1976D2;
+}
+
+.btn-compartilhar:hover {
+    background-color: #FFB300;
+}
+
+/* Layout dos botões */
+.botao-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .detalhes-container {
         padding: 20px;
-        }
+    }
 
-        h1 {
+    h1 {
         font-size: 2rem;
-        }
+    }
 
-        .vaga-detalhes h2 {
-        font-size: 1.8rem;
-        }
-
-        .vaga-detalhes p {
+    #vaga-detalhes p {
         font-size: 1rem;
-        }
+    }
 
-        button {
+    button {
         font-size: 1rem;
-        padding: 10px 16px;
-        }
-        }
+        padding: 12px 18px;
+    }
+
+    .botao-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
