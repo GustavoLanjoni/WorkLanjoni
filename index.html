@@ -24,7 +24,7 @@
                 <div class="desktop-menu">
                     <a href="index.html" class="nav-link">Página Inicial</a>
                     <a href="sobre.html" class="nav-link" target="_blank">Sobre</a>
-                    <a href="planosUsuario.html" class="nav-link"> Planos</a>
+                    <a href="planosUsuario.html" class="nav-link">Planos</a>
 
                     <!-- Menu de autenticação para desktop -->
                     <div class="auth-buttons" id="authButtons">
@@ -45,35 +45,31 @@
                             <button class="btn-logout" onclick="logout()">Sair</button>
                         </div>
                     </div>
+                </div>
 
+                <!-- Botão do Menu (hamburger) -->
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
 
-                    <!-- Ícone do Menu Hambúrguer (apenas para telas pequenas) -->
-                    <div class="menu-toggle">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-            </nav>
+                <!-- Menu suspenso para telas pequenas -->
+                <div class="mobile-menu">
+                    <a href="perfilUsuario.html" class="mobile-link">Perfil</a>
+                    <a href="salvas.html" class="dropdown-item">Salvos</a>
 
-            <!-- Menu suspenso para telas pequenas -->
-            <div class="mobile-menu">
-                <a href="index.html" class="mobile-link">Página Inicial</a>
-                <a href="sobre.html" class="mobile-link">Sobre</a>
-                <a href="salvas.html" class="mobile-link">
-                    <a href="planosUsuario.html" class="mobile-link"> Planos Usauarios</a>
-
-                    <i class="fa fa-bookmark" style="font-size: 24px;"></i> Salvos
-                </a>
-                <a href="perfilUsuario.html" class="mobile-link">
+                    <!-- Círculo do perfil dentro do menu (só visível no menu em telas pequenas) -->
                     <div class="profile-circle">
                         <img id="fotoPerfilMenu" src="img/usuarioPadrao.png" alt="Foto de Perfil">
                     </div>
-                </a>
-                <button class="btn-logout" onclick="logout()">Sair</button>
-            </div>
+
+                    <button class="btn-logout" onclick="logout()">Sair</button>
+                </div>
+
+            </nav>
         </div>
     </header>
-
 
 
 
@@ -92,7 +88,7 @@
         </div>
     </div>
 
-    <!--Barra de PEsquisa-->
+    <!--Barra de Pesquisa-->
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Buscar por vaga..." oninput="filterVagas()" />
         <input type="text" id="cityFilter" placeholder="Cidade" oninput="filterVagas()" />
@@ -119,7 +115,7 @@
 
 
 
-
+    <!--Onde as vagas aparecem-->
     <div id="vagasContainer" class="vagas-container">
         <div id="listaVagas" class="vagas-list">
             <h2>Vagas Disponíveis</h2>
@@ -185,10 +181,15 @@
 
     <!--Menu-->
     <script>
-        document.querySelector('.menu-button').addEventListener('click', function () {
-            document.querySelector('.user-menu').classList.toggle('active');
+        // Seleciona o botão de menu e o menu
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        // Adiciona um evento de clique ao botão do menu
+        menuToggle.addEventListener('click', function () {
+            menuToggle.classList.toggle('active'); // Alterna a classe 'active' no botão de menu
         });
-        ;
+
 
 
     </script>
@@ -217,18 +218,7 @@
 
     </script>
 
-    <script>
-        // Seleciona os elementos
-        const menuToggle = document.querySelector('.menu-toggle');
-        const nav = document.querySelector('nav');
 
-        // Adiciona evento de clique no ícone do menu
-        menuToggle.addEventListener('click', () => {
-            // Alterna o estado ativo do menu e do ícone
-            nav.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-        });
-    </script>
 
 
 

@@ -9,6 +9,7 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: #f4f7fa;
     color: #333;
+    line-height: 1.6;
 }
 
 /* Container geral */
@@ -18,62 +19,81 @@ body {
     margin: 0 auto;
 }
 
-/* Estilo geral do header */
 header {
-    background-color: #000000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    
+    background-color: #1c1c1c;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 1000;
+    transition: all 0.3s ease-in-out;
+    padding: 10px 0;
 }
 
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 15px;
-}
-
+/* Navegação */
 .nav-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    padding: 15px 30px;
+    background-color: #1c1c1c;
+    color: white;
 }
 
 .nav-link {
     margin-right: 30px;
     text-decoration: none;
-    color: #ffffff;
-    font-size: 16px;
+    color: #fff;
+    font-size: 18px;
     font-weight: 600;
-    transition: color 0.3s;
+    padding: 10px 15px;
+    border-radius: 4px;
+    position: relative;
+    transition: color 0.3s ease-in-out;
 }
 
 .nav-link:hover {
-    color: #ffffff;
+    color: #fff;
 }
 
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
 
+.nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+.nav-container a:last-child {
+    margin-right: 0;
+}
 
 .profile-btn {
-    margin-left: -100px;
-    margin-top: -30px;
     background: none;
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .profile-circle {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
+    margin-right: 50px;
+    margin-left: -100px;
+    margin-top: -40px;
     overflow: hidden;
     background-color: #ccc;
-    margin-right: 10px;
 }
 
 .profile-circle img {
@@ -82,26 +102,33 @@ header {
     object-fit: cover;
 }
 
-.profile-name {
+.profile-btn span {
+    display: inline;
+    color: #fff;
     font-size: 16px;
-    color: #333;
-    font-weight: bold;
-    margin-left: 8px; /* Espaçamento entre a imagem e o nome */
+    font-weight: 500;
 }
 
-/* Menu suspenso do usuário */
+.user-menu {
+    display: flex;
+    align-items: center;
+}
+
 .dropdown-menu {
     position: absolute;
-    top: 55px;
-    margin-left: -110px;
+    top: 90px;
+    left: 30%;
+    transform: translateX(-50%);
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 160px;
     border-radius: 8px;
     display: none;
+    z-index: 1000;
+    padding: 0;
 }
 
-.user-menu:hover .dropdown-menu {
+.user-menu.active .dropdown-menu {
     display: block;
 }
 
@@ -109,28 +136,32 @@ header {
     padding: 10px 15px;
     text-decoration: none;
     color: #333;
-    display: block;
     font-size: 14px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease-in-out;
+    display: block;
 }
 
+.dropdown-item:hover {
+    background-color: #f4f7fa;
+}
 
-
-/* Mobile menu */
+/* Botão do menu (hamburger) */
 .menu-toggle {
-    display: none;
+    margin-left: -30px;
+    margin-top: -74px;
     cursor: pointer;
-    padding: 5px;
+    flex-direction: column;
     gap: 4px;
 }
 
 .menu-toggle span {
-    width: 25px;
+    width: 30px;
     height: 3px;
-    background-color: #333;
-    transition: all 0.3s;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
 }
 
+/* Mobile menu: escondido por padrão */
 .mobile-menu {
     display: none;
     position: absolute;
@@ -139,8 +170,8 @@ header {
     width: 100%;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 15px;
-    display: none;
+    padding: 20px;
+    z-index: 999;
 }
 
 .mobile-link {
@@ -151,528 +182,195 @@ header {
     display: block;
 }
 
+/* Exibe o menu quando o botão de menu for clicado */
+.menu-toggle.active + .mobile-menu {
+    display: block;
+}
+
 .mobile-link:hover {
-    color: #007bff;
-}
-
-/* Animações e transições para o menu hambúrguer */
-.menu-toggle.open span {
-    background-color: #007bff;
-}
-
-
-
-
-
-/* Navegação */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    gap: 20px;
-}
-
-nav .logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-decoration: none;
-}
-
-nav a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 1.1rem;
-    font-weight: 500;
-    position: relative;
-    transition: color 0.3s ease, padding 0.3s ease;
-}
-
-nav a:hover {
     color: #e74c3c;
-    border-bottom: 2px solid #e74c3c;
-    padding-bottom: 3px;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-}
-
-nav li {
-    margin: 0 10px;
 }
 
 
-/* Ícone do menu */
-.menu-toggle {
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    gap: 5px;
-    display: none;
-}
 
-.menu-toggle span {
-    width: 30px;
-    height: 3px;
-    background-color: white;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Estilo do menu móvel */
-nav.mobile-menu {
-    display: none;
-    flex-direction: column;
-    background-color: #2c3e50;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    padding: 20px 0;
-}
-
-nav.mobile-menu a {
-    color: #fff;
-    margin: 10px 0;
-    text-align: center;
-    font-size: 1.2rem;
-}
-
-/* Publicar Vaga no menu móvel */
-nav.mobile-menu .btn-primary {
-    margin-top: 10px;
-    width: 80%;
-    align-self: center;
-}
-
-/* Hero Section */
-.hero {
-    background-color: #ecf0f1;
-    padding: 50px 0;
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.hero h2 {
-    font-size: 2.5rem;
-    color: #34495e;
-}
-
-.hero p {
-    font-size: 1.1rem;
-    color: #7f8c8d;
-    margin-top: 10px;
-}
-
-/* Busca de vagas */
-.busca {
-    background-color: #fff;
-    padding: 40px 0;
-    margin-bottom: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.busca h3 {
-    font-size: 1.8rem;
-    color: #2c3e50;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.busca form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.busca input,
-.busca button {
-    padding: 12px 18px;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    outline: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.busca input:focus,
-.busca button:focus {
-    border-color: #e74c3c;
-}
-
-.busca button {
-    background-color: #e74c3c;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.busca button:hover {
-    background-color: #c0392b;
-}
-
-/* Estilo da seção de vagas */
-.vagas {
-    margin-bottom: 40px;
-}
-
-.vagas h3 {
-    font-size: 1.8rem;
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-/* Lista de vagas em formato responsivo */
-#jobList {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 0;
-}
-
-#jobList li {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-#jobList li:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* Informações resumidas */
-#jobList h4 {
-    font-size: 1.2rem;
-    color: #34495e;
-    margin-bottom: 10px;
-}
-
-#jobList .resumo {
-    color: #7f8c8d;
-    font-size: 0.9rem;
-    margin-bottom: 10px;
-}
-
-/* Detalhes ocultos inicialmente */
-#jobList .detalhes {
-    display: none;
-    margin-top: 15px;
-    color: #7f8c8d;
-    font-size: 0.9rem;
-}
-
-/* Botão para alternar detalhes */
-#jobList a {
-    display: inline-block;
-    background-color: #3498db;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-    font-size: 0.9rem;
-    text-align: center;
-}
-
-#jobList a:hover {
-    background-color: #2980b9;
-}
-
-/* Modal de publicação de vaga */
-.modal {
-    display: none;
+/* Estilos para o pop-up */
+.popup {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: 15px;
 }
 
-.modal-content {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 8px;
-    width: 500px;
-    max-width: 100%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Ativa o pop-up */
+.popup.show {
+    opacity: 1;
+    visibility: visible;
 }
 
-.modal h3 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: #2c3e50;
-}
-
-.modal input,
-.modal textarea,
-.modal button {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    outline: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.modal input:focus,
-.modal textarea:focus,
-.modal button:focus {
-    border-color: #e74c3c;
-}
-
-.modal button {
-    background-color: #e74c3c;
+/* Conteúdo do pop-up */
+.popup-content {
+    background: #1e1e2f;
     color: #fff;
-    cursor: pointer;
-    font-size: 1.1rem;
-}
-
-.modal button:hover {
-    background-color: #c0392b;
-}
-
-/* Importação da fonte moderna */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-
-h2 {
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
     text-align: center;
-    padding: 20px;
-    font-size: 24px;
-    color: #333;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
 }
 
-
-/* Estilos para o container geral */
-.vagas-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    background-color: #f5f5f5;
-    box-sizing: border-box;
+/* Animação ao abrir */
+.popup.show .popup-content {
+    transform: scale(1);
 }
 
-/* Estilos para a lista de vagas */
-.vagas-list {
-    width: 80%;
-    max-width: 1200px;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+/* Título */
+.popup-content h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
 }
 
-/* Estilo do título "Vagas Disponíveis" */
-.vagas-list h2 {
-    font-size: 2rem;
-    color: #333;
+/* Parágrafo */
+.popup-content p {
+    font-size: 16px;
     margin-bottom: 20px;
-    text-align: center;
+    opacity: 0.9;
 }
 
-/* Estilos para a lista de vagas */
-.vagas-list #vagalists {
+/* Botões */
+.popup-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
-}
-
-/* Estilos para cada vaga */
-.vagas-list .vaga {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 48%; /* Duas vagas por linha */
-    padding: 20px;
-    box-sizing: border-box;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Efeito de hover para cada vaga */
-.vagas-list .vaga:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo para o título dentro de cada vaga */
-.vagas-list .vaga h3 {
-    font-size: 1.5rem;
-    color: #333;
+    gap: 10px;
+    justify-content: center;
     margin-bottom: 15px;
 }
 
-.vagas-list .vaga p {
-    font-size: 1rem;
-    color: #555;
-    margin: 5px 0;
-}
-
-.vagas-list .vaga p strong {
+.popup-btn {
+    flex: 1;
+    min-width: 130px;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
     font-weight: bold;
-    color: #333;
+    text-align: center;
+    transition: 0.3s;
 }
 
+/* Botão de login */
+.popup-btn:first-child {
+    background: #ff4757;
+    color: white;
+}
 
-/* Estilo para o botão "Ver Vaga" */
-.vagas-list .ver-vaga-btn {
-    background-color: #007bff;
-    color: #fff;
+.popup-btn:first-child:hover {
+    background: #e04050;
+}
+
+/* Botão de cadastro */
+.popup-btn:last-child {
+    background: #1e90ff;
+    color: white;
+}
+
+.popup-btn:last-child:hover {
+    background: #187bcd;
+}
+
+/* Botão de fechar */
+.popup-close {
+    background: transparent;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    color: #aaa;
+    font-size: 16px;
     cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+    position: absolute;
+    top: 10px;
+    right: 15px;
 }
 
-/* Efeito de hover para o botão */
-.vagas-list .ver-vaga-btn:hover {
-    background-color: #0056b3;
-}
-
-/* Responsividade - Para telas menores, as vagas ocupam 100% da largura */
-@media (max-width: 768px) {
-    .vagas-list #vagalists {
-        flex-direction: column;
-    }
-
-    .vagas-list .vaga {
-        width: 100%;
-    }
+.popup-close:hover {
+    color: white;
 }
 
 
 
-
-
-/* Container principal da barra de pesquisa */
+/*barra de pesquisa */
 .search-container {
     display: flex;
     flex-wrap: wrap;
+    gap: 12px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 1000px;
-    margin: 40px auto 0;
-    /* Margem superior de 40px para afastar do cabeçalho */
 }
 
-/* Barra de pesquisa */
-.search-container {
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-/* Input de busca */
-#searchInput {
-    padding: 12px 20px;
-    font-size: 16px;
-    width: 280px;
-    border: 2px solid #d1d8e0;
-    border-radius: 8px;
-    background-color: #f4f6f9;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-#searchInput:focus {
-    border-color: #5d9bfb;
-    box-shadow: 0 0 8px rgba(93, 155, 251, 0.5);
-    outline: none;
-}
-
-/* Estilos do select box */
-select {
-    padding: 12px 18px;
-    font-size: 16px;
-    width: 220px;
-    border: 2px solid #d1d8e0;
-    border-radius: 8px;
-    background-color: #f4f6f9;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-select:focus {
-    border-color: #5d9bfb;
-    box-shadow: 0 0 8px rgba(93, 155, 251, 0.5);
-    outline: none;
-}
-
-/* Estilo para o filtro de cidade */
-#cityFilter {
-    padding: 12px 20px;
-    font-size: 16px;
-    width: 280px;
-    border: 2px solid #d1d8e0;
-    border-radius: 8px;
-    background-color: #f4f6f9;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-#cityFilter:focus {
-    border-color: #5d9bfb;
-    box-shadow: 0 0 8px rgba(93, 155, 251, 0.5);
-    outline: none;
-}
-
-/* Estilo para a opção de filtro */
-option {
-    padding: 12px;
-    font-size: 16px;
-}
-
-/* Adicionando ícones ou efeitos */
+/* Estilização dos inputs e selects */
 .search-container input,
 .search-container select {
-    font-family: 'Segoe UI', sans-serif;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+    color: #fff;
+    background: #32324a;
+    transition: 0.3s ease;
+    width: 220px;
+    box-shadow: inset 0px 0px 5px rgba(255, 255, 255, 0.1);
+}
+
+/* Ajuste para os selects */
+.search-container select {
+    cursor: pointer;
+}
+
+/* Efeito ao focar nos elementos */
+.search-container input:focus,
+.search-container select:focus {
+    border: 1px solid #1e90ff;
+    box-shadow: 0px 0px 10px rgba(30, 144, 255, 0.6);
+}
+
+/* Placeholder estilizado */
+.search-container input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
 }
 
 
-/* Melhorias de usabilidade */
-input,
-select {
-    transition: all 0.3s ease;
-}
 
-/* Hover nos campos */
-#searchInput:hover,
-select:hover,
-#cityFilter:hover {
-    border-color: #4fa3f7;
-}
+/*Vagas*/
 
-/* Foco no campo de input */
-#searchInput:focus,
-select:focus,
-#cityFilter:focus {
-    border-color: #4fa3f7;
-    box-shadow: 0 0 8px rgba(79, 163, 247, 0.5);
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 footer {
@@ -772,355 +470,115 @@ footer .footer-bottom {
 }
 
 
-/* Estilos para o pop-up */
-.popup {
-    display: none; /* Inicialmente o pop-up estará oculto */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.popup-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    max-width: 400px;
-    width: 90%;
-}
-
-.popup-buttons {
-    margin-top: 20px;
-}
-
-.popup-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 10px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-}
-
-.popup-btn:hover {
-    background-color: #45a049;
-}
-
-.popup-close {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.popup-close:hover {
-    background-color: #e53935;
-}
-
-
-/* Estilo da bola de perfil */
-.profile-circle {
-    width: 50px;
-    height: 50px;
-    background-color: #007bff;
-    border-radius: 50%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    
-}
-
-
-/* Estilo do botão de logout */
-.btn-logout {
-    font-size: 16px;
-    color: #ff0000; /* Cor do texto */
-    background-color: transparent; /* Sem fundo */
-    border: none; /* Sem borda */
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    padding: 10px 20px;
-    font-weight: bold;
-    transition: all 0.3s ease; /* Transição suave */
-}
-/* Menu de autenticação */
-.auth-buttons {
-    display: flex;
-    justify-content: flex-start;  /* Alinha os botões à esquerda */
-    gap: 10px;
-    position: absolute;  /* Tornar os botões posicionados em relação à tela */
-    top: 5px;  /* Distância do topo, ajuste conforme necessário */
-    left: 500px;  /* Distância da lateral esquerda */
-}
-
-/* Botões com design moderno e simples */
-.btn-login, .btn-register {
-    display: inline-block;
-    width: 120px;
-    height: 40px;
-    font-size: 14px;
-    text-align: center;
-    color: #ffffff;
-    background-color: transparent;
-    border: 2px solid #ffffff;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    padding: 10px 20px;
-    font-weight: bold;
-}
-
-/* Efeito hover */
-.btn-login:hover, .btn-register:hover {
-    color: #fff;
-    
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); /* Sombra suave */
-    transform: scale(1.05); /* Leve aumento de tamanho */
-}
-
-
-.ver-detalhes {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: block;
-    margin-top: 10px;
-}
-
-.ver-detalhes:hover {
-    background-color: #0056b3;
-}
-
-
-
-/* Responsividade para telas de até 768px (telas médias e pequenas) */
-@media (max-width: 768px) {
-
-    /* Header e navegação */
-    header {
-        padding: 10px;
-    }
-
-    header .container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    nav {
-        display: none;
-        /* Esconde o menu padrão */
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        background-color: #000000;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 15px;
-        border-radius: 8px;
-        position: absolute;
-        top: 70px;
-        left: 10px;
-        right: 10px;
-        z-index: 1000;
-    }
-
-    nav.active {
-        display: flex;
-        /* Mostra o menu quando ativo */
-    }
-
-    nav a {
-        font-size: 1rem;
-        text-decoration: none;
-        color: #333;
-        padding: 10px;
-        border-radius: 5px;
-        width: 100%;
-        text-align: center;
-    }
-
-    nav a:hover {
-        background-color: #f0f0f0;
-    }
-
-    /* Botão do menu móvel */
-    .menu-toggle {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        cursor: pointer;
-        z-index: 1100;
-    }
-
-    .menu-toggle span {
-        width: 30px;
-        height: 3px;
-        background-color: #333;
-        transition: all 0.3s ease;
-    }
-
-    .menu-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .menu-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .menu-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
-    }
-
-    /* Footer */
-    footer .footer-content {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    footer .footer-content>div {
-        min-width: unset;
-    }
-
-    /* Search container */
-    .search-container {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px;
-    }
-
-    #searchInput,
-    #cityFilter,
-    select {
-        width: 100%;
-    }
-
-    /* Container de vagas */
-    #vagasContainer {
-        padding: 15px;
-        grid-template-columns: 1fr;
-        /* Uma coluna por vez */
-    }
-
-    /* Botão de publicar vaga */
-    .btn-primary {
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    /* Visualização das vagas */
-    #jobList {
-        grid-template-columns: 1fr;
-        /* Uma vaga por linha */
-    }
-
-    /* Modal */
-    .modal-content {
-        width: 90%;
-        max-width: 100%;
-        padding: 20px;
-    }
-}
-
-/* Responsividade para telas muito pequenas (480px ou menos) */
-@media (max-width: 480px) {
-
-    /* Header */
-    header h1 {
-        font-size: 1.8rem;
-    }
-
-    /* Hero */
-    .hero h2 {
-        font-size: 1.5rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
-
-    /* Campo de busca */
-    #searchInput {
-        width: 100%;
-        font-size: 14px;
-    }
-
-    /* Botões */
-    .btn-primary {
-        font-size: 0.9rem;
-    }
-
-    /* Cartões de vagas */
-    #vagasContainer .vaga-card h4 {
-        font-size: 1.2rem;
-    }
-
-    #vagasContainer .vaga-card .resumo {
-        font-size: 1rem;
-    }
-}
-
-
 /* Responsividade */
-@media (max-width: 768px) {
-    header .container {
+@media screen and (max-width: 768px) {
+    .nav-container {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    nav {
-        display: none;
-        /* Menu oculto por padrão */
-        flex-direction: column;
-        width: 100%;
-        gap: 10px
+    .nav-link {
+        margin-right: 0;
+        margin-bottom: 10px;
     }
 
     .menu-toggle {
-        display: block;
-        cursor: pointer;
-    }
-
-    .menu-toggle span {
-        display: block;
-        width: 25px;
-        height: 3px;
-        background-color: white;
-        margin: 5px 0;
-    }
-
-    /* Mostrar menu ao ativar */
-    nav.active {
         display: flex;
-        width: 250px;
-        color: #000;
-        top: 50px;
-        left: 0;
     }
 
-
-
-    .auth-buttons a {
-        text-align: center;
-        width: 100%;
-        
+    .mobile-menu {
+        display: none;
     }
 
-   
+    .menu-toggle.active + .mobile-menu {
+        display: block;
+    }
+
+    .profile-btn {
+        margin-top: 10px;
+    }
+
+    .profile-circle {
+        width: 50px;
+        height: 50px;
+    }
+
+    .profile-btn span {
+        font-size: 14px;
+    }
 }
+
+@media screen and (max-width: 480px) {
+    .nav-container {
+        padding: 10px 20px;
+    }
+
+    .profile-btn {
+        margin-top: 10px;
+    }
+
+    .profile-circle {
+        width: 50px;
+        height: 50px;
+    }
+
+    .profile-btn span {
+        font-size: 14px;
+    }
+
+    .mobile-link {
+        font-size: 16px;
+    }
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+    .popup-content {
+        width: 95%;
+        max-width: 320px;
+        padding: 15px;
+    }
+
+    .popup-content h3 {
+        font-size: 18px;
+    }
+
+    .popup-content p {
+        font-size: 14px;
+    }
+
+    .popup-buttons {
+        flex-direction: column;
+    }
+
+    .popup-btn {
+        width: 100%;
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .search-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .search-container input,
+    .search-container select {
+        width: 100%;
+    }
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .search-container {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .search-container input,
+    .search-container select {
+        width: 100%;
+    }
+}
+

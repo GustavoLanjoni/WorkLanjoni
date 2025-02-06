@@ -43,3 +43,18 @@ function logout() {
     localStorage.removeItem('loggedInUser'); // Remove o estado do usuário logado
     showAuthButtons(); // Exibe os botões de login e cadastro novamente
 }
+
+// Adiciona o evento de clique no perfil para abrir/fechar o dropdown
+const profileButton = document.querySelector('.profile-btn');
+const userMenu = document.querySelector('.user-menu');
+
+profileButton.addEventListener('click', function() {
+    userMenu.classList.toggle('active');
+});
+
+// Fecha o dropdown se o usuário clicar fora do menu
+document.addEventListener('click', function(event) {
+    if (!userMenu.contains(event.target) && !profileButton.contains(event.target)) {
+        userMenu.classList.remove('active');
+    }
+});

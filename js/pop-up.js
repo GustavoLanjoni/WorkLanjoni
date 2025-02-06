@@ -1,24 +1,22 @@
 // Função para abrir o pop-up
 function openPopup() {
-    document.getElementById('loginSignupPopup').style.display = 'flex';
+    document.getElementById('loginSignupPopup').classList.add('show');
 }
 
 // Função para fechar o pop-up
 function closePopup() {
-    document.getElementById('loginSignupPopup').style.display = 'none';
-    // Marca que o pop-up foi mostrado
-    localStorage.setItem('popupShown', 'true');
+    document.getElementById('loginSignupPopup').classList.remove('show');
 }
 
-// Verifica se o pop-up já foi mostrado
-if (!localStorage.getItem('popupShown')) {
-    // Exibe o pop-up quando o usuário clica em qualquer lugar pela primeira vez
-    document.addEventListener('click', function (event) {
-        // Evita que o pop-up seja mostrado se o clique for dentro dele
-        if (!document.getElementById('loginSignupPopup').contains(event.target)) {
-            openPopup();
-            // Remover o ouvinte de evento após o primeiro clique para evitar múltiplos pop-ups
-            document.removeEventListener('click', arguments.callee);
-        }
+// Verifica se o usuário está logado
+function isUserLoggedIn() {
+    return localStorage.getItem('userLoggedIn') === 'true'; // Ou utilize sessionStorage
+}
+
+// Se o usuário NÃO estiver logado, exibe o pop-up no primeiro clique
+if (!isUserLoggedIn()) {
+    document.addEventListener('click', function showPopupOnce() {
+        openPopup();
+        document.removeEventListener('click', showPopupOnce);
     });
 }
