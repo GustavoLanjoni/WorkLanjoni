@@ -88,15 +88,19 @@
         </div>
     </div>
 
-    <!--Barra de Pesquisa-->
+
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Buscar por vaga..." oninput="filterVagas()" />
-        <input type="text" id="cityFilter" placeholder="Cidade" oninput="filterVagas()" />
+        <input type="text" id="searchInput" placeholder="Buscar por vaga..." oninput="filterVagas()">
+        <input type="text" id="cityFilter" placeholder="Cidade" oninput="filterVagas()">
+        
+        <!-- Filtro de Tipo de Trabalho -->
         <select id="remoteFilter" onchange="filterVagas()">
             <option value="">Tipo de Trabalho</option>
             <option value="Home Office">Home Office</option>
             <option value="Presencial">Presencial</option>
         </select>
+        
+        <!-- Filtro de Data -->
         <select id="dateFilter" onchange="filterVagas()">
             <option value="">Data do Anúncio</option>
             <option value="24h">Últimas 24 horas</option>
@@ -104,6 +108,8 @@
             <option value="7d">Últimos 7 dias</option>
             <option value="14d">Últimos 14 dias</option>
         </select>
+    
+        <!-- Filtro de Tipo de Vaga -->
         <select id="jobTypeFilter" onchange="filterVagas()">
             <option value="">Tipo de Vaga</option>
             <option value="Tempo Integral">Tempo Integral</option>
@@ -111,19 +117,21 @@
             <option value="Efetivo CLT">Efetivo CLT</option>
         </select>
     </div>
+    
 
 
 
 
-    <!--Onde as vagas aparecem-->
-    <div id="vagasContainer" class="vagas-container">
-        <div id="listaVagas" class="vagas-list">
-            <h2>Vagas Disponíveis</h2>
-            <div id="vagalists">
-                <!-- As vagas serão inseridas dinamicamente aqui -->
-            </div>
-        </div>
+
+
+<!-- Onde as vagas aparecerão -->
+<div id="vagasContainer" class="vagas-container">
+    <div id="vagalists" class="vagas-list">
+        <!-- As vagas serão inseridas dinamicamente aqui -->
     </div>
+</div>
+>
+
 
 
 
@@ -194,27 +202,31 @@
 
     </script>
 
+    <!--Barra de pesquisa-->
     <script>
-        function debounce(func, delay) {
-            let timeout;
-            return function (...args) {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => func(...args), delay);
-            };
+        function exibirVagas(vagas) {
+            const vagasContainer = document.getElementById('vagalists');
+            vagasContainer.innerHTML = ''; // Limpa o conteúdo antes de exibir as vagas filtradas
+
+            if (vagas.length > 0) {
+                vagas.forEach(vaga => {
+                    const vagaDiv = document.createElement('div');
+                    vagaDiv.classList.add('vaga-item');
+                    vagaDiv.innerHTML = `
+                <h3>${vaga.nome}</h3>
+                <p>${vaga.descricao}</p>
+                <p><strong>Cidade:</strong> ${vaga.cidade}</p>
+                <p><strong>Tipo de Trabalho:</strong> ${vaga.tipoTrabalho}</p>
+                <p><strong>Data de Anúncio:</strong> ${vaga.dataAnuncio}</p>
+                <p><strong>Tipo de Vaga:</strong> ${vaga.tipoVaga}</p>
+            `;
+                    vagasContainer.appendChild(vagaDiv);
+                });
+            } else {
+                vagasContainer.innerHTML = '<p>Nenhuma vaga encontrada.</p>';
+            }
         }
 
-        const filterVagas = debounce((termoBusca) => {
-            const termo = termoBusca.toLowerCase();
-            const vagasFiltradas = vagasPublicadas.filter(vaga =>
-                vaga.nome.toLowerCase().includes(termo) ||
-                vaga.descricao.toLowerCase().includes(termo)
-            );
-            exibirVagas(vagasFiltradas);
-        }, 300);
-
-        searchInput.addEventListener('input', (e) => {
-            filterVagas(e.target.value);
-        });
 
     </script>
 
@@ -243,7 +255,11 @@
 
 
     <script src="js/utils.js"></script>
+
+    <!--Barra de pesquisa-->
     <script src="js/barraDePesquisa.js"></script>
+
+    <!--pop-up / cadastro e login-->
     <script src="js/pop-up.js"></script>
 
     <!--Verfica se o usuario esta lagado ou não-->
