@@ -101,7 +101,7 @@
                 return dataPublicacao.getMonth() === mesAtual && dataPublicacao.getFullYear() === anoAtual;
             });
 
-            if (vagasNoMes.length >= 15) {
+            if (vagasNoMes.length >= 200) {
                 const proximoMes = new Date(anoAtual, mesAtual + 1, 1);
                 const diasRestantes = Math.ceil((proximoMes - hoje) / (1000 * 3600 * 24));
 
@@ -139,7 +139,7 @@
     <!--Envia para tela index-->
     <script src="js/enviarTelaUsuario.js"></script>
 
-    <!---->
+    <!--Envia para tela de vagas postadas-->
     <script src="js/enviarTelaVagasPublicadas.js"></script>
 </body>
 

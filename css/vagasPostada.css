@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center; /* Alinha horizontalmente no centro */
+    align-items: center; /* Alinha verticalmente no centro */
+    min-height: 100vh;
+    padding: 20px;
+    flex-direction: column; /* Garante que o conteúdo seja empilhado verticalmente */
+    overflow-y: auto; /* Permite rolar a tela caso o conteúdo ultrapasse a altura da tela */
+}
+
+#voltar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 18px;
+    color: #007bff;
+    text-decoration: none;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+#voltar:hover {
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+}
+
+.form-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: block;
+    color: #333;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 8px;
+}
+
+.input-group textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.mensagem {
+    display: none;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f8d7da;
+    padding: 15px;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.mensagem.sucesso {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.mensagem.show {
+    display: block;
+}
+
+#fechar-mensagem {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
