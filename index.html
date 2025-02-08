@@ -92,14 +92,14 @@
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Buscar por vaga..." oninput="filterVagas()">
         <input type="text" id="cityFilter" placeholder="Cidade" oninput="filterVagas()">
-        
+
         <!-- Filtro de Tipo de Trabalho -->
         <select id="remoteFilter" onchange="filterVagas()">
             <option value="">Tipo de Trabalho</option>
             <option value="Home Office">Home Office</option>
             <option value="Presencial">Presencial</option>
         </select>
-        
+
         <!-- Filtro de Data -->
         <select id="dateFilter" onchange="filterVagas()">
             <option value="">Data do Anúncio</option>
@@ -108,7 +108,7 @@
             <option value="7d">Últimos 7 dias</option>
             <option value="14d">Últimos 14 dias</option>
         </select>
-    
+
         <!-- Filtro de Tipo de Vaga -->
         <select id="jobTypeFilter" onchange="filterVagas()">
             <option value="">Tipo de Vaga</option>
@@ -117,21 +117,21 @@
             <option value="Efetivo CLT">Efetivo CLT</option>
         </select>
     </div>
-    
 
 
 
 
 
 
-<!-- Onde as vagas aparecerão -->
-<div id="vagasContainer" class="vagas-container">
-    <div id="vagalists" class="vagas-list">
-        <div id="vagalists2"></div>
-        <!-- As vagas serão inseridas dinamicamente aqui -->
+
+    <!-- Onde as vagas aparecerão -->
+    <div id="vagasContainer" class="vagas-container">
+        <div id="vagalists" class="vagas-list">
+            <div id="vagalists2"></div>
+            <!-- As vagas serão inseridas dinamicamente aqui -->
+        </div>
+
     </div>
-    <div id="vagalists2"></div>
-</div>
 
 
 
@@ -187,6 +187,65 @@
         </div>
     </footer>
 
+
+    <!--Recuperar a vaga plano Basico-->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Recupera as vagas do localStorage
+            const vagasPublicadas = JSON.parse(localStorage.getItem('planoBasico')) || [];
+
+            // Função para exibir as vagas na página
+            exibirVagas(vagasPublicadas);
+        });
+
+        // Função para exibir as vagas publicadas
+        function exibirVagas(vagas) {
+            const vagaListDiv = document.getElementById('vagalists'); // Div onde as vagas serão exibidas
+
+            if (!vagaListDiv) {
+                console.error("Elemento com ID 'vagalists' não encontrado no HTML.");
+                return;
+            }
+
+            // Limpa a lista antes de reexibir
+            vagaListDiv.innerHTML = '';
+
+            // Loop para adicionar cada vaga à lista
+            vagas.forEach(vaga => {
+                const vagaDiv = document.createElement('div');
+                vagaDiv.classList.add('vaga');
+
+                // Verifica se a data de publicação existe antes de exibir
+                const dataPublicacao = vaga.dataPublicacao ? new Date(vaga.dataPublicacao).toLocaleDateString() : "Data não disponível";
+
+                // Adiciona as informações da vaga
+                vagaDiv.innerHTML = `
+            <h3>${vaga.nome}</h3>
+            <p><strong>Descrição:</strong> ${vaga.descricao}</p>
+            <p><strong>Contato:</strong> ${vaga.contato}</p>
+            <p><strong>Benefícios:</strong> ${vaga.beneficio}</p>
+            <p><strong>Salário:</strong> ${vaga.salario}</p>
+            <p><strong>Requisitos:</strong> ${vaga.requisitos}</p>
+            <p><strong>Local:</strong> ${vaga.local}</p>
+            <p><strong>Carga Horária:</strong> ${vaga.cargaHoraria}</p>
+            <p><strong>Tipo de Contratação:</strong> ${vaga.tipoContratacao}</p>
+            <p><strong>Tipo de Vaga:</strong> ${vaga.tipoVaga}</p>
+            <p><strong>Data de Publicação:</strong> ${dataPublicacao}</p>
+            <button onclick="abrirDetalhes('${vaga.id}')">Ver Detalhes</button>
+            <hr>
+        `;
+
+                // Adiciona a vaga à div #vagalists
+                vagaListDiv.appendChild(vagaDiv);
+            });
+        }
+
+        // Função para abrir os detalhes da vaga em outra página
+        function abrirDetalhes(vagaId) {
+            window.location.href = `detalhes.html?id=${vagaId}`;
+        }
+
+    </script>
 
 
     <!--Menu-->
@@ -252,7 +311,7 @@
     <script src="js/enviarTelaUsuario.js"></script>
 
     <!--Vaga Plano Profissional-->
-    <script src="js/enviarTelaUsuario1.js"></script>
+    <script src="js/enviarTelaUsuario2.js"></script>
 
 
 

@@ -1,48 +1,81 @@
-document.addEventListener("DOMContentLoaded", function () {
-    carregarVagas();
-});
+document.getElementById('vagaForm').addEventListener('submit', (event) => {
+    event.preventDefault();
 
-function carregarVagas() {
-    const listaVagas = document.getElementById("vagalists");
-    listaVagas.innerHTML = ""; // Limpa a lista antes de carregar
+    const hoje = new Date();
+    const mesAtual = hoje.getMonth();
+    const anoAtual = hoje.getFullYear();
 
-    const vagasPublicadas = JSON.parse(localStorage.getItem("vagasPublicadas")) || [];
+    let vagasPublicadas = JSON.parse(localStorage.getItem('planoBasico')) || [];
 
-    if (vagasPublicadas.length === 0) {
-        listaVagas.innerHTML = "<p>Nenhuma vaga disponível no momento.</p>";
+    const vagasNoMes = vagasPublicadas.filter(vaga => {
+        const dataPublicacao = new Date(vaga.dataPublicacao);
+        return dataPublicacao.getMonth() === mesAtual && dataPublicacao.getFullYear() === anoAtual;
+    });
+
+    if (vagasNoMes.length >= 15) {
+        const proximoMes = new Date(anoAtual, mesAtual + 1, 1);
+        const diasRestantes = Math.ceil((proximoMes - hoje) / (1000 * 3600 * 24));
+
+        document.getElementById('mensagemLimite').innerHTML = `Você já publicou 15 vagas neste mês. Tente novamente em ${diasRestantes} dias.`;
+        document.getElementById('myModal').style.display = "block";
         return;
     }
 
-    vagasPublicadas.forEach((vaga) => {
-        const vagaElement = document.createElement("div");
-        vagaElement.classList.add("vaga");
-        vagaElement.dataset.id = String(vaga.id); // Garante que o ID seja string
+    const vaga = {
+        nome: document.getElementById('nomeVaga').value,
+        descricao: document.getElementById('descricaoVaga').value,
+        contato: document.getElementById('contato').value,
+        beneficio: document.getElementById('beneficio').value,
+        salario: document.getElementById('salario').value,
+        requisitos: document.getElementById('requisitos').value,
+        local: document.getElementById('local').value,
+        cargaHoraria: document.getElementById('cargaHoraria').value,
+        tipoContratacao: document.getElementById('tipoContratacao').value,
+        tipoVaga: document.getElementById('tipoVaga').value,
+        dataPublicacao: hoje.toISOString()
+    };
 
-        // Atualização do conteúdo com nome, descrição e salário
-        vagaElement.innerHTML = `
+    vagasPublicadas.push(vaga);
+    localStorage.setItem('planoBasico', JSON.stringify(vagasPublicadas));
+
+    document.getElementById('mensagemLimite').innerHTML = `Vaga publicada com sucesso!`;
+    document.getElementById('myModal').style.display = "block";
+
+    exibirVagas(vagasPublicadas);
+});
+
+function exibirVagas(vagas) {
+    const vagaListDiv = document.getElementById('vagalists');
+    
+    vagaListDiv.innerHTML = '';
+
+    vagas.forEach((vaga, index) => {
+        const vagaDiv = document.createElement('div');
+        vagaDiv.classList.add('vaga');
+
+        vagaDiv.innerHTML = `
             <h3>${vaga.nome}</h3>
-            <p><strong>Descrição:</strong> ${vaga.descricao}</p>
-            <p><strong>Salário:</strong> R$ ${vaga.salario}</p>
+            <p><strong>Descrição:</strong> ${vaga.descricao.slice(0, 50)}...</p>
+            <p><strong>Salário:</strong> ${vaga.salario}</p>
+            <p><strong>Local:</strong> ${vaga.local}</p>
+            <p><strong>Data de Publicação:</strong> ${new Date(vaga.dataPublicacao).toLocaleDateString()}</p>
+            <button class="verMais" onclick="redirecionarParaDetalhes(${index})">Ver Mais</button>
+            <hr>
         `;
 
-        // Adiciona o botão "Ver Vaga"
-        const verVagaButton = document.createElement("button");
-        verVagaButton.innerText = "Ver Vaga";
-        verVagaButton.classList.add("ver-vaga-btn");
-        verVagaButton.addEventListener("click", function (e) {
-            e.stopPropagation(); // Previne que o evento de click da vaga seja disparado
-            verDetalhesVaga(vaga);
-        });
-
-        vagaElement.appendChild(verVagaButton);
-        listaVagas.appendChild(vagaElement);
+        vagaListDiv.appendChild(vagaDiv);
     });
 }
 
-function verDetalhesVaga(vaga) {
-    // Salva os dados da vaga no localStorage para ser acessado na página detalhes.html
-    localStorage.setItem("vagaSelecionada", JSON.stringify(vaga));
+function redirecionarParaDetalhes(index) {
+    window.location.href = `detalhes.html?index=${index}`;
+}
 
-    // Redireciona para a página detalhes.html
-    window.location.href = "detalhes.html";
+document.addEventListener('DOMContentLoaded', () => {
+    const vagasPublicadas = JSON.parse(localStorage.getItem('planoBasico')) || [];
+    exibirVagas(vagasPublicadas);
+});
+
+function fecharModal() {
+    document.getElementById('myModal').style.display = "none";
 }
