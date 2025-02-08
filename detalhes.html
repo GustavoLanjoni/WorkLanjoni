@@ -41,37 +41,51 @@
             const vagaId = params.get('id'); // Obtém o ID da vaga
 
             if (!vagaId) {
-                document.getElementById('detalhesVaga').innerHTML = "<p>Vaga não encontrada.</p>";
+                document.getElementById('vaga-detalhes').innerHTML = "<p>Vaga não encontrada.</p>";
                 return;
             }
 
             // Recupera as vagas do localStorage
             const vagasPublicadas = JSON.parse(localStorage.getItem('planoBasico')) || [];
 
-            // Busca a vaga pelo ID
-            const vaga = vagasPublicadas.find(vaga => vaga.id === vagaId);
+            // Adiciona um log para verificar o conteúdo do localStorage
+            console.log("Vagas no localStorage:", vagasPublicadas);
+
+            // Garante que o id seja do tipo correto para a comparação (string ou número)
+            const vaga = vagasPublicadas.find(vaga => String(vaga.id) === String(vagaId)); // Garantir que ambos os ids sejam strings
 
             if (!vaga) {
-                document.getElementById('detalhesVaga').innerHTML = "<p>Vaga não encontrada.</p>";
+                document.getElementById('vaga-detalhes').innerHTML = "<p>Vaga não encontrada.</p>";
                 return;
             }
 
             // Exibe as informações da vaga
-            document.getElementById('detalhesVaga').innerHTML = `
-        <h2>${vaga.nome}</h2>
-        <p><strong>Descrição:</strong> ${vaga.descricao}</p>
-        <p><strong>Contato:</strong> ${vaga.contato}</p>
-        <p><strong>Benefícios:</strong> ${vaga.beneficio}</p>
-        <p><strong>Salário:</strong> ${vaga.salario}</p>
-        <p><strong>Requisitos:</strong> ${vaga.requisitos}</p>
-        <p><strong>Local:</strong> ${vaga.local}</p>
-        <p><strong>Carga Horária:</strong> ${vaga.cargaHoraria}</p>
-        <p><strong>Tipo de Contratação:</strong> ${vaga.tipoContratacao}</p>
-        <p><strong>Tipo de Vaga:</strong> ${vaga.tipoVaga}</p>
-        <p><strong>Data de Publicação:</strong> ${new Date(vaga.dataPublicacao).toLocaleDateString()}</p>
-    `;
-        });
+            document.getElementById('modal-titulo').innerText = vaga.nome;
+            document.getElementById('modal-descricao').innerText = vaga.descricao;
+            document.getElementById('modal-contato').innerText = vaga.contato;
+            document.getElementById('modal-beneficio').innerText = vaga.beneficio;
+            document.getElementById('modal-salario').innerText = vaga.salario;
+            document.getElementById('modal-local').innerText = vaga.local;
+            document.getElementById('modal-cargaHoraria').innerText = vaga.cargaHoraria;
+            document.getElementById('modal-tipoContratacao').innerText = vaga.tipoContratacao;
+            document.getElementById('modal-tipoVaga').innerText = vaga.tipoVaga;
 
+            // Exibe os requisitos, caso existam
+            const requisitosList = document.getElementById('modal-requisitos');
+            requisitosList.innerHTML = ''; // Limpa a lista de requisitos
+
+            // Verifica se 'requisitos' é um array e se não está vazio
+            if (Array.isArray(vaga.requisitos) && vaga.requisitos.length > 0) {
+                vaga.requisitos.forEach(requisito => {
+                    const listItem = document.createElement('li');
+                    listItem.innerText = requisito;
+                    requisitosList.appendChild(listItem);
+                });
+            } else {
+                // Caso não haja requisitos, exibe uma mensagem
+                requisitosList.innerHTML = "<li>Não especificado</li>";
+            }
+        });
 
         function voltarParaLista() {
             window.location.href = "index.html";
@@ -81,7 +95,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const vagaId = urlParams.get("id");
             const vagas = JSON.parse(localStorage.getItem("planoBasico")) || [];
-            const vaga = vagas.find(v => v.id === vagaId);
+            const vaga = vagas.find(v => String(v.id) === String(vagaId));
 
             if (vaga) {
                 const vagasSalvas = JSON.parse(localStorage.getItem("vagasSalvas")) || [];
@@ -100,7 +114,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const vagaId = urlParams.get("id");
             const vagas = JSON.parse(localStorage.getItem("planoBasico")) || [];
-            const vaga = vagas.find(v => v.id === vagaId);
+            const vaga = vagas.find(v => String(v.id) === String(vagaId));
 
             if (vaga) {
                 const vagaLink = window.location.href;

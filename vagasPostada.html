@@ -10,23 +10,18 @@
 
 <body>
     <!-- Botão de voltar -->
-    <a href="telaEmpresa1.html" class="voltar-btn">
-        &#8592; Voltar
-    </a>
+    <a href="telaEmpresa1.html" class="voltar-btn">&#8592; Voltar</a>
 
     <h2>Vagas Postadas</h2>
-
-
 
     <div id="vagasPostadasContainer"></div>
 
     <!-- Modal para editar vaga -->
-    <div id="editModal" class="modal">
+    <div id="modalEditarVaga" class="modal">
         <div class="modal-content">
-            <span class="close-button" onclick="fecharModal()">&times;</span>
+            <span class="close-button">&times;</span> <!-- Botão X para fechar -->
             <h2>Editar Vaga</h2>
             <form id="editForm">
-                <!-- Campos de edição da vaga -->
                 <label for="editNome">Nome:</label>
                 <input type="text" id="editNome" required>
 
@@ -57,7 +52,7 @@
                 <label for="editTipoVaga">Tipo de Vaga:</label>
                 <input type="text" id="editTipoVaga">
 
-                <label for="editExpiracao">Data de Expiração (AAAA-MM-DD):</label>
+                <label for="editExpiracao">Data de Expiração:</label>
                 <input type="date" id="editExpiracao">
 
                 <button type="submit">Salvar Alterações</button>
@@ -65,140 +60,117 @@
         </div>
     </div>
 
-    <!-- Script para gerenciar as vagas -->
+    <div class="alerta-expiracao">
+        <p><strong>Atenção:</strong> As vagas serão excluídas automaticamente após 15 dias de postagem. Caso queira mudar seu plano para mais tempo de visibilidade, <a href="planos.html">clique aqui</a>.</p>
+    </div>
+
     <script>
-        let vagaEditandoIndex = null;
-        const VAGA_EXPIRACAO_DIAS = 15; // Definindo a expiração de 15 dias
+        document.addEventListener("DOMContentLoaded", function () {
+            const vagasPostadasContainer = document.getElementById("vagasPostadasContainer");
+            const modal = document.getElementById("modalEditarVaga");
+            const closeButton = document.querySelector(".close-button");
 
-        // Função para abrir o modal
-        function abrirModal(vaga, index) {
-            vagaEditandoIndex = index;
+            // Função para carregar vagas
+            function carregarVagas() {  
+                let vagasPublicadas = JSON.parse(localStorage.getItem("planoBasico")) || [];
 
-            // Preencher os campos do modal com os dados da vaga
-            document.getElementById('editNome').value = vaga.nome;
-            document.getElementById('editDescricao').value = vaga.descricao;
-            document.getElementById('editContato').value = vaga.contato;
-            document.getElementById('editBeneficio').value = vaga.beneficio;
-            document.getElementById('editSalario').value = vaga.salario;
-            document.getElementById('editRequisitos').value = vaga.requisitos;
-            document.getElementById('editLocal').value = vaga.local;
-            document.getElementById('editCargaHoraria').value = vaga.cargaHoraria;
-            document.getElementById('editTipoContratacao').value = vaga.tipoContratacao;
-            document.getElementById('editTipoVaga').value = vaga.tipoVaga;
-            document.getElementById('editExpiracao').value = vaga.expiracao;
+                if (vagasPublicadas.length === 0) {
+                    vagasPostadasContainer.innerHTML = "<p>Nenhuma vaga postada.</p>";
+                    return;
+                }
 
-            document.getElementById('editModal').style.display = 'block';
-        }
+                vagasPostadasContainer.innerHTML = "";
 
-        // Função para fechar o modal
-        function fecharModal() {
-            document.getElementById('editModal').style.display = 'none';
-        }
+                vagasPublicadas.forEach((vaga, index) => {
+                    const vagaDiv = document.createElement("div");
+                    vagaDiv.classList.add("vaga");
 
-        // Função para salvar as alterações
-        document.getElementById('editForm').addEventListener('submit', function (e) {
-            e.preventDefault();
+                    vagaDiv.innerHTML = `
+                        <h3>${vaga.nome}</h3>
+                        <p><strong>Descrição:</strong> ${vaga.descricao}</p>
+                        <p><strong>Contato:</strong> ${vaga.contato}</p>
+                        <p><strong>Benefícios:</strong> ${vaga.beneficio}</p>
+                        <p><strong>Salário:</strong> ${vaga.salario}</p>
+                        <p><strong>Requisitos:</strong> ${vaga.requisitos}</p>
+                        <p><strong>Local:</strong> ${vaga.local}</p>
+                        <p><strong>Carga Horária:</strong> ${vaga.cargaHoraria}</p>
+                        <p><strong>Tipo de Contratação:</strong> ${vaga.tipoContratacao}</p>
+                        <p><strong>Tipo de Vaga:</strong> ${vaga.tipoVaga}</p>
+                        <p><strong>Data de Expiração:</strong> ${vaga.expiracao}</p>
+                        <button onclick="editarVaga(${index})">Editar</button>
+                        <button onclick="excluirVaga(${index})" style="background-color: red; color: white;">Excluir</button>
+                        <hr>
+                    `;
 
-            // Atualizar a vaga
-            vagasPostadas[vagaEditandoIndex] = {
-                nome: document.getElementById('editNome').value,
-                descricao: document.getElementById('editDescricao').value,
-                contato: document.getElementById('editContato').value,
-                beneficio: document.getElementById('editBeneficio').value,
-                salario: document.getElementById('editSalario').value,
-                requisitos: document.getElementById('editRequisitos').value,
-                local: document.getElementById('editLocal').value,
-                cargaHoraria: document.getElementById('editCargaHoraria').value,
-                tipoContratacao: document.getElementById('editTipoContratacao').value,
-                tipoVaga: document.getElementById('editTipoVaga').value,
-                dataPostagem: vagasPostadas[vagaEditandoIndex].dataPostagem, // Mantém a data original
-                expiracao: document.getElementById('editExpiracao').value || null
-            };
-
-            // Salvar no localStorage e atualizar a lista
-            localStorage.setItem('vagasUsuario', JSON.stringify(vagasPostadas));
-            alert('Vaga atualizada com sucesso!');
-            fecharModal();
-            renderVagas(); // Atualiza a exibição
-        });
-
-        // Função para verificar e remover vagas expiradas
-        function verificarVagasExpiradas() {
-            const vagasValidas = vagasPostadas.filter(vaga => {
-                const dataPostagem = new Date(vaga.dataPostagem);
-                const dataAtual = new Date();
-                const tempoPassado = (dataAtual - dataPostagem) / (1000 * 3600 * 24); // Diferença em dias
-                return tempoPassado <= VAGA_EXPIRACAO_DIAS; // Só mantém as vagas dentro do prazo de 15 dias
-            });
-
-            // Atualiza as vagas no localStorage após a filtragem
-            vagasPostadas = vagasValidas;
-            localStorage.setItem('vagasUsuario', JSON.stringify(vagasPostadas));
-            renderVagas(); // Atualiza a exibição das vagas
-        }
-
-        // Função para renderizar as vagas na tela
-        function renderVagas() {
-            const vagasContainer = document.getElementById('vagasPostadasContainer');
-            vagasContainer.innerHTML = ''; // Limpa as vagas exibidas
-
-            vagasPostadas.forEach((vaga, index) => {
-                const vagaDiv = document.createElement('div');
-                vagaDiv.classList.add('vaga');
-
-                // Calculando o tempo que a vaga está no ar
-                const dataPostagem = new Date(vaga.dataPostagem);
-                const dataAtual = new Date();
-                const tempoPassado = Math.floor((dataAtual - dataPostagem) / (1000 * 3600 * 24)); // Diferença em dias
-
-                vagaDiv.innerHTML = `
-            <h3>${vaga.nome}</h3>
-            <p>${vaga.descricao}</p>
-            <p><strong>Contato:</strong> ${vaga.contato}</p>
-            <p><strong>Benefício:</strong> ${vaga.beneficio}</p>
-            <p><strong>Salário:</strong> ${vaga.salario}</p>
-            <p><strong>Requisitos:</strong> ${vaga.requisitos}</p>
-            <p><strong>Local:</strong> ${vaga.local}</p>
-            <p><strong>Carga Horária:</strong> ${vaga.cargaHoraria}</p>
-            <p><strong>Tipo de Contratação:</strong> ${vaga.tipoContratacao}</p>
-            <p><strong>Tipo de Vaga:</strong> ${vaga.tipoVaga}</p>
-            <p><strong>Data de Expiração:</strong> ${vaga.expiracao}</p>
-            <p><strong>Tempo no ar:</strong> ${tempoPassado} dias</p>
-            <button onclick="editarVaga(${index})">Editar</button>
-            <button onclick="excluirVaga(${index})" class="btn-excluir">Excluir</button>
-        `;
-                vagasContainer.appendChild(vagaDiv);
-            });
-        }
-
-
-        // Chama a função de verificação ao carregar a página
-        document.addEventListener('DOMContentLoaded', function () {
-            // Carrega as vagas do localStorage
-            const vagasData = localStorage.getItem('vagasUsuario');
-            if (vagasData) {
-                vagasPostadas = JSON.parse(vagasData);
-            } else {
-                vagasPostadas = [];
+                    vagasPostadasContainer.appendChild(vagaDiv);
+                });
             }
 
-            // Verifica as vagas expiradas e as remove, se necessário
-            verificarVagasExpiradas();
+            // Função para excluir vaga
+            window.excluirVaga = function (index) {
+                let vagasPublicadas = JSON.parse(localStorage.getItem("planoBasico")) || [];
+                vagasPublicadas.splice(index, 1);
+                localStorage.setItem("planoBasico", JSON.stringify(vagasPublicadas));
+                carregarVagas();
+            };
+
+            // Função para editar vaga
+            window.editarVaga = function (index) {
+                let vagasPublicadas = JSON.parse(localStorage.getItem("planoBasico")) || [];
+                let vaga = vagasPublicadas[index];
+
+                if (!vaga) return;
+
+                document.getElementById("editNome").value = vaga.nome;
+                document.getElementById("editDescricao").value = vaga.descricao;
+                document.getElementById("editContato").value = vaga.contato;
+                document.getElementById("editBeneficio").value = vaga.beneficio;
+                document.getElementById("editSalario").value = vaga.salario;
+                document.getElementById("editRequisitos").value = vaga.requisitos;
+                document.getElementById("editLocal").value = vaga.local;
+                document.getElementById("editCargaHoraria").value = vaga.cargaHoraria;
+                document.getElementById("editTipoContratacao").value = vaga.tipoContratacao;
+                document.getElementById("editTipoVaga").value = vaga.tipoVaga;
+                document.getElementById("editExpiracao").value = vaga.expiracao;
+
+                modal.style.display = "flex"; // Exibe o modal
+
+                document.getElementById("editForm").onsubmit = function (event) {
+                    event.preventDefault();
+
+                    vaga.nome = document.getElementById("editNome").value;
+                    vaga.descricao = document.getElementById("editDescricao").value;
+                    vaga.contato = document.getElementById("editContato").value;
+                    vaga.beneficio = document.getElementById("editBeneficio").value;
+                    vaga.salario = document.getElementById("editSalario").value;
+                    vaga.requisitos = document.getElementById("editRequisitos").value;
+                    vaga.local = document.getElementById("editLocal").value;
+                    vaga.cargaHoraria = document.getElementById("editCargaHoraria").value;
+                    vaga.tipoContratacao = document.getElementById("editTipoContratacao").value;
+                    vaga.tipoVaga = document.getElementById("editTipoVaga").value;
+                    vaga.expiracao = document.getElementById("editExpiracao").value;
+
+                    vagasPublicadas[index] = vaga;
+                    localStorage.setItem("planoBasico", JSON.stringify(vagasPublicadas));
+
+                    fecharModal(); // Fecha o modal
+                    carregarVagas(); // Recarrega as vagas
+                };
+            };
+
+            // Função para fechar o modal
+            window.fecharModal = function () {
+                modal.style.display = "none";
+            };
+
+            // Fecha o modal ao clicar no X
+            closeButton.addEventListener("click", fecharModal);
+
+            // Carrega as vagas quando a página é carregada
+            carregarVagas();
         });
-
-        // Verifica as vagas expiradas a cada 24 horas (86400000 ms)
-        setInterval(verificarVagasExpiradas, 86400000);
-
     </script>
 
-
-
-
-    <!-- Mensagem de atenção sobre a expiração das vagas -->
-    <div class="alerta-expiracao">
-        <p><strong>Atenção:</strong> As vagas serão excluídas automaticamente após 15 dias de postagem. Caso queira
-            mudar seu plano para mais tempo de visibilidade, <a href="planos.html">clique aqui</a>.</p>
-    </div>
 </body>
 
 </html>

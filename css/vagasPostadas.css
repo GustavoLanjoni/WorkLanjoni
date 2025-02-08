@@ -1,48 +1,79 @@
+/* Estilos globais */
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: #f4f4f9; /* Fundo claro para contraste */
+    color: #333; /* Texto escuro */
+    line-height: 1.6;
+    box-sizing: border-box;
 }
 
 h2 {
     text-align: center;
     margin-bottom: 20px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
 }
 
+/* Container das vagas */
 #vagasPostadasContainer {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    max-width: 900px;
+    margin: auto;
 }
 
+/* Card das vagas */
 .vaga {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
+
+
 
 .vaga h3 {
     margin: 0;
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .vaga p {
-    margin: 8px 0;
+    margin: 15px 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #555;
 }
 
+/* Botão de ação */
 .vaga button {
-    background-color: #ff4d4d;
+    background: #4CAF50; /* Verde moderno */
     color: white;
     border: none;
-    border-radius: 4px;
-    padding: 8px 12px;
+    border-radius: 50px;
+    padding: 12px 25px;
+    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease;
+    margin-top: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .vaga button:hover {
-    background-color: #ff3333;
+    background: #45a049; /* Tom mais escuro */
+    transform: scale(1.05);
 }
 
 /* Estilos para o modal */
@@ -54,99 +85,168 @@ h2 {
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
 }
 
 .modal-content {
-    background-color: #fff;
-    margin: 10% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
-    border-radius: 8px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 70%;
+    max-width: 800px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    animation: fadeIn 0.3s ease-out;
+    overflow-y: auto;
+    max-height: 80vh;
+    position: relative;
 }
 
+/* Botão de fechar modal */
 .close-button {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+    color: #333;
+    font-size: 36px;
     font-weight: bold;
     cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    transition: color 0.3s ease;
 }
 
-.close-button:hover,
-.close-button:focus {
-    color: black;
-    text-decoration: none;
+.close-button:hover {
+    color: #ff3f3f;
 }
 
+/* Estilos do formulário */
 form label {
     display: block;
-    margin-top: 10px;
-    font-weight: bold;
+    margin-top: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #444;
 }
 
 form input, form textarea, form button {
     width: 100%;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 15px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background: #f9f9f9;
+    color: #333;
 }
 
+form input:focus, form textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+/* Botão de enviar formulário */
 form button {
-    background-color: #4CAF50;
+    background: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    padding: 15px 20px;
+    margin-top: 20px;
+    border-radius: 8px;
 }
 
 form button:hover {
-    background-color: #45a049;
+    background: #45a049;
+    transform: scale(1.05);
 }
 
+
+
+
+/* Botão de voltar */
 .voltar-btn {
-    font-size: 20px;
-    color: #000;
+    font-size: 18px;
+    color: #fff;
     text-decoration: none;
-    background-color: #f0f0f0;
-    padding: 10px 20px;
-    border-radius: 5px;
+    background: #333;
+    padding: 12px 25px;
+    border-radius: 50px;
     display: inline-block;
-    margin: 20px 0;
+    text-align: center;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .voltar-btn:hover {
-    background-color: #ddd;
+    background: #555;
+    transform: scale(1.05);
 }
 
-/* Estilo para a mensagem de alerta de expiração */
+/* Alerta de expiração */
 .alerta-expiracao {
-    background-color: #ffeb3b; /* Cor de fundo amarela */
-    color: #856404; /* Texto marrom escuro */
-    border: 1px solid #ffe082; /* Borda amarela mais suave */
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
     padding: 20px;
     margin: 20px 0;
-    border-radius: 5px;
+    border-radius: 12px;
     font-size: 16px;
-    font-family: Arial, sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .alerta-expiracao a {
-    color: #007bff; /* Cor azul para o link */
+    color: #007bff;
     text-decoration: none;
     font-weight: bold;
 }
 
 .alerta-expiracao a:hover {
-    text-decoration: underline; /* Sublinha o link ao passar o mouse */
+    text-decoration: underline;
 }
 
-.alerta-expiracao p {
-    margin: 0;
+/* Responsividade */
+@media (max-width: 768px) {
+    #vagasPostadasContainer {
+        padding: 10px;
+    }
+
+    .vaga {
+        padding: 20px;
+    }
+
+    .modal-content {
+        width: 85%;
+    }
+
+    form input, form textarea, form button {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 28px;
+    }
+
+    .vaga h3 {
+        font-size: 22px;
+    }
+
+    .vaga button {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .voltar-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
 }

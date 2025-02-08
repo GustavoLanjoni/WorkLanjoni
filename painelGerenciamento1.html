@@ -34,12 +34,22 @@
         <section id="graficoContainer">
             <canvas id="vagaTipoContratacaoChart"></canvas>
         </section>
+
+        <!-- Botão para visualizar as vagas excluídas -->
+        <section id="vagasExcluidasContainer">
+            <button id="toggleExcluidasBtn">Ver Vagas Excluídas</button>
+            <div id="vagasExcluidas" style="display: none;">
+                <h3>Vagas Excluídas</h3>
+                <ul id="listaVagasExcluidas"></ul>
+            </div>
+        </section>
     </main>
 
     <script>
-        // Função para calcular o número de vagas ativas e expiradas
+        // Função para calcular o número de vagas ativas, expiradas e excluir vagas
         function calcularVagas() {
-            const vagas = JSON.parse(localStorage.getItem('vagasUsuario')) || [];
+            const vagas = JSON.parse(localStorage.getItem('planoBasico')) || [];
+            const vagasExcluidas = JSON.parse(localStorage.getItem('vagasExcluidas')) || [];
             let vagasAtivas = 0;
             let vagasExpiradas = 0;
             let diasNoArTotal = 0;
@@ -65,7 +75,7 @@
             document.getElementById('vagasExpiradas').textContent = vagasExpiradas;
             document.getElementById('mediaDias').textContent = mediaDias;
 
-            return vagas;
+            return { vagasAtivas, vagasExpiradas, mediaDias, vagas, vagasExcluidas };
         }
 
         // Função para gerar o gráfico de distribuição de vagas por tipo de contratação
@@ -105,9 +115,32 @@
             });
         }
 
+        // Função para exibir vagas excluídas
+        function mostrarVagasExcluidas(vagasExcluidas) {
+            const listaExcluidas = document.getElementById('listaVagasExcluidas');
+            listaExcluidas.innerHTML = ''; // Limpar lista
+
+            vagasExcluidas.forEach(vaga => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Vaga: ${vaga.titulo} - Excluída em: ${vaga.dataExclusao}`;
+                listaExcluidas.appendChild(listItem);
+            });
+        }
+
+        // Alternar a exibição das vagas excluídas
+        document.getElementById('toggleExcluidasBtn').addEventListener('click', function () {
+            const vagasExcluidasSection = document.getElementById('vagasExcluidas');
+            if (vagasExcluidasSection.style.display === 'none') {
+                vagasExcluidasSection.style.display = 'block';
+                mostrarVagasExcluidas(calcularVagas().vagasExcluidas);
+            } else {
+                vagasExcluidasSection.style.display = 'none';
+            }
+        });
+
         // Carregar os dados e gerar o painel
         document.addEventListener('DOMContentLoaded', function () {
-            const vagas = calcularVagas();
+            const { vagas, vagasExcluidas } = calcularVagas();
             gerarGrafico(vagas);
         });
     </script>

@@ -353,19 +353,17 @@ header {
 
 
 
-/* Contêiner das vagas */
 .vagas-container {
     display: flex;
-    justify-content: center;  /* Alinha as vagas no centro */
-    flex-wrap: wrap;  /* Permite que as vagas se ajustem para a próxima linha quando necessário */
+    justify-content: center;
+    flex-wrap: wrap;
     padding: 20px;
     box-sizing: border-box;
 }
 
-/* Estilo da lista de vagas */
 .vagas-list {
     width: 100%;
-    max-width: 1200px;  /* Define um tamanho máximo para o container de vagas */
+    max-width: 1200px;
     background: #fff;
     padding: 40px;
     border-radius: 16px;
@@ -373,69 +371,112 @@ header {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Estilo para o contêiner de vagas (vagalists) para exibir lado a lado */
 #vagalists {
-    display: flex;  /* Habilita o layout flex */
-    flex-wrap: wrap;  /* Permite que as vagas se movam para a próxima linha quando necessário */
-    justify-content: space-between;  /* Espaça as vagas uniformemente */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
-/* Estilo para os quadrados das vagas */
 .vaga {
-    background: #f8f9fa;  /* Fundo suave */
-    border-radius: 10px;  /* Bordas arredondadas */
+    background: #f8f9fa;
+    border-radius: 10px;
     padding: 20px;
-    margin: 15px;  /* Espaçamento entre os quadrados */
-    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);  /* Sombra sutil */
+    margin: 15px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     min-height: 200px;
-    width: calc(33.333% - 30px);  /* Largura de cada quadrado (3 por linha) */
-    box-sizing: border-box;  /* Garantir que padding e margin não afetem a largura */
+    width: calc(33.333% - 30px);
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
-/* Efeito de hover para as vagas */
+.vaga p.requisito {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    text-align: justify;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.vaga p.requisitos {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    text-align: justify;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 60px;
+    max-height: 60px;
+}
+
 .vaga:hover {
     box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.15);
-    transform: translateY(-5px);  /* Elevação suave */
+    transform: translateY(-5px);
 }
 
-/* Título da vaga */
 .vaga h3 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: #495057;
     margin-bottom: 10px;
+    text-align: center;
 }
 
-/* Descrição e salário */
 .vaga p {
     font-size: 14px;
     color: #6c757d;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    text-align: justify;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* Estilo do botão "Ver Vaga" */
 .ver-vaga-btn {
-    background: #007bff;
+    background: #28a745;
     color: white;
-    padding: 10px 15px;
+    padding: 10px 20px;
     border-radius: 5px;
     font-size: 14px;
+    font-weight: bold;
     border: none;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.3s ease;
+    align-self: center;
+    margin-top: auto;
+    width: 100%;
+    text-align: center;
 }
 
-/* Efeito de hover no botão */
 .ver-vaga-btn:hover {
-    background: #0056b3;
+    background: #218838;
     transform: translateY(-2px);
 }
 
+.vaga {
+    border: 1px solid #dee2e6;
+}
 
+.vaga {
+    padding: 20px;
+}
 
 
 

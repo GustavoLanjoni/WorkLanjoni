@@ -32,6 +32,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    overflow-wrap: break-word; /* Garante que o conteúdo quebra corretamente */
 }
 
 /* Título */
@@ -40,14 +41,19 @@ h1 {
     color: #3f51b5;
     margin-bottom: 20px;
     text-align: center;
+    word-wrap: break-word; /* Garante que o título não ultrapasse os limites */
 }
 
 /* Detalhes da vaga */
 #vaga-detalhes p {
     font-size: 1.1rem;
     margin-bottom: 15px;
+    max-width: 100%; /* Garante que o texto não ultrapasse o container */
+    word-wrap: break-word; /* Quebra de palavras longas */
+    word-break: break-word; /* Garante que palavras grandes também quebrem */
 }
 
+/* Título em negrito */
 #vaga-detalhes strong {
     color: #3f51b5;
 }
@@ -56,6 +62,7 @@ h3 {
     font-size: 1.5rem;
     color: #333;
     margin-top: 20px;
+    word-wrap: break-word; /* Garante que o título não ultrapasse os limites */
 }
 
 /* Botões */
