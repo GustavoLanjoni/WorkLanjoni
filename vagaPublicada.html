@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publicar Nova Vaga</title>
+    <link rel="stylesheet" href="css/postadaVaga2.css">
+</head>
+
+<body>
+
+    <div class="form-group">
+        <button class="button-voltar" type="button" onclick="window.location.href='telaEmpresa2.html'">Voltar</button>
+    </div>
+
+    <div class="container">
+        <main>
+            <h2 class="form-title">Publicar Nova Vaga</h2>
+
+            <form id="vagaForm2" class="form-vaga2">            
+                <div class="form-group">
+                    <label for="nomeVaga">Nome da Vaga</label>
+                    <input type="text" id="nomeVaga" name="nomeVaga" placeholder="Exemplo: Desenvolvedor Frontend" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="descricaoVaga">Descrição da Vaga</label>
+                    <textarea id="descricaoVaga" name="descricaoVaga" rows="4" placeholder="Descreva as responsabilidades do cargo..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="contato">Contato</label>
+                    <input type="text" id="contato" name="contato" placeholder="Telefone ou e-mail para contato" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="beneficio">Benefícios</label>
+                    <input type="text" id="beneficio" name="beneficio" placeholder="Benefícios oferecidos pela vaga" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="salario">Salário</label>
+                    <input type="text" id="salario" name="salario" placeholder="Informe o salário ou faixa salarial" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="requisitos">Requisitos</label>
+                    <textarea id="requisitos" name="requisitos" rows="4" placeholder="Descreva os requisitos para a vaga (ex.: formação, experiência, habilidades)" required></textarea>
+                </div>
+
+                
+                <div class="form-group">
+                    <label for="cidade">Cidade</label>
+                    <input type="text" id="cidade" name="cidade" placeholder="Cidade onde a vaga está localizada" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tipoTrabalho">Tipo de Trabalho</label>
+                    <select id="tipoTrabalho" name="tipoTrabalho">
+                        <option value="Home Office">Home Office</option>
+                        <option value="Presencial">Presencial</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tipoVaga">Tipo de Vaga</label>
+                    <select id="tipoVaga" name="tipoVaga">
+                        <option value="Tempo Integral">Tempo Integral</option>
+                        <option value="Autônomo/PJ">Autônomo/PJ</option>
+                        <option value="Efetivo CLT">Efetivo CLT</option>
+                        <option value="Freelancer">Freelancer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="submit-button">Publicar Vaga</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script src="js/enviarTelaUsuario2.js"></script>
+</body>
+
+</html>

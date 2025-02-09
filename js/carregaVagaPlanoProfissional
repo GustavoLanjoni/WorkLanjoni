@@ -1,0 +1,103 @@
+// Recupera as vagas do localStorage
+let listaVagas = JSON.parse(localStorage.getItem('planoProfissional')) || [];
+
+// Se houver vagas, exibe-as
+if (listaVagas.length > 0) {
+    const vagaCardsContainer = document.getElementById('vagaCards');
+
+    listaVagas.forEach(function(vaga, index) {
+        // Cria um elemento div para cada vaga
+        const vagaCard = document.createElement('div');
+        vagaCard.classList.add('vaga-card');
+
+        // Estilos do card diretamente no JS
+        vagaCard.style.backgroundColor = '#fff';
+        vagaCard.style.borderRadius = '8px';
+        vagaCard.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.1)';
+        vagaCard.style.padding = '15px';
+        vagaCard.style.width = '280px';
+        vagaCard.style.marginBottom = '20px';
+        vagaCard.style.display = 'flex';
+        vagaCard.style.flexDirection = 'column';
+        vagaCard.style.justifyContent = 'space-between';
+        vagaCard.style.transition = 'transform 0.3s ease';
+
+        // Adiciona uma borda verde fluorescente
+        vagaCard.style.border = '2px solid #39FF14'; // Cor verde fluorescente
+        vagaCard.style.borderRadius = '8px'; // Bordas arredondadas
+
+        // Estilo para quando o card for hover
+        vagaCard.onmouseover = function() {
+            vagaCard.style.transform = 'translateY(-10px)';
+        };
+
+        vagaCard.onmouseout = function() {
+            vagaCard.style.transform = 'translateY(0)';
+        };
+
+        // Adiciona as informações principais (visíveis)
+        vagaCard.innerHTML = `
+            <h3>${vaga.nome}</h3>
+            <p><strong>Salário:</strong> ${vaga.salario}</p>
+            <p><strong>Cidade:</strong> ${vaga.cidade}</p>
+            <p><strong>Data de Publicação:</strong> ${vaga.dataPublicacao}</p>
+        `;
+
+        // Estilização de resumo para descrição e requisitos
+        const descricaoResumo = document.createElement('div');
+        descricaoResumo.style.fontSize = '14px';
+        descricaoResumo.style.color = '#6c757d';
+        descricaoResumo.style.marginBottom = '10px';
+        descricaoResumo.style.lineHeight = '1.6';
+        descricaoResumo.style.textAlign = 'justify';
+        descricaoResumo.style.display = '-webkit-box';
+        descricaoResumo.style.webkitLineClamp = '3'; // Limita a 3 linhas
+        descricaoResumo.style.webkitBoxOrient = 'vertical';
+        descricaoResumo.style.overflow = 'hidden';
+        descricaoResumo.style.textOverflow = 'ellipsis';
+
+        descricaoResumo.innerHTML = ` 
+            <strong>Descrição:</strong> ${vaga.descricao} <br>
+            <strong>Requisitos:</strong> ${vaga.requisitos}
+        `;
+
+        // Adiciona o resumo de descrição e requisitos ao card
+        vagaCard.appendChild(descricaoResumo);
+
+        // Cria o botão "Ver Mais" e adiciona o evento de clique
+        const verMaisButton = document.createElement('button');
+        verMaisButton.textContent = 'Ver Mais';
+
+        // Estilo do botão
+        verMaisButton.style.marginTop = '15px';
+        verMaisButton.style.padding = '10px';
+        verMaisButton.style.fontSize = '14px';
+        verMaisButton.style.color = '#fff';
+        verMaisButton.style.backgroundColor = '#007bff';
+        verMaisButton.style.border = 'none';
+        verMaisButton.style.borderRadius = '5px';
+        verMaisButton.style.cursor = 'pointer';
+        verMaisButton.style.transition = 'background-color 0.3s ease';
+
+        verMaisButton.onmouseover = function() {
+            verMaisButton.style.backgroundColor = '#0056b3';
+        };
+
+        verMaisButton.onmouseout = function() {
+            verMaisButton.style.backgroundColor = '#007bff';
+        };
+
+        verMaisButton.addEventListener('click', function() {
+            // Redireciona para a página de detalhes passando o índice da vaga como parâmetro
+            window.location.href = `detalhe2.html?id=${index}`;
+        });
+
+        // Adiciona o botão "Ver Mais" ao card
+        vagaCard.appendChild(verMaisButton);
+
+        // Adiciona a vaga à div "vagaCards"
+        vagaCardsContainer.appendChild(vagaCard);
+    });
+} else {
+    document.getElementById('vagaCards').innerHTML = '<p>Nenhuma vaga publicada ainda.</p>';
+}

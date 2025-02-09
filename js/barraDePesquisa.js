@@ -1,41 +1,28 @@
 function filterVagas() {
-    // Obtém os valores dos filtros
-    const searchQuery = document.getElementById('searchInput').value.toLowerCase();
-    const cityQuery = document.getElementById('cityFilter').value.toLowerCase();
-    const remoteQuery = document.getElementById('remoteFilter').value;
-    const dateQuery = document.getElementById('dateFilter').value;
-    const jobTypeQuery = document.getElementById('jobTypeFilter').value;
+    const searchInput = document.getElementById("searchInput").value.toLowerCase();
+    const cityFilter = document.getElementById("cityFilter").value.toLowerCase();
+    const remoteFilter = document.getElementById("remoteFilter").value;
+    const dateFilter = document.getElementById("dateFilter").value;
+    const jobTypeFilter = document.getElementById("jobTypeFilter").value;
 
-    // Filtra as vagas com base nos critérios
-    const filteredVagas = vagas.filter(vaga => {
-        let matchesSearch = vaga.nome.toLowerCase().includes(searchQuery);
-        let matchesCity = vaga.cidade.toLowerCase().includes(cityQuery);
-        let matchesRemote = remoteQuery ? vaga.tipoTrabalho === remoteQuery : true;
-        let matchesDate = dateQuery ? isRecentDate(vaga.dataAnuncio, dateQuery) : true;
-        let matchesJobType = jobTypeQuery ? vaga.tipoVaga === jobTypeQuery : true;
+    const vagasList = document.querySelectorAll(".vaga");
 
-        return matchesSearch && matchesCity && matchesRemote && matchesDate && matchesJobType;
+    vagasList.forEach((vaga) => {
+        const vagaTitle = vaga.querySelector(".vaga-title").textContent.toLowerCase();
+        const vagaCity = vaga.querySelector(".vaga-city").textContent.toLowerCase();
+        const vagaType = vaga.querySelector(".vaga-type").textContent.toLowerCase();
+        const vagaDate = vaga.querySelector(".vaga-date").textContent.toLowerCase();
+
+        let matchesSearch = vagaTitle.includes(searchInput);
+        let matchesCity = vagaCity.includes(cityFilter);
+        let matchesRemote = remoteFilter ? vagaType.includes(remoteFilter) : true;
+        let matchesDate = dateFilter ? vagaDate.includes(dateFilter) : true;
+        let matchesJobType = jobTypeFilter ? vagaType.includes(jobTypeFilter) : true;
+
+        if (matchesSearch && matchesCity && matchesRemote && matchesDate && matchesJobType) {
+            vaga.style.display = "block";
+        } else {
+            vaga.style.display = "none";
+        }
     });
-
-    // Exibe as vagas filtradas
-    exibirVagas(filteredVagas);
-}
-
-function isRecentDate(vagaData, query) {
-    const today = new Date();
-    const vagaDate = new Date(vagaData);
-    const diffTime = today - vagaDate;
-
-    switch(query) {
-        case '24h':
-            return diffTime <= 24 * 60 * 60 * 1000; // Últimas 24 horas
-        case '3d':
-            return diffTime <= 3 * 24 * 60 * 60 * 1000; // Últimos 3 dias
-        case '7d':
-            return diffTime <= 7 * 24 * 60 * 60 * 1000; // Últimos 7 dias
-        case '14d':
-            return diffTime <= 14 * 24 * 60 * 60 * 1000; // Últimos 14 dias
-        default:
-            return true;
-    }
 }

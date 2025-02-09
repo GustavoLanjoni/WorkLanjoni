@@ -1,0 +1,142 @@
+/* Resetando o estilo de alguns elementos padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative; /* Necessário para o botão ficar fixo no topo */
+}
+
+/* Container principal */
+.container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+    padding-top: 60px; /* Para garantir que o conteúdo não fique atrás do botão */
+}
+
+/* Título do formulário */
+.form-title {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Estilo dos campos do formulário */
+.form-vaga {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Estilo das labels */
+label {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+/* Estilo dos inputs e selects */
+input, textarea, select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    margin-bottom: 12px;
+    transition: border-color 0.3s ease;
+}
+
+/* Foco nos campos */
+input:focus, textarea:focus, select:focus {
+    border-color: #2980b9;
+    outline: none;
+}
+
+/* Estilo das textareas */
+textarea {
+    resize: vertical;
+}
+
+/* Botões */
+button {
+    padding: 12px 20px;
+    background-color: #2980b9;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Efeito de hover no botão */
+button:hover {
+    background-color: #3498db;
+}
+
+/* Estilo para o botão de Publicar Vaga */
+.form-group button[type="submit"] {
+    background-color: #27ae60;
+}
+
+.form-group button[type="submit"]:hover {
+    background-color: #2ecc71;
+}
+
+/* Botão Voltar */
+.button-voltar {
+    padding: 10px 20px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: fixed; /* Fixa o botão na tela */
+    top: 20px; /* Distância do topo */
+    left: 20px; /* Distância da lateral esquerda */
+    z-index: 1000; /* Garante que o botão fique acima de outros elementos */
+}
+
+.button-voltar:hover {
+    background-color: #c0392b;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+
+    .form-vaga {
+        gap: 15px;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+
+    .button-voltar {
+        font-size: 0.9rem;
+    }
+}

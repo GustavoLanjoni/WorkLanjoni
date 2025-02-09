@@ -479,8 +479,106 @@ header {
 }
 
 
+/*Vagas Profissional*/
+#vagaCards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Cria uma grade de colunas responsiva */
+    gap: 20px; /* Espaçamento entre os cards */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.cards-list {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px; /* Altura fixa para os cards */
+    width: 100%;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.cards-list:hover {
+    box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px); /* Efeito ao passar o mouse */
+}
+
+.cards-list h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #495057;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.cards-list p {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    text-align: justify;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ver-vaga-btn {
+    background: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    align-self: center;
+    margin-top: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.ver-vaga-btn:hover {
+    background: #218838;
+    transform: translateY(-2px); /* Efeito de hover */
+}
 
 
+/*button ver mais das vagas Profissional*/
+.ver-mais-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.ver-mais-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.ver-mais-btn:focus {
+    outline: none;
+}
+
+.ver-mais-btn:active {
+    background-color: #004085;
+    transform: translateY(1px);
+}
 
 
 
