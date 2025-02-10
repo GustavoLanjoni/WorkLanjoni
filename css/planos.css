@@ -1,125 +1,120 @@
-body {
-    font-family: Arial, sans-serif;
+/* Reset de margens e padding */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    text-align: center;
-    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
+/* Fonte global */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+    line-height: 1.6;
+    padding: 0 15px;
+}
+
+/* Container principal */
 .container {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
-    flex-wrap: nowrap; /* Impede que os itens quebrem para a linha de baixo */
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    overflow-x: auto; /* Adiciona rolagem horizontal caso os itens não caibam */
-    scrollbar-width: thin; /* Para Firefox */
-    scrollbar-color: #ccc transparent; /* Cor da barra de rolagem */
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 50px 0;
 }
 
-.container::-webkit-scrollbar {
-    height: 8px; /* Altura da barra de rolagem */
-}
-
-.container::-webkit-scrollbar-thumb {
-    background: #aaa; /* Cor do "thumb" da rolagem */
-    border-radius: 10px;
-}
-
+/* Estilos dos planos */
 .plano {
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 350px;
     text-align: center;
-    transition: transform 0.3s ease-in-out;
-    flex: 0 0 auto; /* Garante que os itens não encolham */
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .plano:hover {
-    transform: scale(1.05);
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 }
 
-.basico {
-    border-top: 5px solid #3498db;
-}
-
-.profissional {
-    border-top: 5px solid #2ecc71;
-}
-
-.premium {
-    border-top: 5px solid #e74c3c;
-}
-
-h1 {
-    font-size: 22px;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.preco {
-    font-size: 18px;
-    font-weight: bold;
-    color: #555;
-}
-
-.descricao {
-    font-size: 14px;
-    color: #777;
+/* Cabeçalhos dos planos */
+.plano h1 {
+    font-size: 28px;
+    color: #2e3a59;
     margin-bottom: 15px;
 }
 
+/* Preço */
+.preco {
+    font-size: 24px;
+    color: #2e3a59;
+    margin-bottom: 20px;
+}
+
+.valor {
+    font-weight: bold;
+    font-size: 30px;
+    color: #00aaff;
+}
+
+.desconto {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Descrição dos planos */
+.descricao {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Lista de características dos planos */
 ul {
     list-style: none;
-    padding: 0;
+    margin-bottom: 30px;
 }
 
 ul li {
-    padding: 8px 0;
-    font-size: 14px;
-    color: #555;
+    font-size: 16px;
+    color: #777;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
 }
 
+ul li:before {
+    content: '✔';
+    color: #00aaff;
+    margin-right: 10px;
+}
+
+/* Botão */
 .btn {
     display: inline-block;
-    margin-top: 15px;
-    padding: 12px 18px;
-    color: white;
-    background-color: #333;
+    background-color: #00aaff;
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 25px;
     text-decoration: none;
-    border-radius: 5px;
+    font-size: 16px;
     font-weight: bold;
-    transition: background 0.3s ease-in-out;
+    transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #555;
+    background-color: #0088cc;
 }
 
-.preco {
-    font-size: 24px; /* Aumenta o tamanho da fonte */
-    font-weight: bold; /* Deixa o texto em negrito */
-    color: #d35400; /* Cor laranja chamativa */
-    background-color: #fbeee0; /* Fundo suave para destaque */
-    padding: 10px 15px; /* Espaçamento para melhorar a visibilidade */
-    border-radius: 8px; /* Cantos arredondados */
-    display: inline-block; /* Mantém o elemento compacto */
-    margin: 10px 0; /* Espaço entre os elementos */
-}
-
-
-/* Responsividade */
+/* Media Queries para dispositivos móveis */
 @media (max-width: 768px) {
     .container {
-        overflow-x: auto; /* Permite rolagem horizontal em telas menores */
-        justify-content: flex-start; /* Alinha os itens à esquerda */
-        padding: 10px;
-    }
-
-    .plano {
-        width: 280px; /* Reduz ligeiramente para caber melhor */
+        flex-direction: column;
+        align-items: center;
     }
 }
