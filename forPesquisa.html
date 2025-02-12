@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Satisfação do Plano</title>
+    <link rel="stylesheet" href="css/form.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Satisfação do Usuário com o Plano</h1>
+        <p>Por favor, nos conte sobre a sua experiência com nosso plano de serviços.</p>
+
+        <form id="form-satisfacao">
+            <!-- Pergunta 1: Quantas vagas você consegue publicar por mês com seu plano? -->
+            <label for="vagas-publicar">Quantas vagas você consegue publicar por mês com seu plano?</label>
+            <input type="number" id="vagas-publicar" name="vagas-publicar" min="1" placeholder="Digite o número de vagas">
+
+            <!-- Pergunta 2: Você está satisfeito com o número de vagas ativas (15 por mês)? -->
+            <label for="satisfeito-vagas">Você está satisfeito com o número de vagas ativas (15 por mês)?</label>
+            <select id="satisfeito-vagas" name="satisfeito-vagas">
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+            </select>
+
+            <!-- Pergunta 3: O que você acha da visibilidade das suas vagas nas buscas? -->
+            <label for="visibilidade-buscas">O que você acha da visibilidade das suas vagas nas buscas?</label>
+            <textarea id="visibilidade-buscas" name="visibilidade-buscas" rows="4" placeholder="Digite aqui..."></textarea>
+
+            <!-- Pergunta 4: A duração das suas vagas ativas por 30 dias é suficiente? -->
+            <label for="duracao-vagas">A duração das suas vagas ativas por 30 dias é suficiente?</label>
+            <select id="duracao-vagas" name="duracao-vagas">
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+            </select>
+
+            <!-- Pergunta 5: Como você avalia as estatísticas e informações fornecidas pelo dashboard? -->
+            <label for="avaliacao-dashboard">Como você avalia as estatísticas e informações fornecidas pelo dashboard?</label>
+            <textarea id="avaliacao-dashboard" name="avaliacao-dashboard" rows="4" placeholder="Digite aqui..."></textarea>
+
+            <!-- Pergunta 6: Você considera útil o compartilhamento automático das vagas em várias plataformas? -->
+            <label for="compartilhamento-plataformas">Você considera útil o compartilhamento automático das vagas em várias plataformas?</label>
+            <select id="compartilhamento-plataformas" name="compartilhamento-plataformas">
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+            </select>
+
+            <!-- Pergunta 7: Como você avalia a facilidade de publicação de vagas em múltiplas plataformas? -->
+            <label for="facilidade-publicacao">Como você avalia a facilidade de publicação de vagas em múltiplas plataformas?</label>
+            <textarea id="facilidade-publicacao" name="facilidade-publicacao" rows="4" placeholder="Digite aqui..."></textarea>
+
+            <!-- Pergunta 8: Como você avalia o suporte via e-mail e WhatsApp? -->
+            <label for="avaliacao-suporte">Como você avalia o suporte via e-mail e WhatsApp?</label>
+            <select id="avaliacao-suporte" name="avaliacao-suporte">
+                <option value="excelente">Excelente</option>
+                <option value="bom">Bom</option>
+                <option value="regular">Regular</option>
+                <option value="ruim">Ruim</option>
+            </select>
+
+            <!-- Pergunta 9: As notificações por SMS têm sido úteis para você? -->
+            <label for="notificacoes-sms">As notificações por SMS têm sido úteis para você?</label>
+            <select id="notificacoes-sms" name="notificacoes-sms">
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+            </select>
+
+            <!-- Pergunta 10: Você encontra a funcionalidade de banco de candidatos útil para o processo de recrutamento? -->
+            <label for="banco-candidatos">Você encontra a funcionalidade de banco de candidatos útil para o processo de recrutamento?</label>
+            <select id="banco-candidatos" name="banco-candidatos">
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+            </select>
+
+            <!-- Pergunta 11: Você está satisfeito com a possibilidade de publicar vagas ilimitadas nas redes sociais? -->
+            <label for="publicacao-redes-sociais">Você está satisfeito com a possibilidade de publicar vagas ilimitadas nas redes sociais?</label>
+            <select id="publicacao-redes-sociais" name="publicacao-redes-sociais">
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+            </select>
+
+            <!-- Pergunta 12: Os relatórios detalhados de performance são úteis para a gestão das suas vagas? -->
+            <label for="relatorios-performance">Os relatórios detalhados de performance são úteis para a gestão das suas vagas?</label>
+            <select id="relatorios-performance" name="relatorios-performance">
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+            </select>
+
+            <!-- Pergunta 13: Como você avalia as ferramentas avançadas de filtragem de candidatos? -->
+            <label for="ferramentas-filtragem">Como você avalia as ferramentas avançadas de filtragem de candidatos?</label>
+            <textarea id="ferramentas-filtragem" name="ferramentas-filtragem" rows="4" placeholder="Digite aqui..."></textarea>
+
+            <!-- Pergunta 14: Os treinamentos exclusivos para recrutadores têm sido úteis para melhorar sua experiência com a plataforma? -->
+            <label for="treinamentos-exclusivos">Os treinamentos exclusivos para recrutadores têm sido úteis para melhorar sua experiência com a plataforma?</label>
+            <select id="treinamentos-exclusivos" name="treinamentos-exclusivos">
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+            </select>
+
+            <!-- Pergunta 15: Qual característica do plano você mais valoriza e por quê? -->
+            <label for="caracteristica-mais-valorizada">Qual característica do plano você mais valoriza e por quê?</label>
+            <textarea id="caracteristica-mais-valorizada" name="caracteristica-mais-valorizada" rows="4" placeholder="Digite aqui..."></textarea>
+
+            <!-- Pergunta 16: Há algo que você acredita que poderia ser adicionado ao seu plano para melhorar sua experiência? -->
+            <label for="melhorias-plano">Há algo que você acredita que poderia ser adicionado ao seu plano para melhorar sua experiência?</label>
+            <textarea id="melhorias-plano" name="melhorias-plano" rows="4" placeholder="Digite aqui..."></textarea>
+
+            <button type="submit">Enviar Respostas</button>
+        </form>
+    </div>
+
+    <script src="js/form.js"></script>
+</body>
+
+</html>

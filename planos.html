@@ -31,7 +31,7 @@
                 <li>Capacidade de salvar vagas</li>
                 <li>Integração com Google Calendar</li>
             </ul>
-            <a href="telaEmpresa1.html" class="btn">Assine Agora</a>
+            <a href="#" class="btn" onclick="assinarPlano('Plano Básico')">Assine Agora</a>
         </div>
 
         <!-- Plano Profissional -->
@@ -57,7 +57,7 @@
                 <li>Ferramentas avançadas de filtragem</li>
                 <li>Treinamentos exclusivos para recrutadores</li>
             </ul>
-            <a href="#" class="btn">Assine Agora</a>
+            <a href="#" class="btn" onclick="assinarPlano('Plano Profissional')">Assine Agora</a>
         </div>
 
         <!-- Plano Premium -->
@@ -85,9 +85,25 @@
                 <li>Integração com outras ferramentas</li>
                 <li>Análises de dados de recrutamento</li>
             </ul>
-            <a href="#" class="btn">Assine Agora</a>
+            <a href="#" class="btn" onclick="assinarPlano('Plano Premium')">Assine Agora</a>
         </div>
     </div>
+
+    <script>
+        function assinarPlano(plano) {
+            const usuario = {
+                usuario: 'João', // Aqui você pega o nome do usuário da sessão, por exemplo
+                email: 'joao@email.com', // Aqui pega o e-mail do usuário
+                tipoUsuario: 'Empresa', // Exemplo de tipo de usuário
+                planoAtivo: plano
+            };
+
+            // Adiciona no localStorage
+            localStorage.setItem('usuario_' + Date.now(), JSON.stringify(usuario));
+
+            alert(`Você assinou o ${plano}!`);
+        }
+    </script>
 </body>
 
 </html>
