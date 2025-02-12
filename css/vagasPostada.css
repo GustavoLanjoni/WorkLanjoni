@@ -1,159 +1,190 @@
-/* Resetando margens e preenchimentos para garantir que a página tenha uma base limpa */
+/* Reset básico para remover margens e paddings padrão */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 
-/* Estilo geral para o corpo da página */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f6f9;
-    color: #333;
-    padding: 0;
+    background-color: #f4f4f4;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    min-height: 100vh;
+    padding: 20px;
 }
 
-/* Container para o título */
-h1 {
-    font-size: 2.5rem;
-    color: #2c3e50;
-    margin-top: 20px;
-    text-align: center;
-}
-
-/* Estilo para o botão de voltar */
-button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
+/* Estilização do botão de voltar */
+.voltar-btn {
     position: absolute;
     top: 20px;
     left: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
 }
 
-button:hover {
-    background-color: #2980b9;
+.voltar-btn:hover {
+    background-color: #0056b3;
 }
 
-/* Container para os cards de vagas */
-#vagaCards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Grid responsivo */
-    gap: 20px;
+.vaga-cards-container {
     width: 100%;
-    max-width: 1200px;
-    margin-top: 80px; /* Espaço para o botão de voltar */
-    padding: 20px;
-}
-
-/* Estilo para cada card de vaga */
-.vaga-card {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    max-width: 800px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 300px; /* Altura fixa para os cards */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: left;
+    gap: 15px;
+    margin-top: 60px; /* Espaço para não ficar colado no botão de voltar */
+}
+
+.vaga-card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.2s ease-in-out;
 }
 
 .vaga-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
 }
 
-/* Título da vaga */
-.vaga-card h3 {
-    font-size: 1.5rem;
-    color: #2c3e50;
+h3 {
+    color: #333;
     margin-bottom: 10px;
-    font-weight: bold;
 }
 
-/* Descrição da vaga */
-.vaga-card p {
-    font-size: 1rem;
-    color: #7f8c8d;
-    line-height: 1.6;
-    margin-bottom: 15px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-height: 60px; /* Limita a altura da descrição */
+p {
+    color: #555;
+    margin: 5px 0;
 }
 
-/* Estilo para os botões de editar e excluir */
-.vaga-card button {
-    background-color: #e74c3c;
-    color: white;
+button {
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    padding: 8px 15px;
+    padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-    width: 100%;
+    transition: background 0.3s;
+    margin-right: 10px;
 }
 
-/* Efeito de hover nos botões */
-.vaga-card button:hover {
-    background-color: #c0392b;
-}
-
-/* Estilo para os botões específicos */
-.editar-btn {
-    background-color: #f39c12;
-}
-
-.editar-btn:hover {
-    background-color: #e67e22;
+button:hover {
+    background-color: #0056b3;
 }
 
 .excluir-btn {
-    background-color: #e74c3c;
+    background-color: #dc3545;
 }
 
 .excluir-btn:hover {
-    background-color: #c0392b;
+    background-color: #c82333;
 }
 
-/* Estilo para a mensagem de não há vagas */
-#vagaCards p {
-    font-size: 1.2rem;
-    color: #7f8c8d;
-    text-align: center;
+/* Estilo para a mensagem de aviso */
+.aviso {
+    background-color: #ffcc00; /* Cor de fundo amarela para chamar a atenção */
+    color: #333; /* Texto escuro para boa legibilidade */
+    padding: 15px; /* Espaçamento interno para o texto não ficar colado nas bordas */
+    margin: 20px 0; /* Espaçamento externo para separar a mensagem do conteúdo ao redor */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 16px; /* Tamanho de fonte legível */
+    font-weight: bold; /* Deixa o texto em negrito */
+    text-align: center; /* Alinha o texto no centro */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para dar destaque */
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-
-    h1 {
-        font-size: 2rem;
-    }
-
-    #vagaCards {
-        grid-template-columns: 1fr; /* Cards empilhados um abaixo do outro */
-    }
-
-    button {
-        width: 100%;
-        font-size: 16px;
-        padding: 10px;
-    }
+.aviso strong {
+    color: #d60000; /* Cor vermelha para destacar o "Aviso" */
 }
+
+/* Estilização do botão dentro da mensagem */
+.aviso button {
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    text-decoration: none; 
+}
+
+.aviso button a {
+    color: white; 
+    text-decoration: none; 
+}
+.aviso button:hover {
+    background-color: #0056b3; 
+}
+
+ /* Estilo para a aba lateral */
+        .aba-editar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: #f4f4f4;
+            padding: 20px;
+            box-shadow: -5px 0 10px rgba(0, 0, 0, 0.2);
+            transition: right 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        .aba-editar.show {
+            right: 0;
+        }
+
+        .aba-editar h3 {
+            text-align: center;
+        }
+
+        .aba-editar form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .aba-editar form label {
+            margin: 5px 0;
+        }
+
+        .aba-editar form input,
+        .aba-editar form textarea {
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .aba-editar button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .aba-editar button:hover {
+            background-color: #45a049;
+        }
+
+        /* Estilo para o botão de fechar */
+        .fechar-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #333;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }

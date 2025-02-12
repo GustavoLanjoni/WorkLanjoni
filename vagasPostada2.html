@@ -12,44 +12,73 @@
     <div id="vagaCards" class="vaga-cards-container"></div> <!-- Container onde as vagas serão exibidas -->
 
     <!-- Botão para voltar para a tela inicial -->
-    <button onclick="window.location.href='telaEmpresa2.html'">Voltar</button>
+    <button class="voltar-btn" onclick="window.location.href='telaEmpresa2.html'">Voltar</button>
+
+    <!-- Mensagem informativa sobre exclusão de vagas após 30 dias -->
+    <div class="aviso">
+        <p><strong>Aviso:</strong> As vagas postadas serão excluídas automaticamente após 30 dias. <button> <a href="planos.html"> Trocar Plano!</button></a></p>
+    </div>
+
+    <!-- Aba lateral para editar a vaga -->
+    <div id="abaEditar" class="aba-editar">
+        <button class="fechar-btn" onclick="fecharAba()">×</button>
+        <h3>Editar Vaga</h3>
+        <form id="editarForm">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" required></textarea>
+
+            <label for="salario">Salário:</label>
+            <input type="text" id="salario" name="salario" required>
+
+            <label for="cidade">Cidade:</label>
+            <input type="text" id="cidade" name="cidade" required>
+
+            <label for="tipoTrabalho">Tipo de Trabalho:</label>
+            <input type="text" id="tipoTrabalho" name="tipoTrabalho" required>
+
+            <label for="dataPublicacao">Data de Publicação:</label>
+            <input type="date" id="dataPublicacao" name="dataPublicacao" required>
+
+            <label for="requisitos">Requisitos:</label>
+            <textarea id="requisitos" name="requisitos" required></textarea>
+
+            <button type="button" onclick="salvarEdicao()">Salvar</button>
+        </form>
+    </div>
+
+    <!--Define 30 dias de duração para cada vaga-->
+    <script src="js/tempoVaga.js"></script>
 
     <script>
         // Função para exibir as vagas
         function mostrarVagas() {
-            // Recupera as vagas do localStorage ou cria um array vazio caso não haja vagas salvas
             let listaVagas = JSON.parse(localStorage.getItem('planoProfissional')) || [];
             const vagaCards = document.getElementById('vagaCards');
             vagaCards.innerHTML = ''; // Limpa as vagas antes de mostrar as atualizações
 
-            // Se não houver vagas, exibe uma mensagem
             if (listaVagas.length === 0) {
                 vagaCards.innerHTML = '<p>Não há vagas postadas ainda.</p>';
                 return;
             }
 
-            // Itera sobre as vagas para exibir cada uma delas
             listaVagas.forEach((vaga, index) => {
                 const card = document.createElement('div');
                 card.classList.add('vaga-card');
 
-                // Garantir que todos os campos necessários existem e são válidos
-                const nomeVaga = vaga.nome || 'Nome da vaga não disponível';
-                const descricaoVaga = vaga.descricao ? vaga.descricao.substring(0, 100) : 'Descrição não disponível';
-                const salarioVaga = vaga.salario || 'Salário não informado';
-                const cidadeVaga = vaga.cidade || 'Cidade não informada';
-                const tipoTrabalhoVaga = vaga.tipoTrabalho || 'Tipo de trabalho não informado';
-
-                // Estrutura do resumo da vaga
                 const resumoVaga = `
-            <h3>${nomeVaga}</h3>
-            <p>${descricaoVaga}...</p>
-            <p><strong>Salário:</strong> ${salarioVaga}</p>
-            <p><strong>Cidade:</strong> ${cidadeVaga}</p>
-            <p><strong>Tipo de Trabalho:</strong> ${tipoTrabalhoVaga}</p>
-            <button class="editar-btn" onclick="editarVaga(${index})">Editar</button>
-            <button class="excluir-btn" onclick="excluirVaga(${index})">Excluir</button>
-        `;
+                    <h3>${vaga.nome}</h3>
+                    <p><strong>Descrição:</strong> ${vaga.descricao}</p>
+                    <p><strong>Salário:</strong> ${vaga.salario}</p>
+                    <p><strong>Cidade:</strong> ${vaga.cidade}</p>
+                    <p><strong>Tipo de Trabalho:</strong> ${vaga.tipoTrabalho}</p>
+                    <p><strong>Data de Publicação:</strong> ${vaga.dataPublicacao}</p>
+                    <p><strong>Requisitos:</strong> ${vaga.requisitos}</p>
+                    <button class="editar-btn" onclick="editarVaga(${index})">Editar</button>
+                    <button class="excluir-btn" onclick="excluirVaga(${index})">Excluir</button>
+                `;
 
                 card.innerHTML = resumoVaga;
                 vagaCards.appendChild(card);
@@ -61,40 +90,62 @@
             let listaVagas = JSON.parse(localStorage.getItem('planoProfissional')) || [];
             const vaga = listaVagas[index];
 
-            
+            // Preenche o formulário com os dados da vaga
+            document.getElementById('nome').value = vaga.nome;
+            document.getElementById('descricao').value = vaga.descricao;
+            document.getElementById('salario').value = vaga.salario;
+            document.getElementById('cidade').value = vaga.cidade;
+            document.getElementById('tipoTrabalho').value = vaga.tipoTrabalho;
+            document.getElementById('dataPublicacao').value = vaga.dataPublicacao;
+            document.getElementById('requisitos').value = vaga.requisitos;
+
+            // Armazenar o índice da vaga para salvar depois
+            document.getElementById('editarForm').setAttribute('data-index', index);
+
+            // Exibe a aba lateral
+            document.getElementById('abaEditar').classList.add('show');
+        }
+
+        // Função para salvar a edição da vaga
+        function salvarEdicao() {
+            let listaVagas = JSON.parse(localStorage.getItem('planoProfissional')) || [];
+            const index = document.getElementById('editarForm').getAttribute('data-index');
+
+            // Atualiza os dados da vaga com os valores do formulário
+            listaVagas[index].nome = document.getElementById('nome').value;
+            listaVagas[index].descricao = document.getElementById('descricao').value;
+            listaVagas[index].salario = document.getElementById('salario').value;
+            listaVagas[index].cidade = document.getElementById('cidade').value;
+            listaVagas[index].tipoTrabalho = document.getElementById('tipoTrabalho').value;
+            listaVagas[index].dataPublicacao = document.getElementById('dataPublicacao').value;
+            listaVagas[index].requisitos = document.getElementById('requisitos').value;
+
+            // Salva a lista de vagas atualizada no localStorage
+            localStorage.setItem('planoProfissional', JSON.stringify(listaVagas));
+
+            // Esconde a aba lateral
+            document.getElementById('abaEditar').classList.remove('show');
+
+            alert("Vaga atualizada com sucesso!");
+            mostrarVagas(); // Atualiza a lista de vagas
+        }
+
+        // Função para cancelar a edição
+        function fecharAba() {
+            document.getElementById('abaEditar').classList.remove('show');
         }
 
         // Função para excluir uma vaga
         function excluirVaga(index) {
             let listaVagas = JSON.parse(localStorage.getItem('planoProfissional')) || [];
-
-            // Remove a vaga do array
             listaVagas.splice(index, 1);
-
-            // Salva a nova lista de vagas no localStorage
             localStorage.setItem('planoProfissional', JSON.stringify(listaVagas));
-
             alert("Vaga excluída com sucesso!");
-            mostrarVagas(); // Atualiza a lista de vagas na página
-        }
-
-        // Função para adicionar uma vaga
-        function adicionarVaga(vaga) {
-            let listaVagas = JSON.parse(localStorage.getItem('planoProfissional')) || [];
-
-            // Adiciona a nova vaga ao array de vagas
-            listaVagas.push(vaga);
-
-            // Salva a lista de vagas atualizada no localStorage
-            localStorage.setItem('planoProfissional', JSON.stringify(listaVagas));
-
-            alert("Vaga adicionada com sucesso!");
-            mostrarVagas(); // Atualiza a lista de vagas na página
+            mostrarVagas();
         }
 
         // Chama a função para exibir as vagas ao carregar a página
         mostrarVagas();
-
     </script>
 </body>
 

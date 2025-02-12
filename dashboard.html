@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Vagas</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Dashboard</h2>
+            </div>
+            <div class="sidebar-content">
+                <button id="toggleFilters" class="toggle-filters-btn">Filtros</button>
+                <div id="filtrosContainer" class="filtros-container" style="display: none;">
+                    <h2>Filtros</h2>
+                    <label for="filtroCidade">Cidade</label>
+                    <input type="text" id="filtroCidade" placeholder="Digite a cidade...">
+                    
+                    <label for="filtroTipoTrabalho">Tipo de Trabalho</label>
+                    <input type="text" id="filtroTipoTrabalho" placeholder="Digite o tipo de trabalho...">
+                    
+                    <label for="filtroDataInicio">Data de Início</label>
+                    <input type="date" id="filtroDataInicio">
+                    
+                    <label for="filtroDataFim">Data de Fim</label>
+                    <input type="date" id="filtroDataFim">
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1>Dashboard de Vagas</h1>
+                <button id="toggleMode" title="Alternar Modo">
+                    <i id="iconMode" class="fas fa-sun"></i>
+                </button>
+            </header>
+
+            <div class="chart-options">
+                <label for="tipoGrafico">Escolha o tipo de gráfico:</label>
+                <select id="tipoGrafico">
+                    <option value="pie">Pizza</option>
+                    <option value="bar">Barra</option>
+                </select>
+            </div>
+
+            <div class="statistics">
+                <h2>Estatísticas</h2>
+                <div class="statistics-container">
+                    <div class="stat-item">
+                        <strong>Total de Vagas:</strong>
+                        <span id="totalVagas">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong>Vagas por Cidade:</strong>
+                        <span id="vagasPorCidade">Carregando...</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong>Tipos de Trabalho:</strong>
+                        <span id="tiposDeTrabalho">Carregando...</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong>Vagas por Mês:</strong>
+                        <span id="vagasPorMes">Carregando...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts">
+                <div class="chart-container">
+                    <canvas id="chartCidade" width="300" height="300"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="chartTipoTrabalho" width="300" height="300"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="chartMes" width="300" height="300"></canvas>
+                </div>
+            </div>
+
+            <div id="vagaCardsContainer" class="vaga-cards-container">
+                <div class="vaga-container"></div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('toggleMode').addEventListener('click', function () {
+            document.body.classList.toggle('dark-mode');
+            const iconMode = document.getElementById('iconMode');
+            if (document.body.classList.contains('dark-mode')) {
+                iconMode.classList.remove('fa-sun');
+                iconMode.classList.add('fa-moon');
+            } else {
+                iconMode.classList.remove('fa-moon');
+                iconMode.classList.add('fa-sun');
+            }
+        });
+
+        document.getElementById('toggleFilters').addEventListener('click', function () {
+            const filtrosContainer = document.getElementById('filtrosContainer');
+            if (filtrosContainer.style.display === 'none') {
+                filtrosContainer.style.display = 'block';
+                this.textContent = 'Ocultar Filtros';
+            } else {
+                filtrosContainer.style.display = 'none';
+                this.textContent = 'Mostrar Filtros';
+            }
+        });
+
+        function carregarDashboard() {
+            let listaVagas = JSON.parse(localStorage.getItem('planoProfissional')) || [];
+            const filtroCidade = document.getElementById('filtroCidade').value.toLowerCase();
+            const filtroTipoTrabalho = document.getElementById('filtroTipoTrabalho').value.toLowerCase();
+            const filtroDataInicio = document.getElementById('filtroDataInicio').value;
+            const filtroDataFim = document.getElementById('filtroDataFim').value;
+            const vagaCardsContainer = document.getElementById('vagaCardsContainer');
+            const totalVagas = document.getElementById('totalVagas');
+            const vagasPorCidade = document.getElementById('vagasPorCidade');
+            const tiposDeTrabalho = document.getElementById('tiposDeTrabalho');
+            const vagasPorMes = document.getElementById('vagasPorMes');
+
+            let vagasFiltradas = listaVagas.filter(vaga => {
+                let dataPublicacao = new Date(vaga.dataPublicacao);
+                let dentroDoPeriodo = true;
+                if (filtroDataInicio) {
+                    dentroDoPeriodo = new Date(filtroDataInicio) <= dataPublicacao;
+                }
+                if (filtroDataFim) {
+                    dentroDoPeriodo = dentroDoPeriodo && new Date(filtroDataFim) >= dataPublicacao;
+                }
+                return vaga.cidade.toLowerCase().includes(filtroCidade) &&
+                    vaga.tipoTrabalho.toLowerCase().includes(filtroTipoTrabalho) &&
+                    dentroDoPeriodo;
+            });
+
+            totalVagas.innerText = vagasFiltradas.length;
+
+            vagaCardsContainer.innerHTML = vagasFiltradas.map(vaga => `
+                <div class="vaga-card">
+                    <h3>${vaga.titulo}</h3>
+                    <p><strong>Cidade:</strong> ${vaga.cidade}</p>
+                    <p><strong>Tipo de Trabalho:</strong> ${vaga.tipoTrabalho}</p>
+                    <p><strong>Data de Publicação:</strong> ${vaga.dataPublicacao}</p>
+                </div>
+            `).join('');
+
+            let vagasCidade = vagasFiltradas.reduce((acc, vaga) => {
+                acc[vaga.cidade] = (acc[vaga.cidade] || 0) + 1;
+                return acc;
+            }, {});
+
+            let tipos = vagasFiltradas.reduce((acc, vaga) => {
+                acc[vaga.tipoTrabalho] = (acc[vaga.tipoTrabalho] || 0) + 1;
+                return acc;
+            }, {});
+
+            vagasPorCidade.innerText = JSON.stringify(vagasCidade, null, 2);
+            tiposDeTrabalho.innerText = JSON.stringify(tipos, null, 2);
+
+            let vagasMes = vagasFiltradas.reduce((acc, vaga) => {
+                let mes = new Date(vaga.dataPublicacao).getMonth();
+                acc[mes] = (acc[mes] || 0) + 1;
+                return acc;
+            }, []);
+
+            vagasPorMes.innerText = JSON.stringify(vagasMes, null, 2);
+
+            atualizarGraficoCidade(vagasCidade);
+            atualizarGraficoTipoTrabalho(tipos);
+            atualizarGraficoMes(vagasMes);
+        }
+
+        function atualizarGraficoCidade(vagasCidade) {
+            const ctx = document.getElementById('chartCidade').getContext('2d');
+            const chartData = {
+                labels: Object.keys(vagasCidade),
+                datasets: [{
+                    label: 'Vagas por Cidade',
+                    data: Object.values(vagasCidade),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            };
+            const chartConfig = {
+                type: document.getElementById('tipoGrafico').value, 
+                data: chartData
+            };
+            new Chart(ctx, chartConfig);
+        }
+
+        function atualizarGraficoTipoTrabalho(tipos) {
+            const ctx = document.getElementById('chartTipoTrabalho').getContext('2d');
+            const chartData = {
+                labels: Object.keys(tipos),
+                datasets: [{
+                    label: 'Vagas por Tipo de Trabalho',
+                    data: Object.values(tipos),
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            };
+            const chartConfig = {
+                type: document.getElementById('tipoGrafico').value,
+                data: chartData
+            };
+            new Chart(ctx, chartConfig);
+        }
+
+        function atualizarGraficoMes(vagasMes) {
+            const ctx = document.getElementById('chartMes').getContext('2d');
+            const chartData = {
+                labels: Array.from({ length: 12 }, (_, i) => i + 1),
+                datasets: [{
+                    label: 'Vagas por Mês',
+                    data: vagasMes,
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            };
+            const chartConfig = {
+                type: document.getElementById('tipoGrafico').value,
+                data: chartData
+            };
+            new Chart(ctx, chartConfig);
+        }
+
+        carregarDashboard();
+    </script>
+</body>
+
+</html>

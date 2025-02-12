@@ -1,0 +1,294 @@
+/* Resetando o estilo padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+    background-color: #2c2c2c;
+    color: #f4f4f4;
+}
+
+h1, h2, h3, p {
+    margin: 10px 0;
+}
+
+.wrapper {
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.sidebar-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.sidebar-content {
+    margin-top: 20px;
+}
+
+.toggle-filters-btn {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-filters-btn:hover {
+    background-color: #0056b3;
+}
+
+.filtros-container {
+    margin-top: 20px;
+    display: none;
+}
+
+.filtros-container input, .filtros-container select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.filtros-container input[type="date"] {
+    background-color: #f0f0f0;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2rem;
+}
+
+#toggleMode {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+#toggleMode:hover {
+    color: #007BFF;
+}
+
+#toggleMode.dark-mode {
+    color: #fff;
+}
+
+.chart-options {
+    margin-bottom: 20px;
+}
+
+.chart-options select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.statistics {
+    margin-bottom: 40px;
+}
+
+.statistics-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.stat-item {
+    font-size: 1rem;
+    text-align: center;
+}
+
+.stat-item strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.charts {
+    display: flex;
+    justify-content: space-around;
+}
+
+.chart-container {
+    width: 30%;
+    min-width: 300px;
+    margin-bottom: 40px;
+}
+
+.vaga-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.vaga-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    padding: 20px;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vaga-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.vaga-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.vaga-card p {
+    font-size: 1rem;
+}
+
+.vaga-card strong {
+    font-weight: bold;
+}
+
+/* Dark Mode Styles */
+body.dark-mode .sidebar {
+    background-color: #1a1a1a;
+}
+
+body.dark-mode .sidebar-header h2 {
+    color: #fff;
+}
+
+body.dark-mode .sidebar-content {
+    color: #ddd;
+}
+
+body.dark-mode .toggle-filters-btn {
+    background-color: #444;
+    color: #fff;
+}
+
+body.dark-mode .toggle-filters-btn:hover {
+    background-color: #666;
+}
+
+body.dark-mode .filtros-container input, 
+body.dark-mode .filtros-container select {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+body.dark-mode .filtros-container input[type="date"] {
+    background-color: #444;
+}
+
+body.dark-mode .main-content {
+    background-color: #2c2c2c;
+}
+
+body.dark-mode .chart-options select,
+body.dark-mode .vaga-card {
+    background-color: #444;
+    color: #fff;
+}
+
+body.dark-mode .vaga-card {
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .statistics-container {
+    color: #ccc;
+}
+
+body.dark-mode .chart-container {
+    background-color: #333;
+    border-radius: 10px;
+}
+
+/* Icono de sol e lua */
+#iconMode {
+    transition: transform 0.3s ease;
+}
+
+body.dark-mode #iconMode {
+    transform: rotate(180deg);
+}
+
+/* Cores dos ícones */
+#iconMode.sun {
+    color: #FFD700; /* Amarelo para o sol */
+}
+
+#iconMode.moon {
+    color: #000000; /* Preto para a lua */
+}
+
+/* Ícone do sol */
+.fas.fa-sun {
+    color: rgb(0, 0, 0); /* Cor amarela para o sol */
+}
+
+/* Ícone da lua */
+.fas.fa-moon {
+    color: blue; /* Cor azul para a lua */
+}
+
+.statistics-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.stat-item {
+    background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stat-item strong {
+    display: block;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.stat-item span {
+    font-size: 1.3em;
+    color: #333;
+}

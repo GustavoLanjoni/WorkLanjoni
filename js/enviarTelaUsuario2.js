@@ -12,7 +12,9 @@ document.getElementById('vagaForm2').addEventListener('submit', function (event)
         requisitos: document.getElementById('requisitos').value,
         cidade: document.getElementById('cidade').value,
         tipoTrabalho: document.getElementById('tipoTrabalho').value,
-        tipoVaga: document.getElementById('tipoVaga').value
+        tipoVaga: document.getElementById('tipoVaga').value,
+        // Adiciona a data de postagem
+        dataPostagem: new Date().toLocaleDateString('pt-BR')
     };
 
     // Recupera a lista de vagas do localStorage ou cria um novo array caso não exista
@@ -58,6 +60,7 @@ function mostrarVagas() {
             <p><strong>Salário:</strong> ${vaga.salario}</p>
             <p><strong>Cidade:</strong> ${vaga.cidade}</p>
             <p><strong>Tipo de Trabalho:</strong> ${vaga.tipoTrabalho}</p>
+            <p><strong>Data de Publicação:</strong> ${vaga.dataPostagem}</p> <!-- Exibe a data -->
             <a href="detalhesVaga.html?id=${index}" class="ver-vaga-btn">Ver Mais</a>
         `;
 
