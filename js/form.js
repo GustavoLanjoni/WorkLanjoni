@@ -4,6 +4,8 @@ document.getElementById("form-satisfacao").addEventListener("submit", function (
 
     // Captura os dados do formulário
     const dadosFormulario = {
+        nomePessoa: document.getElementById("nome-pessoa").value,
+        nomeEmpresa: document.getElementById("nome-empresa").value,
         vagasPublicar: document.getElementById("vagas-publicar").value,
         satisfeitoVagas: document.getElementById("satisfeito-vagas").value,
         visibilidadeBuscas: document.getElementById("visibilidade-buscas").value,
@@ -22,8 +24,20 @@ document.getElementById("form-satisfacao").addEventListener("submit", function (
         melhoriasPlano: document.getElementById("melhorias-plano").value
     };
 
-    // Salva os dados no localStorage (não redireciona para a página de admin)
-    localStorage.setItem('dadosSatisfacao', JSON.stringify(dadosFormulario));
+    // Verifica se os campos obrigatórios (nome e empresa) estão preenchidos
+    if (!dadosFormulario.nomePessoa || !dadosFormulario.nomeEmpresa) {
+        alert("Por favor, preencha seu nome e o nome da empresa.");
+        return;
+    }
+
+    // Recupera os dados armazenados no localStorage (se houver)
+    let formulariosSalvos = JSON.parse(localStorage.getItem('dadosSatisfacao')) || [];
+
+    // Adiciona os novos dados à lista de formulários salvos
+    formulariosSalvos.push(dadosFormulario);
+
+    // Salva novamente os dados no localStorage
+    localStorage.setItem('dadosSatisfacao', JSON.stringify(formulariosSalvos));
 
     // Alerta para o usuário que os dados foram enviados com sucesso
     alert("Sua satisfação foi registrada com sucesso! Os dados serão exibidos na área administrativa.");

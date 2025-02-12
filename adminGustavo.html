@@ -10,21 +10,20 @@
     <title>Administração</title>
 </head>
 
-
 <body>
-    <!-- Botão para Recolher/Expandir o Menu -->
-    <button id="btn-menu" class="btn-menu">
-        &#9776; <!-- Ícone de hambúrguer -->
-    </button>
-
     <!-- Menu Lateral -->
     <div id="menu-lateral">
-        <h2>Menu Administrativo</h2>
+        <!-- Botão para Recolher/Expandir o Menu dentro do menu lateral -->
+        <button id="btn-menu" class="btn-menu">
+            <i class="fas fa-bars-staggered"></i> <!-- Ícone de hambúrguer -->
+        </button>
+        
+        <h2 id="titulo-menu"></h2>
         <ul>
-            <li><a href="#">Adicionar Colaborador</a></li>
-            <li><a href="#">Mensagens</a></li>
-            <li><a href="#">Relatórios</a></li>
-            <li><a href="#">Configurações</a></li>
+            <li><a href="#" class="menu-item"><i class="fas fa-user-plus"></i><span class="menu-text">Adicionar Colaborador</span></a></li>
+            <li><a href="mensagens.html" class="menu-item"><i class="fas fa-comments"></i><span class="menu-text">Mensagens</span><span id="contador-mensagens" class="contador"></span></a></li>
+            <li><a href="#" class="menu-item"><i class="fas fa-chart-line"></i><span class="menu-text">Relatórios</span></a></li>
+            <li><a href="#" class="menu-item"><i class="fas fa-cogs"></i><span class="menu-text">Configurações</span></a></li>
         </ul>
     </div>
 
@@ -56,6 +55,7 @@
         const btnMenu = document.getElementById('btn-menu');
         const menuLateral = document.getElementById('menu-lateral');
         const conteudoPrincipal = document.getElementById('conteudo-principal');
+        const contadorMensagens = document.getElementById('contador-mensagens');
 
         // Função para alternar o menu
         btnMenu.addEventListener('click', () => {
@@ -63,6 +63,22 @@
             conteudoPrincipal.classList.toggle('menu-recolhido');
         });
 
+        // Função para verificar novas mensagens
+        function verificarMensagens() {
+            // Simula a leitura de mensagens do localStorage ou de um banco de dados
+            const mensagens = JSON.parse(localStorage.getItem('mensagensRecebidas')) || [];
+
+            if (mensagens.length > 0) {
+                // Exibe o número de mensagens não lidas
+                contadorMensagens.textContent = `(${mensagens.length})`;
+            } else {
+                // Se não houver mensagens, mantém o contador vazio
+                contadorMensagens.textContent = '';
+            }
+        }
+
+        // Chama a função para verificar mensagens assim que a página carregar
+        window.onload = verificarMensagens;
     </script>
 </body>
 

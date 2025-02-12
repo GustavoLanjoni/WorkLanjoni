@@ -63,6 +63,25 @@ button:hover {
     background-color: #0056b3;
 }
 
+button {
+    width: 100px;
+    padding: 10px 20px; /* Ajusta o tamanho do botão */
+    font-size: 16px; /* Ajusta o tamanho da fonte */
+    background-color: #007bff; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    border: none; /* Remove a borda */
+    border-radius: 5px; /* Arredonda os cantos */
+    cursor: pointer; /* Muda o cursor para uma mãozinha */
+    transition: background-color 0.3s ease; /* Adiciona transição suave na cor de fundo */
+    margin-top: 20px; /* Espaçamento superior */
+}
+
+button:hover {
+    background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+}
+
+
+
 /* Ajustando a responsividade */
 @media (max-width: 768px) {
     .container {

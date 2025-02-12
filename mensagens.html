@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/mensgemAdm.css">
+    <title>Mensagens Recebidas - Administração</title>
+</head>
+
+<body>
+    <h1>Mensagens Recebidas - Administração</h1>
+
+    <!-- Botão para voltar à página anterior -->
+    <button onclick="voltarPagina()" class="btn-voltar">Voltar</button>
+
+    <!-- Lista de Mensagens -->
+    <div id="mensagens-recebidas">
+        <h2>Respostas do Formulário de Satisfação</h2>
+        <div id="lista-mensagens">
+            <!-- As respostas serão exibidas aqui -->
+        </div>
+    </div>
+
+    <script>
+        // Função para voltar à página anterior
+        function voltarPagina() {
+            window.history.back(); // Navega para a página anterior no histórico
+        }
+
+        // Carrega os dados do localStorage
+        const dadosSatisfacao = JSON.parse(localStorage.getItem('dadosSatisfacao'));
+
+        if (dadosSatisfacao) {
+            let listaMensagens = document.getElementById("lista-mensagens");
+
+            // Cria uma caixa única para exibir todas as respostas
+            let caixaMensagem = document.createElement("div");
+            caixaMensagem.classList.add("caixa-mensagem");
+            caixaMensagem.setAttribute("onclick", "mostrarDetalhes()");
+
+            // Adiciona o título da caixa
+            caixaMensagem.innerHTML = `
+                <strong>Respostas do Formulário de Satisfação</strong>
+                <p>... Clique para ver todas as respostas</p>
+            `;
+            listaMensagens.appendChild(caixaMensagem);
+
+            // Exibe as respostas dentro da caixa
+            let detalhesMensagem = document.createElement("div");
+            detalhesMensagem.id = "detalhes-mensagem";
+            detalhesMensagem.style.display = "none";
+            detalhesMensagem.innerHTML = "<h3>Respostas Recebidas:</h3>";
+
+            // Exibe cada campo com a resposta do formulário
+            for (let campo in dadosSatisfacao) {
+                let label = campo.replace(/([A-Z])/g, ' $1').toUpperCase(); // Adiciona espaçamento nas palavras
+                let resposta = dadosSatisfacao[campo];
+
+                detalhesMensagem.innerHTML += `
+                    <p><strong>${label}:</strong> ${resposta}</p>
+                `;
+            }
+
+            // Adiciona o campo para a resposta do administrador
+            detalhesMensagem.innerHTML += `
+                <label for="resposta-administrador">Sua resposta:</label>
+                <textarea id="resposta-administrador" placeholder="Digite sua resposta..." rows="3"></textarea>
+                <button class="btn-responder" onclick="enviarResposta()">Enviar Resposta</button>
+                <div id="resposta-enviada" class="resposta-enviada"></div>
+            `;
+
+            listaMensagens.appendChild(detalhesMensagem);
+        } else {
+            document.getElementById("lista-mensagens").innerHTML = "<p>Nenhuma resposta recebida.</p>";
+        }
+
+        // Função para mostrar ou ocultar os detalhes da mensagem
+        function mostrarDetalhes() {
+            let detalhes = document.getElementById("detalhes-mensagem");
+            if (detalhes.style.display === "none") {
+                detalhes.style.display = "block";
+            } else {
+                detalhes.style.display = "none";
+            }
+        }
+
+        // Função para enviar a resposta
+        function enviarResposta() {
+            let resposta = document.getElementById("resposta-administrador").value;
+            if (resposta) {
+                // Exibe a resposta enviada
+                document.getElementById("resposta-enviada").innerHTML = `<strong>Resposta enviada:</strong> <p>${resposta}</p>`;
+                
+                // Aqui, você pode salvar a resposta no localStorage (ou enviar para um servidor)
+                localStorage.setItem('resposta-administrador', resposta);
+                alert("Resposta enviada com sucesso!");
+            } else {
+                alert("Por favor, digite uma resposta antes de enviar.");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

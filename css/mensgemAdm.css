@@ -1,0 +1,135 @@
+/* Resetando alguns estilos padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos para o corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Título da página */
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+/* Título da seção */
+h2 {
+    color: #555;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+/* Estilos para a lista de mensagens */
+#mensagens-recebidas {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Caixa para a mensagem */
+.caixa-mensagem {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.caixa-mensagem:hover {
+    background-color: #f9f9f9;
+}
+
+.caixa-mensagem strong {
+    display: block;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.caixa-mensagem p {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Detalhes da mensagem */
+#detalhes-mensagem {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+/* Formatação das respostas */
+#detalhes-mensagem p {
+    color: #444;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+/* Campo de resposta do administrador */
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Botão para enviar a resposta */
+.btn-responder {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-responder:hover {
+    background-color: #45a049;
+}
+
+/* Exibição da resposta enviada */
+.resposta-enviada {
+    background-color: #e7f7e7;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.resposta-enviada strong {
+    font-weight: bold;
+}
+
+.resposta-enviada p {
+    margin-top: 5px;
+}
+
+/* Mensagem de "Nenhuma resposta recebida" */
+#lista-mensagens p {
+    color: #999;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 20px;
+}
+

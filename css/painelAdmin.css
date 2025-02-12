@@ -15,26 +15,6 @@ body {
     margin-left: 250px; /* Espaço para o menu lateral */
 }
 
-/* Estilos do botão de menu */
-#btn-menu {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background-color: #333;
-    color: white;
-    border: none;
-    padding: 15px;
-    cursor: pointer;
-    font-size: 24px;
-    border-radius: 5px;
-    z-index: 999;
-    transition: background-color 0.3s ease;
-}
-
-#btn-menu:hover {
-    background-color: #555;
-}
-
 /* Menu Lateral */
 #menu-lateral {
     width: 250px;
@@ -54,6 +34,22 @@ body {
     width: 50px;
 }
 
+/* Botão de Menu dentro do menu lateral */
+#btn-menu {
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 5px;
+    z-index: 999;
+    transition: background-color 0.3s ease;
+    margin: 10px auto; /* Adiciona um espaçamento acima e abaixo */
+    display: block; /* Para centralizar o botão dentro do menu lateral */
+}
+
+
+
 /* Estilos do título do menu */
 #menu-lateral h2 {
     text-align: center;
@@ -64,8 +60,15 @@ body {
 }
 
 /* Escondendo o texto dos itens quando o menu estiver recolhido */
-#menu-lateral.recolhido ul li a {
-    text-indent: -9999px; /* Esconde o texto */
+#menu-lateral.recolhido ul li a .menu-text {
+    display: none; /* Esconde o texto */
+}
+
+/* Exibindo apenas os ícones quando o menu estiver recolhido */
+#menu-lateral.recolhido ul li a i {
+    display: inline-block; /* Apenas o ícone visível */
+    font-size: 24px;
+    margin: 0 auto;
 }
 
 /* Estilizando os itens do menu */
@@ -84,14 +87,29 @@ body {
     color: white;
     text-decoration: none;
     font-size: 18px;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: background-color 0.3s ease;
 }
 
-#menu-lateral ul li a:hover {
-    background-color: #575757;
-    color: #007bff;
+/* Ajuste para o texto ao lado dos ícones */
+#menu-lateral ul li a .menu-text {
+    display: inline-block; /* Exibe o texto quando o menu não estiver recolhido */
+    margin-left: 10px; /* Espaçamento entre ícone e texto */
 }
+
+/* Estilos para o contador de mensagens */
+.contador {
+    background-color: #f44336;
+    color: white;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    margin-left: 8px;
+}
+
 
 /* Ajustes responsivos */
 @media (max-width: 768px) {
