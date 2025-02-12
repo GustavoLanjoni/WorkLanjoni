@@ -292,3 +292,22 @@ body.dark-mode #iconMode {
     font-size: 1.3em;
     color: #333;
 }
+.btn-voltar {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-voltar i {
+    margin-right: 8px;
+}
+
+.btn-voltar:hover {
+    background-color: #0056b3;
+}
