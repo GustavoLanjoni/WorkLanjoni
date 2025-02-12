@@ -154,6 +154,33 @@ main {
     margin-top: 10px;
     display: inline-block;
 }
+/* Estilização da Bola Flutuante */
+.floating-message {
+    position: fixed;
+    bottom: 40px; /* Subindo a bola um pouco */
+    right: 20px;
+    background-color: #007bff; /* Cor da bola */
+    border-radius: 50%; /* Deixa a bola redonda */
+    width: 60px; /* Tamanho da bola */
+    height: 60px; /* Tamanho da bola */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para destacar a bola */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transição suave para a cor */
+}
+
+.floating-message img {
+    width: 30px; /* Tamanho do ícone */
+    height: 30px; /* Tamanho do ícone */
+}
+
+.floating-message:hover {
+    background-color: #0056b3; /* Cor da bola quando passar o mouse */
+}
+
+
 
 /* Rodapé */
 footer {
@@ -165,6 +192,8 @@ footer {
     position: fixed;
     bottom: 0;
 }
+
+
 
 /* Responsividade */
 @media (max-width: 1024px) {

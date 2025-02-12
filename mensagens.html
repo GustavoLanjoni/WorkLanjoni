@@ -4,102 +4,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/mensgemAdm.css">
     <title>Mensagens Recebidas - Administração</title>
+    <link rel="stylesheet" href="css/mensgemAdm.css">
 </head>
 
 <body>
     <h1>Mensagens Recebidas - Administração</h1>
 
-    <!-- Botão para voltar à página anterior -->
-    <button onclick="voltarPagina()" class="btn-voltar">Voltar</button>
+    <!-- Lista de mensagens -->
+    <div id="mensagens-lista">
+        <h2>Mensagens Recebidas</h2>
+        <!-- As mensagens serão listadas aqui -->
+    </div>
 
-    <!-- Lista de Mensagens -->
-    <div id="mensagens-recebidas">
-        <h2>Respostas do Formulário de Satisfação</h2>
-        <div id="lista-mensagens">
-            <!-- As respostas serão exibidas aqui -->
-        </div>
+    <!-- Exibe a mensagem selecionada -->
+    <div id="mensagem-detalhada" style="display: none;">
+        <h2>Detalhes da Mensagem</h2>
+        <div id="mensagem-recebida" style="margin-bottom: 20px;"></div>
+        <h3>Resposta da Empresa</h3>
+        <textarea id="resposta-administrador" placeholder="Digite sua resposta..." rows="4"></textarea>
+        <button class="btn-responder" onclick="enviarResposta()">Enviar Resposta</button>
+        <div id="resposta-enviada" style="margin-top: 20px;"></div>
     </div>
 
     <script>
-        // Função para voltar à página anterior
-        function voltarPagina() {
-            window.history.back(); // Navega para a página anterior no histórico
-        }
+        // Função para carregar e exibir a lista de mensagens
+        function carregarMensagens() {
+            const mensagens = JSON.parse(localStorage.getItem('mensagens')) || [];
+            const lista = document.getElementById('mensagens-lista');
 
-        // Carrega os dados do localStorage
-        const dadosSatisfacao = JSON.parse(localStorage.getItem('dadosSatisfacao'));
-
-        if (dadosSatisfacao) {
-            let listaMensagens = document.getElementById("lista-mensagens");
-
-            // Cria uma caixa única para exibir todas as respostas
-            let caixaMensagem = document.createElement("div");
-            caixaMensagem.classList.add("caixa-mensagem");
-            caixaMensagem.setAttribute("onclick", "mostrarDetalhes()");
-
-            // Adiciona o título da caixa
-            caixaMensagem.innerHTML = `
-                <strong>Respostas do Formulário de Satisfação</strong>
-                <p>... Clique para ver todas as respostas</p>
-            `;
-            listaMensagens.appendChild(caixaMensagem);
-
-            // Exibe as respostas dentro da caixa
-            let detalhesMensagem = document.createElement("div");
-            detalhesMensagem.id = "detalhes-mensagem";
-            detalhesMensagem.style.display = "none";
-            detalhesMensagem.innerHTML = "<h3>Respostas Recebidas:</h3>";
-
-            // Exibe cada campo com a resposta do formulário
-            for (let campo in dadosSatisfacao) {
-                let label = campo.replace(/([A-Z])/g, ' $1').toUpperCase(); // Adiciona espaçamento nas palavras
-                let resposta = dadosSatisfacao[campo];
-
-                detalhesMensagem.innerHTML += `
-                    <p><strong>${label}:</strong> ${resposta}</p>
-                `;
-            }
-
-            // Adiciona o campo para a resposta do administrador
-            detalhesMensagem.innerHTML += `
-                <label for="resposta-administrador">Sua resposta:</label>
-                <textarea id="resposta-administrador" placeholder="Digite sua resposta..." rows="3"></textarea>
-                <button class="btn-responder" onclick="enviarResposta()">Enviar Resposta</button>
-                <div id="resposta-enviada" class="resposta-enviada"></div>
-            `;
-
-            listaMensagens.appendChild(detalhesMensagem);
-        } else {
-            document.getElementById("lista-mensagens").innerHTML = "<p>Nenhuma resposta recebida.</p>";
-        }
-
-        // Função para mostrar ou ocultar os detalhes da mensagem
-        function mostrarDetalhes() {
-            let detalhes = document.getElementById("detalhes-mensagem");
-            if (detalhes.style.display === "none") {
-                detalhes.style.display = "block";
+            if (mensagens.length === 0) {
+                lista.innerHTML += "<p>Nenhuma mensagem recebida.</p>";
             } else {
-                detalhes.style.display = "none";
+                let listaHTML = "<ul>";
+                mensagens.forEach((mensagem, index) => {
+                    listaHTML += `
+                        <li>
+                            <button onclick="verMensagem(${index})">${mensagem.nomePessoa}</button>
+                        </li>
+                    `;
+                });
+                listaHTML += "</ul>";
+                lista.innerHTML = listaHTML;
             }
+        }
+
+        // Função para exibir os detalhes de uma mensagem
+        function verMensagem(index) {
+            const mensagens = JSON.parse(localStorage.getItem('mensagens')) || [];
+            const mensagem = mensagens[index];
+
+            let mensagemRecebida = document.getElementById("mensagem-recebida");
+            mensagemRecebida.innerHTML = "";
+            mensagemRecebida.dataset.index = index;  // Armazenando o índice da mensagem selecionada
+
+            // Exibe os campos da mensagem em containers
+            for (let campo in mensagem) {
+                if (campo !== "respostaAdministrador") {
+                    let label = campo.replace(/([A-Z])/g, ' $1').toUpperCase(); // Formatação dos campos
+                    mensagemRecebida.innerHTML += `
+                        <div class="campo-container">
+                            <strong>${label}:</strong> <span>${mensagem[campo]}</span>
+                        </div>
+                    `;
+                }
+            }
+
+            // Exibe a resposta, se houver
+            document.getElementById("resposta-administrador").value = mensagem.respostaAdministrador || "";
+
+            // Exibe a resposta da empresa (se já houver uma resposta)
+            const respostaEnviadaDiv = document.getElementById("resposta-enviada");
+            if (mensagem.respostaAdministrador) {
+                respostaEnviadaDiv.innerHTML = `
+                    <strong>Resposta enviada:</strong> <p>${mensagem.respostaAdministrador}</p>
+                `;
+            } else {
+                respostaEnviadaDiv.innerHTML = "<p>Ainda não foi enviada uma resposta.</p>";
+            }
+
+            // Exibe a seção de detalhes
+            document.getElementById("mensagem-detalhada").style.display = "block";
         }
 
         // Função para enviar a resposta
         function enviarResposta() {
-            let resposta = document.getElementById("resposta-administrador").value;
-            if (resposta) {
-                // Exibe a resposta enviada
-                document.getElementById("resposta-enviada").innerHTML = `<strong>Resposta enviada:</strong> <p>${resposta}</p>`;
-                
-                // Aqui, você pode salvar a resposta no localStorage (ou enviar para um servidor)
-                localStorage.setItem('resposta-administrador', resposta);
-                alert("Resposta enviada com sucesso!");
+            const resposta = document.getElementById("resposta-administrador").value;
+            const mensagens = JSON.parse(localStorage.getItem('mensagens')) || [];
+            const index = document.getElementById("mensagem-recebida").dataset.index;
+
+            if (resposta && index >= 0) {
+                mensagens[index].respostaAdministrador = resposta;
+                localStorage.setItem('mensagens', JSON.stringify(mensagens));
+
+                document.getElementById("resposta-enviada").innerHTML = `
+                    <strong>Resposta enviada:</strong> <p>${resposta}</p>
+                `;
+                alert("Resposta salva com sucesso!");
             } else {
                 alert("Por favor, digite uma resposta antes de enviar.");
             }
         }
+
+        // Carregar mensagens ao carregar a página
+        window.onload = function () {
+            carregarMensagens();
+        };
+
     </script>
+
+    <style>
+        /* Estilo para o container dos campos */
+        .campo-container {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        /* Estilo para o campo de texto da resposta */
+        #resposta-administrador {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+        }
+
+        /* Estilo do botão de resposta */
+        .btn-responder {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-responder:hover {
+            background-color: #45a049;
+        }
+
+        /* Estilo do container de resposta */
+        #resposta-enviada {
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            background-color: #e6f7e6;
+            border: 1px solid #4CAF50;
+        }
+    </style>
 
 </body>
 

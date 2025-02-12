@@ -33,6 +33,11 @@
     </div>
 
     <script>
+        // Função para gerar um ID único
+        function gerarIdUnico() {
+            return 'empresa-' + Date.now(); // Usando a data atual como base para gerar um ID único
+        }
+
         // Função para registrar usuário
         function registrarUsuario() {
             const usuario = document.getElementById('usuario-cadastro').value;
@@ -49,8 +54,13 @@
 
             const novoUsuario = { usuario, senha, email, tipoUsuario, respostaSeguranca };
 
+            // Se for uma empresa, gera um ID único
+            if (tipoUsuario === "empresa") {
+                novoUsuario.idEmpresa = gerarIdUnico(); // Atribui um ID único para a empresa
+            }
+
             // Armazena o novo usuário no localStorage
-            localStorage.setItem(usuario, JSON.stringify(novoUsuario));
+            localStorage.setItem(email, JSON.stringify(novoUsuario));
 
             alert('Cadastro realizado com sucesso!');
 

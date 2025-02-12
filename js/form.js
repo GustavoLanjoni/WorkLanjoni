@@ -1,4 +1,3 @@
-// Função para enviar os dados do formulário sem redirecionar a página
 document.getElementById("form-satisfacao").addEventListener("submit", function (event) {
     event.preventDefault(); // Impede o envio tradicional do formulário
 
@@ -6,6 +5,7 @@ document.getElementById("form-satisfacao").addEventListener("submit", function (
     const dadosFormulario = {
         nomePessoa: document.getElementById("nome-pessoa").value,
         nomeEmpresa: document.getElementById("nome-empresa").value,
+        idEmpresa: document.getElementById("id-empresa").value,  // Captura o ID da empresa
         vagasPublicar: document.getElementById("vagas-publicar").value,
         satisfeitoVagas: document.getElementById("satisfeito-vagas").value,
         visibilidadeBuscas: document.getElementById("visibilidade-buscas").value,
@@ -39,6 +39,9 @@ document.getElementById("form-satisfacao").addEventListener("submit", function (
     // Salva novamente os dados no localStorage
     localStorage.setItem('dadosSatisfacao', JSON.stringify(formulariosSalvos));
 
-    // Alerta para o usuário que os dados foram enviados com sucesso
-    alert("Sua satisfação foi registrada com sucesso! Os dados serão exibidos na área administrativa.");
+    // Exibe a mensagem de sucesso
+    document.getElementById("mensagem-sucesso").style.display = "block";
+
+    // Oculta o formulário
+    document.getElementById("form-satisfacao").style.display = "none";
 });

@@ -38,6 +38,12 @@
         <div class="content">
             <h2>Bem-vindo ao Painel Profissional</h2>
             <p>Gerencie suas configurações, relatórios e muito mais com o plano profissional.</p>
+            
+            <!-- Exibindo o ID da empresa (agora oculto) -->
+            <div id="empresa-id-container" style="display: none;">
+                <p><strong>ID da Empresa:</strong> <span id="empresa-id"></span></p>
+            </div>
+
             <div class="cards">
                 <div class="card">
                     <h3>Relatórios</h3>
@@ -58,6 +64,25 @@
         </div>
     </main>
 
+    <!-- Bola Flutuante de Mensagem -->
+    <div class="floating-message">
+        <a href="javascript:void(0);" onclick="openMessagePopup()">
+            <img src="https://img.icons8.com/ios/50/000000/chat.png" alt="Ícone de Mensagem" />
+        </a>
+    </div>
+
+    <!-- Popup de Mensagem (inicialmente escondido) -->
+    <div id="message-popup" class="popup" style="display: none;">
+        <div class="popup-content">
+            <span class="close" onclick="closeMessagePopup()">&times;</span>
+            <h2>Envie sua Mensagem</h2>
+            <form action="mensagemAdm.html">
+                <textarea rows="4" placeholder="Digite sua mensagem..."></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2025 Empresa. Todos os direitos reservados.</p>
     </footer>
@@ -70,6 +95,12 @@
             sidebar.classList.toggle('open');
         });
 
+        // Captura o ID da empresa na URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const empresaId = urlParams.get('id'); // Obtém o ID da empresa
+
+        // Exibe o ID da empresa na página (no console ou outros usos internos)
+        console.log(empresaId);  // Aqui você pode usá-lo para outras lógicas internas
     </script>
 </body>
 
