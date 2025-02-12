@@ -1,6 +1,8 @@
+// Função para lidar com o envio do formulário de vaga
 document.getElementById('vagaForm2').addEventListener('submit', function (event) {
     event.preventDefault();
 
+    // Criação do objeto novaVaga com os dados do formulário
     const novaVaga = {
         nome: document.getElementById('nomeVaga').value,
         descricao: document.getElementById('descricaoVaga').value,
@@ -13,24 +15,43 @@ document.getElementById('vagaForm2').addEventListener('submit', function (event)
         tipoVaga: document.getElementById('tipoVaga').value
     };
 
+    // Recupera a lista de vagas do localStorage ou cria um novo array caso não exista
     let listaVagas = JSON.parse(localStorage.getItem('planoProfissional')) || [];
+
+    // Adiciona a nova vaga à lista
     listaVagas.push(novaVaga);
+
+    // Atualiza o localStorage com a nova lista de vagas
     localStorage.setItem('planoProfissional', JSON.stringify(listaVagas));
 
+    // Exibe uma mensagem de sucesso
     alert("Vaga publicada com sucesso!");
-    mostrarVagas(); // Atualiza a lista de vagas
+
+    // Limpa os campos do formulário
+    document.getElementById('vagaForm2').reset();
+
+    // Atualiza a lista de vagas na página
+    mostrarVagas();
 });
 
+// Função para exibir as vagas
 function mostrarVagas() {
+    // Recupera a lista de vagas do localStorage
     let listaVagas = JSON.parse(localStorage.getItem('planoProfissional')) || [];
+    console.log(listaVagas); // Verifica o conteúdo de listaVagas no console
+
+    // Obtém o elemento onde os cards de vagas serão exibidos
     const vagaCards = document.getElementById('vagaCards');
 
+    // Limpa os cards de vagas existentes
     vagaCards.innerHTML = '';
 
+    // Para cada vaga na lista, cria um card
     listaVagas.forEach((vaga, index) => {
         const card = document.createElement('div');
         card.classList.add('vaga-card');
 
+        // Cria o conteúdo do card de vaga
         const resumoVaga = `
             <h3>${vaga.nome}</h3>
             <p>${vaga.descricao.substring(0, 100)}...</p>
@@ -40,10 +61,11 @@ function mostrarVagas() {
             <a href="detalhesVaga.html?id=${index}" class="ver-vaga-btn">Ver Mais</a>
         `;
 
+        // Insere o conteúdo no card
         card.innerHTML = resumoVaga;
         vagaCards.appendChild(card);
 
-        // Estilizando o card com o design solicitado
+        // Estiliza o card (essas regras podem ser transferidas para o CSS)
         card.style.background = '#f8f9fa';
         card.style.borderRadius = '10px';
         card.style.padding = '20px';
@@ -60,7 +82,7 @@ function mostrarVagas() {
         card.style.overflowWrap = 'break-word';
         card.style.wordBreak = 'break-word';
 
-        // Efeito de hover
+        // Efeito de hover no card
         card.addEventListener('mouseover', () => {
             card.style.boxShadow = '0px 12px 20px rgba(0, 0, 0, 0.2)';
             card.style.transform = 'scale(1.02)';
@@ -71,7 +93,7 @@ function mostrarVagas() {
             card.style.transform = 'scale(1)';
         });
 
-        // Estilizando o botão
+        // Estiliza o botão
         const button = card.querySelector('.ver-vaga-btn');
         button.style.background = '#28a745'; // Verde fluorescente
         button.style.color = 'white';
@@ -99,4 +121,5 @@ function mostrarVagas() {
     });
 }
 
-mostrarVagas(); // Exibe as vagas ao carregar a página
+// Chama a função para mostrar as vagas ao carregar a página
+mostrarVagas();

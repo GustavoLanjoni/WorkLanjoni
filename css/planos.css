@@ -1,120 +1,314 @@
-/* Reset de margens e padding */
+/* Reset de margin e padding */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Fonte global */
+/* Corpo do site */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f7fc;
-    color: #333;
-    line-height: 1.6;
-    padding: 0 15px;
-}
-
-/* Container principal */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
+    font-family: 'Roboto', sans-serif;
+    background: #000;
+    color: #fff;
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 30px;
-    padding: 50px 0;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Estilos dos planos */
-.plano {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+/* Fundo galáctico e estrelas */
+@keyframes galaxyMovement {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translate(200px, 200px);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translate(-200px, -200px);
+        opacity: 0.8;
+    }
+}
+
+@keyframes starTwinkle {
+    0%, 100% {
+        opacity: 0.2;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 350px;
+    height: 100%;
+    background: url('https://cdn.pixabay.com/photo/2017/08/30/02/43/space-2695566_960_720.jpg');
+    background-size: cover;
+   
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.6));
+    pointer-events: none;
+}
+
+/* Camada de partículas com brilho suave */
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.5));
+    pointer-events: none;
+    opacity: 0.3;
+
+}
+
+/* Container dos planos */
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    max-width: 2000px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+/* Estilo comum aos planos */
+.plano {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
+    padding: 40px;
     text-align: center;
-    padding: 30px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-.plano:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-}
-
-/* Cabeçalhos dos planos */
+/* Títulos dos planos */
 .plano h1 {
-    font-size: 28px;
-    color: #2e3a59;
-    margin-bottom: 15px;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #fff;
+    font-weight: 700;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.8);
 }
 
-/* Preço */
+/* Preços com cor vibrante */
 .preco {
-    font-size: 24px;
-    color: #2e3a59;
+    font-size: 1.6em;
     margin-bottom: 20px;
+    letter-spacing: 1px;
+    color: #ff6f61;
+    text-shadow: 0 0 15px rgba(255, 111, 97, 0.8), 0 0 25px rgba(255, 111, 97, 0.6);
 }
 
 .valor {
-    font-weight: bold;
-    font-size: 30px;
-    color: #00aaff;
+    font-size: 2.8em;
+    font-weight: 600;
+    color: #f39c12;
+    text-shadow: 0 0 25px rgba(243, 156, 18, 0.8), 0 0 50px rgba(243, 156, 18, 0.6);
 }
 
-.desconto {
-    font-size: 16px;
-    color: #666;
+.valor-anual {
+    font-size: 1.1em;
+    color: #bbb;
+    text-decoration: line-through;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
-/* Descrição dos planos */
+/* Descrição do plano */
 .descricao {
-    font-size: 16px;
-    color: #555;
+    font-size: 1.1em;
     margin-bottom: 20px;
+    font-style: italic;
+    color: #ddd;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
-/* Lista de características dos planos */
+/* Lista de benefícios */
 ul {
-    list-style: none;
+    list-style-type: none;
     margin-bottom: 30px;
+    padding-left: 0;
+    font-size: 1.2em;
 }
 
 ul li {
-    font-size: 16px;
-    color: #777;
-    margin: 10px 0;
-    display: flex;
-    align-items: center;
+    color: #ffffff;
+    margin-bottom: 15px;
+    position: relative;
+    padding-left: 25px;
 }
 
-ul li:before {
-    content: '✔';
-    color: #00aaff;
-    margin-right: 10px;
+ul li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #6c5ce7;
+    font-size: 1.5em;
 }
 
 /* Botão */
 .btn {
     display: inline-block;
-    background-color: #00aaff;
+    background: linear-gradient(135deg, #6c5ce7, #ff7675);
     color: #fff;
-    padding: 12px 30px;
-    border-radius: 25px;
+    padding: 15px 30px;
+    font-size: 1.3em;
     text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+    border-radius: 50px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #0088cc;
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #ff7675, #6c5ce7);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
 }
 
-/* Media Queries para dispositivos móveis */
-@media (max-width: 768px) {
+.btn:active {
+    transform: scale(1);
+}
+
+/* Estilizações específicas para os planos */
+.basico {
+    background: rgba(15, 20, 30, 0.8);
+    border-left: 5px solid #ff7675;
+}
+
+.profissional {
+    background: rgba(15, 20, 30, 0.85);
+    border-left: 5px solid #6c5ce7;
+    transform: scale(1.15);
+}
+
+.profissional .preco {
+    color: #6c5ce7;
+}
+
+.premium {
+    background: rgba(0, 0, 0, 0.85);
+    border-left: 5px solid #6c5ce7;
+}
+
+.premium .preco {
+    color: #6c5ce7;
+}
+
+/* Animações de estrelas */
+@keyframes stars {
+    0%, 100% {
+        opacity: 0.4;
+        transform: translate(0, 0);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(10px, -10px);
+    }
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/white-diamond.png');
+    pointer-events: none;
+    animation: stars 2s infinite alternate;
+    opacity: 0.15;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
     .container {
         flex-direction: column;
-        align-items: center;
+        gap: 20px;
+    }
+
+    .plano {
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 20px;
+        padding: 30px;
+    }
+
+    .plano h1 {
+        font-size: 2em;
+    }
+
+    .preco {
+        font-size: 1.4em;
+    }
+
+    .valor {
+        font-size: 2.4em;
+    }
+
+    .descricao {
+        font-size: 1em;
+    }
+
+    ul li {
+        font-size: 1em;
+    }
+
+    .btn {
+        padding: 12px 25px;
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 768px) {
+    .plano h1 {
+        font-size: 1.8em;
+    }
+
+    .preco {
+        font-size: 1.3em;
+    }
+
+    .valor {
+        font-size: 2.2em;
+    }
+
+    .descricao {
+        font-size: 0.9em;
+    }
+
+    ul li {
+        font-size: 0.9em;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 1em;
     }
 }

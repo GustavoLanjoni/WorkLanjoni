@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vagas Postadas</title>
+    <link rel="stylesheet" href="css/vagasPostada.css">
+</head>
+
+<body>
+    <div id="vagaCards" class="vaga-cards-container"></div> <!-- Container onde as vagas serão exibidas -->
+
+    <!-- Botão para voltar para a tela inicial -->
+    <button onclick="window.location.href='telaEmpresa2.html'">Voltar</button>
+
+    <script>
+        // Função para exibir as vagas
+        function mostrarVagas() {
+            // Recupera as vagas do localStorage ou cria um array vazio caso não haja vagas salvas
+            let listaVagas = JSON.parse(localStorage.getItem('planoProfissional')) || [];
+            const vagaCards = document.getElementById('vagaCards');
+            vagaCards.innerHTML = ''; // Limpa as vagas antes de mostrar as atualizações
+
+            // Se não houver vagas, exibe uma mensagem
+            if (listaVagas.length === 0) {
+                vagaCards.innerHTML = '<p>Não há vagas postadas ainda.</p>';
+                return;
+            }
+
+            // Itera sobre as vagas para exibir cada uma delas
+            listaVagas.forEach((vaga, index) => {
+                const card = document.createElement('div');
+                card.classList.add('vaga-card');
+
+                // Garantir que todos os campos necessários existem e são válidos
+                const nomeVaga = vaga.nome || 'Nome da vaga não disponível';
+                const descricaoVaga = vaga.descricao ? vaga.descricao.substring(0, 100) : 'Descrição não disponível';
+                const salarioVaga = vaga.salario || 'Salário não informado';
+                const cidadeVaga = vaga.cidade || 'Cidade não informada';
+                const tipoTrabalhoVaga = vaga.tipoTrabalho || 'Tipo de trabalho não informado';
+
+                // Estrutura do resumo da vaga
+                const resumoVaga = `
+            <h3>${nomeVaga}</h3>
+            <p>${descricaoVaga}...</p>
+            <p><strong>Salário:</strong> ${salarioVaga}</p>
+            <p><strong>Cidade:</strong> ${cidadeVaga}</p>
+            <p><strong>Tipo de Trabalho:</strong> ${tipoTrabalhoVaga}</p>
+            <button class="editar-btn" onclick="editarVaga(${index})">Editar</button>
+            <button class="excluir-btn" onclick="excluirVaga(${index})">Excluir</button>
+        `;
+
+                card.innerHTML = resumoVaga;
+                vagaCards.appendChild(card);
+            });
+        }
+
+        // Função para editar uma vaga
+        function editarVaga(index) {
+            let listaVagas = JSON.parse(localStorage.getItem('planoProfissional')) || [];
+            const vaga = listaVagas[index];
+
+            
+        }
+
+        // Função para excluir uma vaga
+        function excluirVaga(index) {
+            let listaVagas = JSON.parse(localStorage.getItem('planoProfissional')) || [];
+
+            // Remove a vaga do array
+            listaVagas.splice(index, 1);
+
+            // Salva a nova lista de vagas no localStorage
+            localStorage.setItem('planoProfissional', JSON.stringify(listaVagas));
+
+            alert("Vaga excluída com sucesso!");
+            mostrarVagas(); // Atualiza a lista de vagas na página
+        }
+
+        // Função para adicionar uma vaga
+        function adicionarVaga(vaga) {
+            let listaVagas = JSON.parse(localStorage.getItem('planoProfissional')) || [];
+
+            // Adiciona a nova vaga ao array de vagas
+            listaVagas.push(vaga);
+
+            // Salva a lista de vagas atualizada no localStorage
+            localStorage.setItem('planoProfissional', JSON.stringify(listaVagas));
+
+            alert("Vaga adicionada com sucesso!");
+            mostrarVagas(); // Atualiza a lista de vagas na página
+        }
+
+        // Chama a função para exibir as vagas ao carregar a página
+        mostrarVagas();
+
+    </script>
+</body>
+
+</html>
