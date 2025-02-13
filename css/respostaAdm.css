@@ -1,0 +1,113 @@
+/* Reset de alguns estilos padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo geral do body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Título principal */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* Estilo do container de resposta */
+#resposta-recebida {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Estilo dos títulos das seções */
+h2, h3 {
+    color: #0056b3;
+    margin-bottom: 15px;
+}
+
+/* Estilo da área de mensagem enviada */
+#mensagem-enviada, #resposta-administrador {
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#mensagem-enviada p, #resposta-administrador p {
+    color: #555;
+    font-size: 16px;
+}
+
+/* Estilo para o campo de resposta da empresa */
+#resposta-empresa {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Botão para enviar resposta */
+button {
+    background-color: #0056b3;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #003f8f;
+}
+
+/* Estilo para o chat */
+#chat {
+    margin-top: 30px;
+}
+
+#chat ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#chat li {
+    background-color: #e9ecef;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#chat li strong {
+    color: #0056b3;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #resposta-recebida {
+        padding: 15px;
+        margin: 0 10px;
+    }
+
+    button {
+        width: 100%;
+    }
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resposta da Empresa</title>
+    <link rel="stylesheet" href="css/respostaAdm.css">
+</head>
+
+<body>
+    <h1>Resposta da Empresa</h1>
+
+    <!-- Exibe a mensagem e a resposta -->
+    <div id="resposta-recebida">
+        <h2>Detalhes da Mensagem</h2>
+        <div id="mensagem-enviada">
+            <h3>Mensagem Enviada:</h3>
+            <p id="mensagem-usuario"></p>
+        </div>
+
+        <div id="resposta-administrador">
+            <h3>Resposta do Administrador:</h3>
+            <p id="resposta-texto"></p>
+        </div>
+
+        <!-- Chat para a empresa responder ao administrador -->
+        <h3>Responder ao Administrador:</h3>
+        <textarea id="resposta-empresa" rows="4" cols="50" placeholder="Digite sua resposta..."></textarea><br>
+        <button onclick="enviarRespostaEmpresa()">Enviar Resposta</button>
+
+        <!-- Exibir as respostas anteriores -->
+        <div id="chat">
+            <h3>Histórico de Conversa:</h3>
+            <ul id="historico-chat">
+                <!-- Mensagens do chat vão aparecer aqui -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Função para carregar as mensagens e exibir a resposta do administrador
+        function carregarResposta() {
+            let mensagens = localStorage.getItem('respostasSatisfacao');
+            
+            console.log("Dados no localStorage:", mensagens); // Debugando o que está armazenado
+
+            try {
+                mensagens = JSON.parse(mensagens); // Tenta converter para objeto
+            } catch (error) {
+                console.error("Erro ao converter JSON:", error);
+                mensagens = {}; // Se der erro, define como objeto vazio
+            }
+
+            // Garante que mensagens seja um objeto, não um array
+            if (typeof mensagens !== 'object' || mensagens === null) {
+                mensagens = {};
+            }
+
+            const mensagemUsuario = document.getElementById('mensagem-usuario');
+            const respostaTexto = document.getElementById('resposta-texto');
+            const historicoChat = document.getElementById('historico-chat');
+
+            // Exibe a mensagem do usuário
+            if (mensagens['mensagem']) {
+                mensagemUsuario.innerHTML = mensagens['mensagem'];
+            } else {
+                mensagemUsuario.innerHTML = "<p>Nenhuma mensagem encontrada.</p>";
+            }
+
+            // Exibe a resposta do administrador
+            if (mensagens['respostaAdministrador']) {
+                respostaTexto.innerHTML = mensagens['respostaAdministrador'];
+            } else {
+                respostaTexto.innerHTML = "<p>Ainda não há resposta do administrador.</p>";
+            }
+
+            // Exibe o histórico de mensagens (respostas do administrador e da empresa)
+            if (mensagens['chat'] && mensagens['chat'].length > 0) {
+                mensagens['chat'].forEach(msg => {
+                    let li = document.createElement('li');
+                    li.innerHTML = `<strong>${msg.remetente}:</strong> ${msg.mensagem}`;
+                    historicoChat.appendChild(li);
+                });
+            }
+        }
+
+        // Função para enviar a resposta da empresa
+        function enviarRespostaEmpresa() {
+            const respostaTexto = document.getElementById('resposta-empresa').value;
+            let mensagens = JSON.parse(localStorage.getItem('respostasSatisfacao')) || {}; // Recupera as mensagens
+
+            if (!mensagens['chat']) {
+                mensagens['chat'] = []; // Cria o chat caso ainda não exista
+            }
+
+            // Adiciona a mensagem ao chat
+            mensagens['chat'].push({
+                remetente: 'Empresa',
+                mensagem: respostaTexto
+            });
+
+            // Atualiza o localStorage com a nova mensagem
+            localStorage.setItem('respostasSatisfacao', JSON.stringify(mensagens));
+
+            // Atualiza a visualização do histórico de chat
+            const historicoChat = document.getElementById('historico-chat');
+            let li = document.createElement('li');
+            li.innerHTML = `<strong>Empresa:</strong> ${respostaTexto}`;
+            historicoChat.appendChild(li);
+
+            // Limpa o campo de resposta após o envio
+            document.getElementById('resposta-empresa').value = "";
+
+            alert("Resposta enviada com sucesso!");
+        }
+
+        // Carregar a resposta e o histórico de chat ao abrir a página
+        window.onload = carregarResposta;
+    </script>
+
+</body>
+
+</html>

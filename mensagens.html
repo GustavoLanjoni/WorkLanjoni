@@ -1,161 +1,119 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensagens Recebidas - Administração</title>
+    <title>Mensagens Recebidas</title>
     <link rel="stylesheet" href="css/mensgemAdm.css">
 </head>
-
 <body>
-    <h1>Mensagens Recebidas - Administração</h1>
+    <h1>Mensagens Recebidas</h1>
 
     <!-- Lista de mensagens -->
     <div id="mensagens-lista">
         <h2>Mensagens Recebidas</h2>
-        <!-- As mensagens serão listadas aqui -->
+        <ul id="lista-mensagens"></ul>
     </div>
 
-    <!-- Exibe a mensagem selecionada -->
-    <div id="mensagem-detalhada" style="display: none;">
-        <h2>Detalhes da Mensagem</h2>
-        <div id="mensagem-recebida" style="margin-bottom: 20px;"></div>
-        <h3>Resposta da Empresa</h3>
-        <textarea id="resposta-administrador" placeholder="Digite sua resposta..." rows="4"></textarea>
-        <button class="btn-responder" onclick="enviarResposta()">Enviar Resposta</button>
-        <div id="resposta-enviada" style="margin-top: 20px;"></div>
+    <!-- Exibe a conversa do chat -->
+    <div id="mensagem-chat" style="display: none;">
+        <h2>Chat</h2>
+        <div id="mensagem-conversa" class="chat"></div>
+
+        <textarea id="resposta-texto" rows="4" cols="50" placeholder="Digite sua resposta..."></textarea><br>
+        <button onclick="enviarResposta()">Enviar</button>
     </div>
 
     <script>
-        // Função para carregar e exibir a lista de mensagens
         function carregarMensagens() {
-            const mensagens = JSON.parse(localStorage.getItem('mensagens')) || [];
-            const lista = document.getElementById('mensagens-lista');
+            let mensagens = localStorage.getItem('respostasSatisfacao');
+            console.log("Dados no localStorage:", mensagens); // Debugando o que está armazenado
 
-            if (mensagens.length === 0) {
-                lista.innerHTML += "<p>Nenhuma mensagem recebida.</p>";
+            try {
+                mensagens = JSON.parse(mensagens); // Tenta converter para objeto
+            } catch (error) {
+                console.error("Erro ao converter JSON:", error);
+                mensagens = {}; // Se der erro, define como objeto vazio
+            }
+
+            // Garante que mensagens seja um objeto, não um array
+            if (typeof mensagens !== 'object' || mensagens === null) {
+                mensagens = {};
+            }
+
+            const listaMensagens = document.getElementById('lista-mensagens');
+            listaMensagens.innerHTML = ""; // Evita duplicação
+
+            if (Object.keys(mensagens).length === 0) {
+                listaMensagens.innerHTML = "<p>Nenhuma mensagem recebida.</p>";
             } else {
-                let listaHTML = "<ul>";
-                mensagens.forEach((mensagem, index) => {
-                    listaHTML += `
-                        <li>
-                            <button onclick="verMensagem(${index})">${mensagem.nomePessoa}</button>
-                        </li>
-                    `;
-                });
-                listaHTML += "</ul>";
-                lista.innerHTML = listaHTML;
+                // Aqui, adaptamos para mostrar o nome da pessoa como título
+                let li = document.createElement('li');
+                li.innerHTML = `<button onclick="iniciarChat()">${mensagens['nome-pessoa']}</button>`;
+                listaMensagens.appendChild(li);
             }
         }
 
-        // Função para exibir os detalhes de uma mensagem
-        function verMensagem(index) {
-            const mensagens = JSON.parse(localStorage.getItem('mensagens')) || [];
-            const mensagem = mensagens[index];
+        // Função para iniciar o chat e exibir as mensagens
+        function iniciarChat() {
+            const mensagens = JSON.parse(localStorage.getItem('respostasSatisfacao')) || {};
+            const mensagem = mensagens;
 
-            let mensagemRecebida = document.getElementById("mensagem-recebida");
-            mensagemRecebida.innerHTML = "";
-            mensagemRecebida.dataset.index = index;  // Armazenando o índice da mensagem selecionada
+            const conversaDiv = document.getElementById("mensagem-conversa");
+            conversaDiv.innerHTML = ""; // Limpar a conversa anterior
 
-            // Exibe os campos da mensagem em containers
-            for (let campo in mensagem) {
-                if (campo !== "respostaAdministrador") {
-                    let label = campo.replace(/([A-Z])/g, ' $1').toUpperCase(); // Formatação dos campos
-                    mensagemRecebida.innerHTML += `
-                        <div class="campo-container">
-                            <strong>${label}:</strong> <span>${mensagem[campo]}</span>
-                        </div>
-                    `;
-                }
-            }
+            // Exibir a mensagem original
+            conversaDiv.innerHTML += `
+                <div class="mensagem">
+                    <strong>${mensagem['nome-pessoa']}</strong>: ${mensagem['mensagem']}
+                </div>
+            `;
 
-            // Exibe a resposta, se houver
-            document.getElementById("resposta-administrador").value = mensagem.respostaAdministrador || "";
-
-            // Exibe a resposta da empresa (se já houver uma resposta)
-            const respostaEnviadaDiv = document.getElementById("resposta-enviada");
+            // Exibir a resposta da empresa, se existir
             if (mensagem.respostaAdministrador) {
-                respostaEnviadaDiv.innerHTML = `
-                    <strong>Resposta enviada:</strong> <p>${mensagem.respostaAdministrador}</p>
+                conversaDiv.innerHTML += `
+                    <div class="mensagem resposta">
+                        <strong>Resposta da Empresa:</strong> ${mensagem.respostaAdministrador}
+                    </div>
                 `;
-            } else {
-                respostaEnviadaDiv.innerHTML = "<p>Ainda não foi enviada uma resposta.</p>";
             }
 
-            // Exibe a seção de detalhes
-            document.getElementById("mensagem-detalhada").style.display = "block";
+            // Exibir a caixa de resposta para o administrador
+            document.getElementById("mensagem-chat").style.display = "block";
         }
 
-        // Função para enviar a resposta
+        // Função para enviar a resposta como parte do chat
         function enviarResposta() {
-            const resposta = document.getElementById("resposta-administrador").value;
-            const mensagens = JSON.parse(localStorage.getItem('mensagens')) || [];
-            const index = document.getElementById("mensagem-recebida").dataset.index;
+            const respostaTexto = document.getElementById('resposta-texto').value;
+            const mensagens = JSON.parse(localStorage.getItem('respostasSatisfacao')) || {};
 
-            if (resposta && index >= 0) {
-                mensagens[index].respostaAdministrador = resposta;
-                localStorage.setItem('mensagens', JSON.stringify(mensagens));
+            // Encontre a mensagem para adicionar a resposta
+            const mensagem = mensagens;
+            
+            if (mensagem) {
+                // Adiciona a resposta do administrador
+                mensagem.respostaAdministrador = respostaTexto;
 
-                document.getElementById("resposta-enviada").innerHTML = `
-                    <strong>Resposta enviada:</strong> <p>${resposta}</p>
+                // Atualiza o localStorage com a resposta
+                localStorage.setItem('respostasSatisfacao', JSON.stringify(mensagens));
+
+                // Exibe a nova resposta na conversa
+                const conversaDiv = document.getElementById("mensagem-conversa");
+                conversaDiv.innerHTML += `
+                    <div class="mensagem resposta">
+                        <strong>Resposta da Empresa:</strong> ${respostaTexto}
+                    </div>
                 `;
-                alert("Resposta salva com sucesso!");
-            } else {
-                alert("Por favor, digite uma resposta antes de enviar.");
+
+                // Limpa o campo de resposta após o envio
+                document.getElementById('resposta-texto').value = "";
+
+                alert("Resposta enviada com sucesso!");
             }
         }
 
-        // Carregar mensagens ao carregar a página
-        window.onload = function () {
-            carregarMensagens();
-        };
-
+        // Carregar as mensagens ao abrir a página
+        window.onload = carregarMensagens;
     </script>
-
-    <style>
-        /* Estilo para o container dos campos */
-        .campo-container {
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-
-        /* Estilo para o campo de texto da resposta */
-        #resposta-administrador {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            margin-top: 10px;
-        }
-
-        /* Estilo do botão de resposta */
-        .btn-responder {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .btn-responder:hover {
-            background-color: #45a049;
-        }
-
-        /* Estilo do container de resposta */
-        #resposta-enviada {
-            padding: 10px;
-            margin-top: 20px;
-            border-radius: 5px;
-            background-color: #e6f7e6;
-            border: 1px solid #4CAF50;
-        }
-    </style>
-
 </body>
-
 </html>
