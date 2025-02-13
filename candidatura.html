@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Candidatura</title>
+    <link rel="stylesheet" href="css/candidatura.css">
+    <style>
+        .arquivo-info {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .arquivo-info img {
+            width: 32px;
+            height: 32px;
+            margin-right: 10px;
+        }
+
+        .voltar-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .voltar-btn:hover {
+            opacity: 0.7;
+        }
+
+        .candidatura-container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="candidatura-container">
+        <h2>Candidatura para: <span id="vagaNome">Carregando...</span></h2>
+        <p><strong>Descrição:</strong> <span id="vagaDescricao">Carregando...</span></p>
+        <p><strong>Contato:</strong> <span id="vagaContato">Carregando...</span></p>
+        <p><strong>Cidade:</strong> <span id="vagaCidade">Carregando...</span></p>
+        <p><strong>Salário:</strong> <span id="vagaSalario">Carregando...</span></p>
+
+        <form id="formCandidatura">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="telefone">Telefone:</label>
+            <input type="tel" id="telefone" name="telefone" required>
+
+            <label for="curriculo">Anexar Currículo:</label>
+            <input type="file" id="curriculo" name="curriculo" accept="*" required>
+
+            <div class="arquivo-info" id="arquivoInfo" style="display: none;">
+                <img id="arquivoIcone" src="" alt="Ícone do arquivo">
+                <span id="arquivoSelecionado">Nenhum arquivo selecionado</span>
+            </div>
+
+            <button type="submit">Enviar Candidatura</button>
+        </form>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('vagaNome').textContent = urlParams.get('nome') || 'Carregando...';
+        document.getElementById('vagaDescricao').textContent = urlParams.get('descricao') || 'Carregando...';
+        document.getElementById('vagaContato').textContent = urlParams.get('contato') || 'Carregando...';
+        document.getElementById('vagaCidade').textContent = urlParams.get('cidade') || 'Carregando...';
+        document.getElementById('vagaSalario').textContent = urlParams.get('salario') || 'Carregando...';
+
+        function getIconForFile(fileName) {
+            const extension = fileName.split('.').pop().toLowerCase();
+            const iconMap = {
+                'pdf': 'https://cdn-icons-png.flaticon.com/512/337/337946.png',
+                'doc': 'https://cdn-icons-png.flaticon.com/512/281/281760.png',
+                'docx': 'https://cdn-icons-png.flaticon.com/512/281/281760.png',
+                'jpg': 'https://cdn-icons-png.flaticon.com/512/136/136524.png',
+                'jpeg': 'https://cdn-icons-png.flaticon.com/512/136/136524.png',
+                'png': 'https://cdn-icons-png.flaticon.com/512/136/136524.png',
+                'xls': 'https://cdn-icons-png.flaticon.com/512/732/732220.png',
+                'xlsx': 'https://cdn-icons-png.flaticon.com/512/732/732220.png',
+                'txt': 'https://cdn-icons-png.flaticon.com/512/136/136538.png',
+                'zip': 'https://cdn-icons-png.flaticon.com/512/564/564429.png',
+                'rar': 'https://cdn-icons-png.flaticon.com/512/564/564429.png',
+                'default': 'https://cdn-icons-png.flaticon.com/512/833/833593.png'
+            };
+            return iconMap[extension] || iconMap['default'];
+        }
+
+        document.getElementById('curriculo').addEventListener('change', function () {
+            const arquivo = this.files[0];
+            const arquivoInfo = document.getElementById('arquivoInfo');
+            const arquivoIcone = document.getElementById('arquivoIcone');
+            const arquivoSelecionado = document.getElementById('arquivoSelecionado');
+
+            if (arquivo) {
+                arquivoInfo.style.display = 'flex';
+                arquivoIcone.src = getIconForFile(arquivo.name);
+                arquivoSelecionado.textContent = `Arquivo: ${arquivo.name}`;
+            } else {
+                arquivoInfo.style.display = 'none';
+            }
+        });
+
+        document.getElementById('formCandidatura').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const candidatura = {
+                vagaNome: document.getElementById('vagaNome').textContent,
+                vagaDescricao: document.getElementById('vagaDescricao').textContent,
+                vagaContato: document.getElementById('vagaContato').textContent,
+                vagaCidade: document.getElementById('vagaCidade').textContent,
+                vagaSalario: document.getElementById('vagaSalario').textContent,
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value,
+                arquivoNome: document.getElementById('curriculo').files[0]?.name || ''
+            };
+
+            localStorage.setItem('candidaturaProfissional', JSON.stringify(candidatura));
+
+            const mensagem = "✅ Candidatura enviada com sucesso!\n\nRedirecionando...";
+            let index = 0;
+
+            const mensagemContainer = document.createElement('div');
+            mensagemContainer.style.position = 'fixed';
+            mensagemContainer.style.top = '50%';
+            mensagemContainer.style.left = '50%';
+            mensagemContainer.style.transform = 'translate(-50%, -50%)';
+            mensagemContainer.style.background = '#28a745';
+            mensagemContainer.style.color = '#fff';
+            mensagemContainer.style.padding = '20px';
+            mensagemContainer.style.fontSize = '18px';
+            mensagemContainer.style.borderRadius = '10px';
+            mensagemContainer.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+            mensagemContainer.style.textAlign = 'center';
+            mensagemContainer.style.zIndex = '9999';
+            document.body.appendChild(mensagemContainer);
+
+            function digitarTexto() {
+                if (index < mensagem.length) {
+                    mensagemContainer.textContent += mensagem.charAt(index);
+                    index++;
+                    setTimeout(digitarTexto, 50);
+                } else {
+                    setTimeout(function () {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                }
+            }
+
+            digitarTexto();
+        });
+    </script>
+</body>
+
+</html>

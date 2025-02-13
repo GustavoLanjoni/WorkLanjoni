@@ -100,6 +100,68 @@ button[onclick="window.history.back()"]:hover {
     background-color: #ddd;
 }
 
+
+/* Estilização dos ícones de salvar e compartilhar */
+.acoes {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.acoes button,
+.acoes i {
+    cursor: pointer;
+    font-size: 20px;
+    padding: 10px;
+    border: none;
+    background: none;
+    transition: transform 0.2s, color 0.2s;
+}
+
+/* Ícones interativos */
+.acoes i {
+    color: #007BFF;
+}
+
+.acoes i:hover {
+    transform: scale(1.2);
+    color: #0056b3;
+}
+
+/* Botão de voltar estilizado */
+.voltar {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.voltar:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Botão de candidatar-se */
+#candidatarVaga {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+#candidatarVaga:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+
+
+
 /* Responsividade */
 @media (max-width: 768px) {
     .vaga-detalhe-container {
@@ -119,4 +181,3 @@ button[onclick="window.history.back()"]:hover {
         margin-bottom: 10px;
     }
 }
-

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes da Vaga</title>
     <link rel="stylesheet" href="css/detalhes2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
@@ -20,59 +21,30 @@
         <p><strong>Tipo de Trabalho:</strong> <span id="vagaTipoTrabalho">Carregando...</span></p>
         <p><strong>Tipo de Vaga:</strong> <span id="vagaTipoVaga">Carregando...</span></p>
 
-        <!-- Botão Voltar -->
-        <button onclick="window.history.back()">Voltar</button>
+        <!-- Ícones para ações -->
+        <div class="acoes">
+            <button onclick="window.history.back()" title="Voltar">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </button>
 
-        <!-- Botão Salvar -->
-        <button id="salvarVaga">Salvar</button>
+            <!-- Botão Candidatar-se com redirecionamento -->
+            <button id="candidatarVaga" title="Candidatar-se">Candidatar-se</button>
 
-        <!-- Botão Compartilhar -->
-        <button id="compartilharVaga">Compartilhar</button>
-
+            <i class="fas fa-bookmark" id="salvarVaga" title="Salvar"></i>
+            <i class="fas fa-share-alt" id="compartilharVaga" title="Compartilhar"></i>
+        </div>
     </div>
 
     <script>
-        // Recupera o parâmetro 'id' da URL (índice da vaga)
         const urlParams = new URLSearchParams(window.location.search);
         const vagaId = urlParams.get('id');
 
-        // Função para salvar as informações da vaga no localStorage
-        function salvarVaga() {
-            const vaga = {
-                nome: document.getElementById('vagaNome').textContent,
-                descricao: document.getElementById('vagaDescricao').textContent,
-                contato: document.getElementById('vagaContato').textContent,
-                beneficio: document.getElementById('vagaBeneficio').textContent,
-                salario: document.getElementById('vagaSalario').textContent,
-                requisitos: document.getElementById('vagaRequisitos').textContent,
-                cidade: document.getElementById('vagaCidade').textContent,
-                tipoTrabalho: document.getElementById('vagaTipoTrabalho').textContent,
-                tipoVaga: document.getElementById('vagaTipoVaga').textContent
-            };
-
-            // Recupera as vagas salvas ou cria um array vazio
-            const vagasSalvas = JSON.parse(localStorage.getItem('vagasSalvas')) || [];
-
-            // Adiciona a vaga salva ao array de vagas salvas
-            vagasSalvas.push(vaga);
-
-            // Salva novamente no localStorage
-            localStorage.setItem('vagasSalvas', JSON.stringify(vagasSalvas));
-
-            // Redireciona para a página 'salva.html'
-            window.location.href = 'salvas.html';
-        }
-
-        // Verifica se o parâmetro 'id' existe e é válido
         if (vagaId !== null && vagaId !== '') {
-            // Recupera as vagas do localStorage
             const listaVagas = JSON.parse(localStorage.getItem('planoProfissional')) || [];
 
-            // Verifica se o índice da vaga é válido
             if (vagaId >= 0 && vagaId < listaVagas.length) {
                 const vaga = listaVagas[vagaId];
 
-                // Preenche os elementos da página com as informações da vaga
                 document.getElementById('vagaNome').textContent = vaga.nome;
                 document.getElementById('vagaDescricao').textContent = vaga.descricao;
                 document.getElementById('vagaContato').textContent = vaga.contato;
@@ -83,51 +55,23 @@
                 document.getElementById('vagaTipoTrabalho').textContent = vaga.tipoTrabalho;
                 document.getElementById('vagaTipoVaga').textContent = vaga.tipoVaga;
             } else {
-                // Caso o índice da vaga não seja válido
                 document.querySelector('.vaga-detalhe-container').innerHTML = '<p>Vaga não encontrada.</p>';
             }
         } else {
-            // Caso o parâmetro 'id' não exista ou seja inválido
             document.querySelector('.vaga-detalhe-container').innerHTML = '<p>Vaga não encontrada.</p>';
         }
 
-        // Adiciona o evento ao botão de salvar
-        document.getElementById('salvarVaga').addEventListener('click', salvarVaga);
+        document.getElementById('candidatarVaga').addEventListener('click', function () {
+            const nome = document.getElementById('vagaNome').textContent;
+            const descricao = document.getElementById('vagaDescricao').textContent;
+            const contato = document.getElementById('vagaContato').textContent;
+            const cidade = document.getElementById('vagaCidade').textContent;
+            const salario = document.getElementById('vagaSalario').textContent;
 
-        // Função para compartilhar a vaga
-        function compartilharVaga() {
-            const vaga = {
-                nome: document.getElementById('vagaNome').textContent,
-                descricao: document.getElementById('vagaDescricao').textContent,
-                contato: document.getElementById('vagaContato').textContent,
-                beneficio: document.getElementById('vagaBeneficio').textContent,
-                salario: document.getElementById('vagaSalario').textContent,
-                requisitos: document.getElementById('vagaRequisitos').textContent,
-                cidade: document.getElementById('vagaCidade').textContent,
-                tipoTrabalho: document.getElementById('vagaTipoTrabalho').textContent,
-                tipoVaga: document.getElementById('vagaTipoVaga').textContent
-            };
+            const url = `candidatura.html?nome=${encodeURIComponent(nome)}&descricao=${encodeURIComponent(descricao)}&contato=${encodeURIComponent(contato)}&cidade=${encodeURIComponent(cidade)}&salario=${encodeURIComponent(salario)}`;
 
-            // Monta a mensagem de compartilhamento
-            const vagaInfo = `Confira a vaga: ${vaga.nome}\nDescrição: ${vaga.descricao}\nSalário: ${vaga.salario}\nContato: ${vaga.contato}\nCidade: ${vaga.cidade}`;
-
-            // Verifica se o navegador suporta o compartilhamento nativo
-            if (navigator.share) {
-                navigator.share({
-                    title: vaga.nome,
-                    text: vagaInfo,
-                    url: window.location.href // Compartilha a URL da página atual
-                })
-                    .then(() => console.log('Vaga compartilhada com sucesso!'))
-                    .catch((error) => console.log('Erro ao compartilhar a vaga', error));
-            } else {
-                alert("Compartilhamento não disponível neste navegador.");
-            }
-        }
-
-        // Adiciona o evento ao botão de compartilhar
-        document.getElementById('compartilharVaga').addEventListener('click', compartilharVaga);
-
+            window.location.href = url;
+        });
     </script>
 </body>
 

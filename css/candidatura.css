@@ -1,0 +1,130 @@
+/* Reset de estilos e configuração global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Estilizando o corpo da página */
+body {
+    background: linear-gradient(to right, #4CAF50, #2E8B57);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Container do formulário */
+.candidatura-container {
+    background: #fff;
+    padding: 25px;
+    width: 100%;
+    max-width: 550px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Efeito de entrada suave */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Título da vaga */
+.candidatura-container h2 {
+    text-align: center;
+    color: #333;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+/* Informações da vaga */
+.candidatura-container p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* Destaque para informações */
+.candidatura-container p strong {
+    color: #333;
+}
+
+/* Estilizando os campos do formulário */
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 12px;
+    font-size: 14px;
+    color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border 0.3s ease;
+}
+
+/* Efeito de foco nos campos */
+input:focus {
+    border-color: #2E8B57;
+    outline: none;
+}
+
+/* Estilizando o botão */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 15px;
+}
+
+button:hover {
+    background: #218838;
+}
+
+/* Estilos responsivos */
+@media (max-width: 600px) {
+    .candidatura-container {
+        padding: 20px;
+    }
+
+    .candidatura-container h2 {
+        font-size: 20px;
+    }
+
+    .candidatura-container p {
+        font-size: 14px;
+    }
+
+    input {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+}
