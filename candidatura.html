@@ -126,8 +126,29 @@
                 arquivoNome: document.getElementById('curriculo').files[0]?.name || ''
             };
 
-            localStorage.setItem('candidaturaProfissional', JSON.stringify(candidatura));
+            // Obtenha o arquivo e converta para base64
+            const arquivo = document.getElementById('curriculo').files[0];
+            if (arquivo) {
+                const reader = new FileReader();
+                reader.onloadend = function () {
+                    // Salve a candidatura e o arquivo base64 no localStorage
+                    candidatura.arquivoBase64 = reader.result;
 
+                    // Salve a candidatura no localStorage
+                    localStorage.setItem('candidaturaProfissional', JSON.stringify(candidatura));
+
+                    // Exiba a mensagem de sucesso
+                    mostrarMensagemSucesso();
+                };
+                reader.readAsDataURL(arquivo); // Converte o arquivo para base64
+            } else {
+                // Salve a candidatura sem arquivo
+                localStorage.setItem('candidaturaProfissional', JSON.stringify(candidatura));
+                mostrarMensagemSucesso();
+            }
+        });
+
+        function mostrarMensagemSucesso() {
             const mensagem = "✅ Candidatura enviada com sucesso!\n\nRedirecionando...";
             let index = 0;
 
@@ -159,7 +180,8 @@
             }
 
             digitarTexto();
-        });
+        }
+
     </script>
 </body>
 

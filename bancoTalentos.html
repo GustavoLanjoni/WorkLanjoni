@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Talentos</title>
+    <link rel="stylesheet" href="css/bancoTalentos.css">
+</head>
+
+<body>
+    <div class="candidatura-container" id="candidaturasContainer">
+        <h2>Banco de Talentos</h2>
+        <div id="listaCandidaturas">
+            <p>Carregando candidaturas...</p>
+        </div>
+    </div>
+
+    <script>
+        // Função para exibir as candidaturas armazenadas no localStorage
+        function carregarCandidaturas() {
+            const candidaturasSalvas = localStorage.getItem('candidaturaProfissional');
+
+            if (!candidaturasSalvas) {
+                document.getElementById('listaCandidaturas').innerHTML = '<p>Nenhuma candidatura encontrada.</p>';
+                return;
+            }
+
+            // Converte a string JSON de volta para objeto
+            const candidatura = JSON.parse(candidaturasSalvas);
+            
+            // Exibe os dados da candidatura
+            const listaCandidaturas = document.getElementById('listaCandidaturas');
+
+            const candidaturaElement = document.createElement('div');
+            candidaturaElement.classList.add('candidatura');
+
+            candidaturaElement.innerHTML = `
+                <h3>${candidatura.vagaNome}</h3>
+                <p><strong>Nome:</strong> ${candidatura.nome}</p>
+                <p><strong>E-mail:</strong> ${candidatura.email}</p>
+                <p><strong>Telefone:</strong> ${candidatura.telefone}</p>
+                <p><strong>Cidade:</strong> ${candidatura.vagaCidade}</p>
+                <p><strong>Salário:</strong> ${candidatura.vagaSalario}</p>
+                <p><strong>Descrição da vaga:</strong> ${candidatura.vagaDescricao}</p>
+                <p><strong>Contato:</strong> ${candidatura.vagaContato}</p>
+                <div class="arquivo-info">
+                    <img src="${getIconForFile(candidatura.arquivoNome)}" alt="Ícone do arquivo">
+                    <span>${candidatura.arquivoNome}</span>
+                    ${getFileDownloadLink(candidatura.arquivoNome)}
+                </div>
+            `;
+
+            listaCandidaturas.appendChild(candidaturaElement);
+        }
+
+        // Função para mapear o ícone correto de acordo com a extensão do arquivo
+        function getIconForFile(fileName) {
+            const extension = fileName.split('.').pop().toLowerCase();
+            const iconMap = {
+                'pdf': 'https://cdn-icons-png.flaticon.com/512/337/337946.png',
+                'doc': 'https://cdn-icons-png.flaticon.com/512/281/281760.png',
+                'docx': 'https://cdn-icons-png.flaticon.com/512/281/281760.png',
+                'jpg': 'https://cdn-icons-png.flaticon.com/512/136/136524.png',
+                'jpeg': 'https://cdn-icons-png.flaticon.com/512/136/136524.png',
+                'png': 'https://cdn-icons-png.flaticon.com/512/136/136524.png',
+                'xls': 'https://cdn-icons-png.flaticon.com/512/732/732220.png',
+                'xlsx': 'https://cdn-icons-png.flaticon.com/512/732/732220.png',
+                'txt': 'https://cdn-icons-png.flaticon.com/512/136/136538.png',
+                'zip': 'https://cdn-icons-png.flaticon.com/512/564/564429.png',
+                'rar': 'https://cdn-icons-png.flaticon.com/512/564/564429.png',
+                'default': 'https://cdn-icons-png.flaticon.com/512/833/833593.png'
+            };
+            return iconMap[extension] || iconMap['default'];
+        }
+
+        // Função para exibir o link para download do arquivo
+        function getFileDownloadLink(fileName) {
+            return `<a href="candidaturas/${fileName}" download>Baixar Arquivo</a>`;
+        }
+
+        // Chama a função para carregar as candidaturas ao carregar a página
+        document.addEventListener('DOMContentLoaded', function () {
+            carregarCandidaturas();
+        });
+    </script>
+</body>
+
+</html>
