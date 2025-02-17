@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato</title>
+    <link rel="stylesheet" href="css/contatoPRO.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2 class="titulo-contato">Entre em Contato</h2>
+
+        <!-- Seção de Suporte -->
+        <div class="suporte">
+            <h3>Nosso Suporte</h3>
+            <p>Estamos aqui para ajudá-lo! Se você tiver alguma dúvida, <strong><a href="forPesquisa.html" target="_blank" style="color: blue; text-decoration: underline;">sugestão</a></strong> ou problema, nossa equipe está pronta para oferecer todo o suporte necessário.</p>
+            <p>Oferecemos atendimento prioritário através do WhatsApp, onde podemos responder mais rapidamente e oferecer soluções eficazes.</p>
+            <p>Se você preferir, também pode nos contatar por e-mail ou, se precisar de uma interação mais direta, há a opção de chat com nossa Inteligência Artificial.</p>
+            <p><strong>Fique à vontade para escolher a melhor forma de contato para você!</strong></p>
+        </div>
+
+        <!-- Opção de WhatsApp -->
+        <div class="contato-opcao">
+            <h3>WhatsApp</h3>
+            <p>Você pode entrar em contato diretamente comigo pelo WhatsApp clicando no botão abaixo. Esta é a opção prioritária para um atendimento rápido!</p>
+            <a href="https://wa.me/17996489436" target="_blank">
+                <button class="btn-whatsapp">Enviar mensagem no WhatsApp</button>
+            </a>
+        </div>
+
+        <!-- Opção de E-mail -->
+        <div class="contato-opcao">
+            <h3>E-mail</h3>
+            <p>Se preferir, você pode me enviar um e-mail para: <strong>gustavosilva94514@gmail.com</strong></p>
+            <button class="btn-email" onclick="abrirFormularioEmail()">Enviar E-mail</button>
+        </div>
+
+        <!-- Opção de Chat com IA -->
+        <div class="contato-opcao">
+            <h3>Chat com IA</h3>
+            <p>Se você preferir, pode entrar em um chat com nossa Inteligência Artificial clicando no botão abaixo. A IA está preparada para responder às suas dúvidas e fornecer soluções rápidas.</p>
+            <a href="chat-ia.html">
+                <button class="btn-chat">Chat com IA</button>
+            </a>
+        </div>
+
+        <!-- Botão para voltar -->
+        <div class="contato-opcao">
+            <a href="telaEmpresa2.html">
+                <button class="btn-voltar">Voltar</button>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Modal de formulário -->
+    <div id="formulario-email" class="modal">
+        <div class="modal-conteudo">
+            <span class="fechar" onclick="fecharFormularioEmail()">&times;</span>
+            <h3>Como posso ajudá-lo?</h3>
+            <form action="mailto:gustavosilva94514@gmail.com" method="post" enctype="text/plain">
+                <label for="assunto">Assunto:</label>
+                <input type="text" id="assunto" name="assunto" placeholder="Digite o assunto" required>
+
+                <label for="mensagem">Mensagem:</label>
+                <textarea id="mensagem" name="mensagem" placeholder="Digite sua mensagem" required></textarea>
+
+                <label for="dicas">Dicas (se houver):</label>
+                <textarea id="dicas" name="dicas" placeholder="Quais dicas você gostaria de receber?"></textarea>
+
+                <button type="submit">Enviar E-mail</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/contato.js"></script>
+
+    <script>
+        // Função para abrir o formulário de e-mail
+        function abrirFormularioEmail() {
+            document.getElementById("formulario-email").style.display = "block";
+        }
+
+        // Função para fechar o formulário de e-mail
+        function fecharFormularioEmail() {
+            document.getElementById("formulario-email").style.display = "none";
+        }
+    </script>
+
+</body>
+
+</html>

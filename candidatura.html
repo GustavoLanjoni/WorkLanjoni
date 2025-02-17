@@ -35,6 +35,16 @@
 
         .candidatura-container {
             margin-top: 50px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .vaga-descricao {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 600px;
         }
     </style>
 </head>
@@ -42,7 +52,7 @@
 <body>
     <div class="candidatura-container">
         <h2>Candidatura para: <span id="vagaNome">Carregando...</span></h2>
-        <p><strong>Descrição:</strong> <span id="vagaDescricao">Carregando...</span></p>
+        <p><strong>Descrição:</strong> <span id="vagaDescricao" class="vaga-descricao">Carregando...</span></p>
         <p><strong>Contato:</strong> <span id="vagaContato">Carregando...</span></p>
         <p><strong>Cidade:</strong> <span id="vagaCidade">Carregando...</span></p>
         <p><strong>Salário:</strong> <span id="vagaSalario">Carregando...</span></p>
@@ -58,7 +68,6 @@
             <label for="telefone">Telefone:</label>
             <input type="tel" id="telefone" name="telefone" required oninput="formatarTelefone(this)">
 
-
             <label for="curriculo">Anexar Currículo:</label>
             <input type="file" id="curriculo" name="curriculo" accept="*" required>
 
@@ -72,7 +81,6 @@
 
     </div>
 
-    ]<!--Script para  formatar o número de telefone-->
     <script>
         function formatarTelefone(input) {
             let numero = input.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
@@ -87,11 +95,7 @@
             }
         }
 
-    </script>
-
-
-    <!--Script para salvar as informações em LocalStorage candidaturasProfissionais-->
-    <script>
+        // Script para carregar as informações da URL
         const urlParams = new URLSearchParams(window.location.search);
         document.getElementById('vagaNome').textContent = urlParams.get('nome') || 'Carregando...';
         document.getElementById('vagaDescricao').textContent = urlParams.get('descricao') || 'Carregando...';
@@ -99,6 +103,17 @@
         document.getElementById('vagaCidade').textContent = urlParams.get('cidade') || 'Carregando...';
         document.getElementById('vagaSalario').textContent = urlParams.get('salario') || 'Carregando...';
 
+        // Limitar a descrição
+        function truncarDescricao(texto, limite) {
+            if (texto.length > limite) {
+                return texto.substring(0, limite) + '...';
+            }
+            return texto;
+        }
+
+        document.getElementById('vagaDescricao').textContent = truncarDescricao(document.getElementById('vagaDescricao').textContent, 150);
+
+        // Função para determinar o ícone de acordo com o tipo de arquivo
         function getIconForFile(fileName) {
             const extension = fileName.split('.').pop().toLowerCase();
             const iconMap = {
@@ -118,6 +133,7 @@
             return iconMap[extension] || iconMap['default'];
         }
 
+        // Script para mostrar informações do arquivo selecionado
         document.getElementById('curriculo').addEventListener('change', function () {
             const arquivo = this.files[0];
             const arquivoInfo = document.getElementById('arquivoInfo');
@@ -133,6 +149,7 @@
             }
         });
 
+        // Script para salvar as informações de candidatura
         document.getElementById('formCandidatura').addEventListener('submit', function (event) {
             event.preventDefault();
 
@@ -200,6 +217,7 @@
             }
         });
 
+        // Função para exibir a mensagem de sucesso
         function mostrarMensagemSucesso() {
             const mensagem = "✅ Candidatura enviada com sucesso!\n\nRedirecionando...";
             let index = 0;
@@ -213,25 +231,23 @@
             mensagemContainer.style.color = '#fff';
             mensagemContainer.style.padding = '20px';
             mensagemContainer.style.fontSize = '18px';
-            mensagemContainer.style.borderRadius = '10px';
-            mensagemContainer.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
-            mensagemContainer.style.textAlign = 'center';
+            mensagemContainer.style.borderRadius = '8px';
             mensagemContainer.style.zIndex = '9999';
-            document.body.appendChild(mensagemContainer);
 
-            function digitarTexto() {
+            function escreverMensagem() {
                 if (index < mensagem.length) {
                     mensagemContainer.textContent += mensagem.charAt(index);
                     index++;
-                    setTimeout(digitarTexto, 50);
+                    setTimeout(escreverMensagem, 50);
                 } else {
-                    // Após mostrar a mensagem, redireciona após 3 segundos
                     setTimeout(function () {
-                        window.location.href = 'index.html';
-                    }, 3000);
+                        window.location.href = '/index.html'; // Redirecionar após a mensagem
+                    }, 1500);
                 }
             }
-            digitarTexto();
+
+            document.body.appendChild(mensagemContainer);
+            escreverMensagem();
         }
     </script>
 </body>

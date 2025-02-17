@@ -160,6 +160,44 @@ button[onclick="window.history.back()"]:hover {
 }
 
 
+/* Estilo da mensagem de feedback */
+.feedback-container {
+    background: linear-gradient(145deg, #28a745, #218838); /* Gradiente de verde */
+    color: white;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    animation: fadeIn 0.6s ease-in-out;
+    display: none; /* Inicialmente oculto */
+}
+
+/* Animação de fade-in */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px); /* Suaviza o movimento de entrada */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Transição para a cor de fundo */
+.feedback-container.success {
+    background: linear-gradient(145deg, #28a745, #218838);
+}
+
+.feedback-container.error {
+    background: linear-gradient(145deg, #dc3545, #c82333); /* Gradiente de vermelho para erro */
+}
+
+
+
 
 
 /* Responsividade */

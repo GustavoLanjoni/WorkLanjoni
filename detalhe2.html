@@ -7,6 +7,41 @@
     <title>Detalhes da Vaga</title>
     <link rel="stylesheet" href="css/detalhes2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .feedback-container {
+            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+            color: white;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in-out;
+            display: none; /* Inicialmente oculto */
+            position: relative;
+        }
+
+        .feedback-container i {
+            margin-right: 10px;
+        }
+
+        .feedback-container p {
+            display: inline-block;
+            margin: 0;
+            vertical-align: middle;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .feedback-container .icon {
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -33,6 +68,12 @@
             <i class="fas fa-bookmark" id="salvarVaga" title="Salvar"></i>
             <i class="fas fa-share-alt" id="compartilharVaga" title="Compartilhar"></i>
         </div>
+
+        <!-- Container de Feedback -->
+        <div id="feedbackContainer" class="feedback-container">
+            <i class="fas fa-check-circle icon"></i>
+            <p id="feedbackMessage">Vaga salva com sucesso!</p>
+        </div>
     </div>
 
     <script>
@@ -54,6 +95,72 @@
                 document.getElementById('vagaCidade').textContent = vaga.cidade;
                 document.getElementById('vagaTipoTrabalho').textContent = vaga.tipoTrabalho;
                 document.getElementById('vagaTipoVaga').textContent = vaga.tipoVaga;
+
+                // Função para salvar a vaga
+                document.getElementById('salvarVaga').addEventListener('click', function () {
+                    let vagasSalvas = JSON.parse(localStorage.getItem('vagasSalvas')) || [];
+
+                    // Verificar se a vaga já está salva
+                    if (!vagasSalvas.some(savedVaga => savedVaga.nome === vaga.nome)) {
+                        vagasSalvas.push(vaga);
+                        localStorage.setItem('vagasSalvas', JSON.stringify(vagasSalvas));
+
+                        // Exibir mensagem de sucesso
+                        const feedbackContainer = document.getElementById('feedbackContainer');
+                        const feedbackMessage = document.getElementById('feedbackMessage');
+                        feedbackMessage.textContent = "Vaga salva com sucesso! Você pode acessá-la na sua lista de vagas salvas.";
+
+                        feedbackContainer.style.display = 'block'; // Mostrar a mensagem
+                        setTimeout(() => {
+                            feedbackContainer.style.display = 'none'; // Esconder a mensagem após 4 segundos
+                        }, 4000); // Ajuste o tempo conforme necessário
+                    } else {
+                        // Exibir mensagem informando que a vaga já foi salva
+                        const feedbackContainer = document.getElementById('feedbackContainer');
+                        const feedbackMessage = document.getElementById('feedbackMessage');
+                        feedbackMessage.textContent = "Você já salvou essa vaga.";
+
+                        feedbackContainer.style.display = 'block'; // Mostrar a mensagem
+                        setTimeout(() => {
+                            feedbackContainer.style.display = 'none'; // Esconder a mensagem após 4 segundos
+                        }, 4000); // Ajuste o tempo conforme necessário
+                    }
+                });
+
+                // Função para compartilhar a vaga
+                document.getElementById('compartilharVaga').addEventListener('click', function () {
+                    const nome = document.getElementById('vagaNome').textContent;
+                    const descricao = document.getElementById('vagaDescricao').textContent;
+                    const contato = document.getElementById('vagaContato').textContent;
+                    const cidade = document.getElementById('vagaCidade').textContent;
+                    const salario = document.getElementById('vagaSalario').textContent;
+
+                    const vagaInfo = `
+                        Vaga: ${nome}
+                        Descrição: ${descricao}
+                        Contato: ${contato}
+                        Cidade: ${cidade}
+                        Salário: ${salario}
+                    `;
+
+                    // Verifica se o navegador suporta a Web Share API
+                    if (navigator.share) {
+                        navigator.share({
+                            title: nome,
+                            text: vagaInfo,
+                            url: window.location.href
+                        })
+                        .then(() => {
+                            console.log('Vaga compartilhada com sucesso!');
+                        })
+                        .catch((error) => {
+                            console.error('Erro ao compartilhar a vaga:', error);
+                        });
+                    } else {
+                        // Caso o navegador não suporte a Web Share API, exibimos um alerta ou outro comportamento
+                        alert('Seu navegador não suporta a funcionalidade de compartilhar diretamente. Você pode copiar o link para compartilhar.');
+                    }
+                });
             } else {
                 document.querySelector('.vaga-detalhe-container').innerHTML = '<p>Vaga não encontrada.</p>';
             }

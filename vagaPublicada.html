@@ -98,7 +98,7 @@
     <script>
         // Função para verificar o número de postagens e permitir ou bloquear o envio
         function verificarLimitePostagens() {
-            const limitePostagens = 5; // Limite de postagens por mês
+            const limitePostagens = 25; // Limite de postagens por mês
             const dadosPostagens = JSON.parse(localStorage.getItem('dadosPostagens')) || { contagem: 0, mes: new Date().getMonth() };
 
             const mesAtual = new Date().getMonth();
