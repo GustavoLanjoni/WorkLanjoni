@@ -118,6 +118,34 @@ button:hover {
     background-color: #c0392b;
 }
 
+
+.mensagem-limite {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 20px 0;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.salario-container {
+    display: flex;
+    align-items: center;
+}
+
+#salario {
+    margin-right: 10px;
+    width: 200px; /* Tamanho do campo de salário */
+}
+
+#moeda {
+    width: 70px; /* Tamanho do campo de moeda */
+}
+
+
 /* Responsividade para telas menores */
 @media (max-width: 768px) {
     .container {

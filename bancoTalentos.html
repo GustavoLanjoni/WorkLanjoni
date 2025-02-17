@@ -6,9 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banco de Talentos</title>
     <link rel="stylesheet" href="css/bancoTalentos.css">
+    <!-- Link para o FontAwesome para a seta -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
+    <!-- Botão Voltar -->
+    <a href="telaEmpresa2.html" class="btn-voltar">
+        <i class="fas fa-arrow-left"></i> Voltar
+    </a>
+
     <div class="candidatura-container" id="candidaturasContainer">
         <h2>Banco de Talentos</h2>
         <div id="listaCandidaturas">
@@ -17,73 +24,97 @@
     </div>
 
     <script>
-        // Função para exibir as candidaturas armazenadas no localStorage
+        // Função para carregar as candidaturas salvas
         function carregarCandidaturas() {
-            const candidaturasSalvas = localStorage.getItem('candidaturaProfissional');
+            let candidaturasSalvas = localStorage.getItem('candidaturasProfissionais');
 
             if (!candidaturasSalvas) {
                 document.getElementById('listaCandidaturas').innerHTML = '<p>Nenhuma candidatura encontrada.</p>';
                 return;
             }
 
-            // Converte a string JSON de volta para objeto
-            const candidatura = JSON.parse(candidaturasSalvas);
-            
-            // Exibe os dados da candidatura
+            // Converter para array (caso haja mais de uma candidatura)
+            candidaturasSalvas = JSON.parse(candidaturasSalvas);
+
             const listaCandidaturas = document.getElementById('listaCandidaturas');
+            listaCandidaturas.innerHTML = ''; // Limpar a lista antes de adicionar
 
-            const candidaturaElement = document.createElement('div');
-            candidaturaElement.classList.add('candidatura');
-
-            candidaturaElement.innerHTML = `
-                <h3>${candidatura.vagaNome}</h3>
-                <p><strong>Nome:</strong> ${candidatura.nome}</p>
-                <p><strong>E-mail:</strong> ${candidatura.email}</p>
-                <p><strong>Telefone:</strong> ${candidatura.telefone}</p>
-                <p><strong>Cidade:</strong> ${candidatura.vagaCidade}</p>
-                <p><strong>Salário:</strong> ${candidatura.vagaSalario}</p>
-                <p><strong>Descrição da vaga:</strong> ${candidatura.vagaDescricao}</p>
-                <p><strong>Contato:</strong> ${candidatura.vagaContato}</p>
-                <div class="arquivo-info">
-                    <img src="${getIconForFile(candidatura.arquivoNome)}" alt="Ícone do arquivo">
-                    <span>${candidatura.arquivoNome}</span>
-                    ${getFileDownloadLink(candidatura.arquivoNome)}
-                </div>
-            `;
-
-            listaCandidaturas.appendChild(candidaturaElement);
+            // Adicionar cada candidatura à lista
+            candidaturasSalvas.forEach(candidatura => {
+                listaCandidaturas.innerHTML += `
+                    <div class="candidatura">
+                        <p><strong>Nome:</strong> ${candidatura.nome}</p>
+                        <p><strong>E-mail:</strong> ${candidatura.email}</p>
+                        <p><strong>Telefone:</strong> ${candidatura.telefone}</p>
+                        <p><strong>Vaga:</strong> ${candidatura.vagaNome}</p>
+                        <p><strong>Cidade:</strong> ${candidatura.vagaCidade}</p>
+                        <p><strong>Salário:</strong> ${candidatura.vagaSalario}</p>
+                        ${candidatura.arquivoBase64 ? `
+                            <p><strong>Currículo:</strong>
+                                <img src="${getIconForFile(candidatura.arquivoNome)}" alt="Ícone do Arquivo" width="40px">
+                                <a href="${candidatura.arquivoBase64}" download="${candidatura.arquivoNome}">
+                                    ${candidatura.arquivoNome}
+                                </a>
+                            </p>
+                        ` : '<p>Nenhum currículo anexado.</p>'}
+                    </div>
+                `;
+            });
         }
 
-        // Função para mapear o ícone correto de acordo com a extensão do arquivo
+        // Função para adicionar nova candidatura
+        function adicionarCandidatura(candidatura) {
+            let candidaturasSalvas = localStorage.getItem('candidaturasProfissionais');
+            candidaturasSalvas = candidaturasSalvas ? JSON.parse(candidaturasSalvas) : [];
+
+            candidaturasSalvas.push(candidatura); // Adiciona a nova candidatura no array
+
+            // Salva o array de candidaturas novamente no localStorage
+            localStorage.setItem('candidaturasProfissionais', JSON.stringify(candidaturasSalvas));
+
+            carregarCandidaturas(); // Recarrega as candidaturas na página
+        }
+
+        // Função para obter o ícone de acordo com o tipo de arquivo
         function getIconForFile(fileName) {
-            const extension = fileName.split('.').pop().toLowerCase();
-            const iconMap = {
-                'pdf': 'https://cdn-icons-png.flaticon.com/512/337/337946.png',
-                'doc': 'https://cdn-icons-png.flaticon.com/512/281/281760.png',
-                'docx': 'https://cdn-icons-png.flaticon.com/512/281/281760.png',
-                'jpg': 'https://cdn-icons-png.flaticon.com/512/136/136524.png',
-                'jpeg': 'https://cdn-icons-png.flaticon.com/512/136/136524.png',
-                'png': 'https://cdn-icons-png.flaticon.com/512/136/136524.png',
-                'xls': 'https://cdn-icons-png.flaticon.com/512/732/732220.png',
-                'xlsx': 'https://cdn-icons-png.flaticon.com/512/732/732220.png',
-                'txt': 'https://cdn-icons-png.flaticon.com/512/136/136538.png',
-                'zip': 'https://cdn-icons-png.flaticon.com/512/564/564429.png',
-                'rar': 'https://cdn-icons-png.flaticon.com/512/564/564429.png',
-                'default': 'https://cdn-icons-png.flaticon.com/512/833/833593.png'
-            };
-            return iconMap[extension] || iconMap['default'];
+            const fileExtension = fileName.split('.').pop().toLowerCase();
+            let iconUrl = '';
+
+            switch (fileExtension) {
+                case 'pdf':
+                    iconUrl = 'https://upload.wikimedia.org/wikipedia/commons/2/27/PDF_icon.svg'; // ícone para PDF
+                    break;
+                case 'doc':
+                case 'docx':
+                    iconUrl = 'https://upload.wikimedia.org/wikipedia/commons/a/a1/Microsoft_Word_Logo_2013.svg'; // ícone para Word
+                    break;
+                case 'txt':
+                    iconUrl = 'https://upload.wikimedia.org/wikipedia/commons/6/65/Text-file-icon.svg'; // ícone para Texto
+                    break;
+                case 'xls':
+                case 'xlsx':
+                    iconUrl = 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Excel_2013_icon.svg'; // ícone para Excel
+                    break;
+                case 'ppt':
+                case 'pptx':
+                    iconUrl = 'https://upload.wikimedia.org/wikipedia/commons/1/1f/PowerPoint_2013_icon.svg'; // ícone para PowerPoint
+                    break;
+                case 'jpg':
+                case 'jpeg':
+                case 'png':
+                    iconUrl = 'https://upload.wikimedia.org/wikipedia/commons/a/a7/PNG_file_icon.svg'; // ícone para Imagens
+                    break;
+                default:
+                    iconUrl = 'https://upload.wikimedia.org/wikipedia/commons/0/0d/File_icon_%28flat%29.svg'; // ícone genérico
+                    break;
+            }
+
+            return iconUrl;
         }
 
-        // Função para exibir o link para download do arquivo
-        function getFileDownloadLink(fileName) {
-            return `<a href="candidaturas/${fileName}" download>Baixar Arquivo</a>`;
-        }
-
-        // Chama a função para carregar as candidaturas ao carregar a página
-        document.addEventListener('DOMContentLoaded', function () {
-            carregarCandidaturas();
-        });
+        document.addEventListener('DOMContentLoaded', carregarCandidaturas);
     </script>
+
 </body>
 
 </html>

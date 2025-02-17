@@ -82,6 +82,33 @@ strong {
     transition: background-color 0.2s ease;
 }
 
+.btn-voltar {
+    font-size: 18px;
+    color: #007bff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px; /* Adiciona padding para o botão ficar mais espaçado */
+    border-radius: 5px; /* Deixa os cantos do botão arredondados */
+    background-color: #f0f8ff; /* Cor de fundo clara para o botão */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma leve sombra */
+    transition: all 0.3s ease; /* Transição suave para efeitos de hover */
+    position: fixed; /* Fixa o botão no canto da tela */
+    top: 20px; /* Distância da parte superior da tela */
+    left: 20px; /* Distância da parte esquerda da tela */
+}
+
+.btn-voltar:hover {
+    background-color: #e0f7ff; /* Cor de fundo ao passar o mouse */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Aumenta a sombra ao passar o mouse */
+}
+
+.btn-voltar i {
+    margin-right: 8px;
+}
+
+
+
 
 
 @media (max-width: 768px) {

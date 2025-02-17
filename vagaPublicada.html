@@ -18,7 +18,7 @@
         <main>
             <h2 class="form-title">Publicar Nova Vaga</h2>
 
-            <form id="vagaForm2" class="form-vaga2">            
+            <form id="vagaForm2" class="form-vaga2">
                 <div class="form-group">
                     <label for="nomeVaga">Nome da Vaga</label>
                     <input type="text" id="nomeVaga" name="nomeVaga" placeholder="Exemplo: Desenvolvedor Frontend" required>
@@ -41,7 +41,14 @@
 
                 <div class="form-group">
                     <label for="salario">Salário</label>
-                    <input type="text" id="salario" name="salario" placeholder="Informe o salário ou faixa salarial" required>
+                    <div class="salario-container">
+                        <input type="text" id="salario" name="salario" placeholder="Informe o salário ou faixa salarial" required>
+                        <select id="moeda" name="moeda">
+                            <option value="BRL">R$</option>
+                            <option value="USD">$</option>
+                            <option value="EUR">€</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -49,12 +56,11 @@
                     <textarea id="requisitos" name="requisitos" rows="4" placeholder="Descreva os requisitos para a vaga (ex.: formação, experiência, habilidades)" required></textarea>
                 </div>
 
-                
                 <div class="form-group">
                     <label for="cidade">Cidade</label>
                     <input type="text" id="cidade" name="cidade" placeholder="Cidade onde a vaga está localizada" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="tipoTrabalho">Tipo de Trabalho</label>
                     <select id="tipoTrabalho" name="tipoTrabalho">
@@ -72,14 +78,90 @@
                         <option value="Freelancer">Freelancer</option>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <button type="submit" class="submit-button">Publicar Vaga</button>
                 </div>
             </form>
+
+            <!-- Mensagem de limite atingido (oculta inicialmente) -->
+            <div class="mensagem-limite" style="display: none;">
+                <p>Você atingiu o limite de postagens para este mês!</p>
+                <p id="diasRestantes"></p> <!-- Exibe a quantidade de dias restantes -->
+            </div>
+
         </main>
     </div>
 
     <script src="js/enviarTelaUsuario2.js"></script>
+
+    <script>
+        // Função para verificar o número de postagens e permitir ou bloquear o envio
+        function verificarLimitePostagens() {
+            const limitePostagens = 5; // Limite de postagens por mês
+            const dadosPostagens = JSON.parse(localStorage.getItem('dadosPostagens')) || { contagem: 0, mes: new Date().getMonth() };
+
+            const mesAtual = new Date().getMonth();
+
+            // Se o mês atual for diferente do mês registrado, resetar a contagem
+            if (mesAtual !== dadosPostagens.mes) {
+                dadosPostagens.contagem = 0;
+                dadosPostagens.mes = mesAtual;
+                localStorage.setItem('dadosPostagens', JSON.stringify(dadosPostagens));
+            }
+
+            // Verificar se o número de postagens excedeu o limite
+            if (dadosPostagens.contagem >= limitePostagens) {
+                document.querySelector('.submit-button').disabled = true;
+                document.querySelector('.submit-button').innerText = 'Limite de Postagens Atingido';
+
+                // Exibir a mensagem de limite atingido
+                document.querySelector('.mensagem-limite').style.display = 'block';
+
+                // Calcular os dias restantes até o próximo mês
+                const hoje = new Date();
+                const primeiroDiaProximoMes = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 1);
+                const diasRestantes = Math.ceil((primeiroDiaProximoMes - hoje) / (1000 * 60 * 60 * 24));
+
+                // Exibir os dias restantes
+                document.getElementById('diasRestantes').innerText = `Faltam ${diasRestantes} dias para reativar a publicação.`;
+            }
+        }
+
+        // Função para registrar uma nova postagem
+        function registrarPostagem() {
+            const dadosPostagens = JSON.parse(localStorage.getItem('dadosPostagens')) || { contagem: 0, mes: new Date().getMonth() };
+
+            // Aumentar a contagem de postagens
+            dadosPostagens.contagem++;
+
+            // Atualizar a contagem de postagens no localStorage
+            localStorage.setItem('dadosPostagens', JSON.stringify(dadosPostagens));
+        }
+
+        // Função para processar o formulário de postagem
+        function processarFormulario(event) {
+            event.preventDefault(); // Impedir o envio do formulário
+
+            // Chamar a função para registrar a postagem
+            registrarPostagem();
+
+            // Caso o formulário tenha sido enviado, você pode implementar o envio ou outras ações aqui.
+            alert('Vaga publicada com sucesso!');
+
+            // Após publicar, você pode resetar os campos do formulário
+            document.getElementById('vagaForm2').reset();
+        }
+
+        // Inicializa a verificação ao carregar a página
+        document.addEventListener('DOMContentLoaded', function () {
+            verificarLimitePostagens();
+
+            // Adicionar evento para o envio do formulário
+            document.getElementById('vagaForm2').addEventListener('submit', processarFormulario);
+        });
+    </script>
+
 </body>
 
 </html>

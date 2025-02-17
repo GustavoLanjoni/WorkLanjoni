@@ -52,10 +52,12 @@
             <input type="text" id="nome" name="nome" required>
 
             <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" required
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Por favor, insira um e-mail válido.">
 
             <label for="telefone">Telefone:</label>
-            <input type="tel" id="telefone" name="telefone" required>
+            <input type="tel" id="telefone" name="telefone" required oninput="formatarTelefone(this)">
+
 
             <label for="curriculo">Anexar Currículo:</label>
             <input type="file" id="curriculo" name="curriculo" accept="*" required>
@@ -67,8 +69,28 @@
 
             <button type="submit">Enviar Candidatura</button>
         </form>
+
     </div>
 
+    ]<!--Script para  formatar o número de telefone-->
+    <script>
+        function formatarTelefone(input) {
+            let numero = input.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+
+            // Aplica a máscara (XX) XXXXX-XXXX
+            if (numero.length <= 2) {
+                input.value = `(${numero}`;
+            } else if (numero.length <= 7) {
+                input.value = `(${numero.slice(0, 2)}) ${numero.slice(2)}`;
+            } else {
+                input.value = `(${numero.slice(0, 2)}) ${numero.slice(2, 7)}-${numero.slice(7, 11)}`;
+            }
+        }
+
+    </script>
+
+
+    <!--Script para salvar as informações em LocalStorage candidaturasProfissionais-->
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         document.getElementById('vagaNome').textContent = urlParams.get('nome') || 'Carregando...';
@@ -80,18 +102,18 @@
         function getIconForFile(fileName) {
             const extension = fileName.split('.').pop().toLowerCase();
             const iconMap = {
-                'pdf': 'https://cdn-icons-png.flaticon.com/512/337/337946.png',
-                'doc': 'https://cdn-icons-png.flaticon.com/512/281/281760.png',
-                'docx': 'https://cdn-icons-png.flaticon.com/512/281/281760.png',
-                'jpg': 'https://cdn-icons-png.flaticon.com/512/136/136524.png',
-                'jpeg': 'https://cdn-icons-png.flaticon.com/512/136/136524.png',
-                'png': 'https://cdn-icons-png.flaticon.com/512/136/136524.png',
-                'xls': 'https://cdn-icons-png.flaticon.com/512/732/732220.png',
-                'xlsx': 'https://cdn-icons-png.flaticon.com/512/732/732220.png',
-                'txt': 'https://cdn-icons-png.flaticon.com/512/136/136538.png',
-                'zip': 'https://cdn-icons-png.flaticon.com/512/564/564429.png',
-                'rar': 'https://cdn-icons-png.flaticon.com/512/564/564429.png',
-                'default': 'https://cdn-icons-png.flaticon.com/512/833/833593.png'
+                'pdf': 'https://cdn-icons-png.flaticon.com/512/337/337946.png', // PDF
+                'doc': 'https://cdn-icons-png.flaticon.com/512/281/281760.png', // DOC
+                'docx': 'https://cdn-icons-png.flaticon.com/512/281/281760.png', // DOCX
+                'jpg': 'https://cdn-icons-png.flaticon.com/512/136/136524.png', // JPG
+                'jpeg': 'https://cdn-icons-png.flaticon.com/512/136/136524.png', // JPEG
+                'png': 'https://cdn-icons-png.flaticon.com/512/136/136524.png', // PNG
+                'xls': 'https://cdn-icons-png.flaticon.com/512/732/732220.png', // XLS
+                'xlsx': 'https://cdn-icons-png.flaticon.com/512/732/732220.png', // XLSX
+                'txt': 'https://cdn-icons-png.flaticon.com/512/136/136538.png', // TXT
+                'zip': 'https://cdn-icons-png.flaticon.com/512/564/564429.png', // ZIP
+                'rar': 'https://cdn-icons-png.flaticon.com/512/564/564429.png', // RAR
+                'default': 'https://cdn-icons-png.flaticon.com/512/833/833593.png' // Ícone padrão
             };
             return iconMap[extension] || iconMap['default'];
         }
@@ -114,28 +136,55 @@
         document.getElementById('formCandidatura').addEventListener('submit', function (event) {
             event.preventDefault();
 
+            // Verificar se os campos estão preenchidos
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const telefone = document.getElementById('telefone').value;
+
+            if (!nome || !email || !telefone) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+
             const candidatura = {
                 vagaNome: document.getElementById('vagaNome').textContent,
                 vagaDescricao: document.getElementById('vagaDescricao').textContent,
                 vagaContato: document.getElementById('vagaContato').textContent,
                 vagaCidade: document.getElementById('vagaCidade').textContent,
                 vagaSalario: document.getElementById('vagaSalario').textContent,
-                nome: document.getElementById('nome').value,
-                email: document.getElementById('email').value,
-                telefone: document.getElementById('telefone').value,
+                nome: nome,
+                email: email,
+                telefone: telefone,
                 arquivoNome: document.getElementById('curriculo').files[0]?.name || ''
             };
 
-            // Obtenha o arquivo e converta para base64
+            // Obtenha o arquivo e verifique o tipo e tamanho
             const arquivo = document.getElementById('curriculo').files[0];
             if (arquivo) {
+                // Verificar tipo de arquivo
+                const tiposPermitidos = ['pdf', 'doc', 'docx'];
+                const tipoArquivo = arquivo.name.split('.').pop().toLowerCase();
+
+                if (!tiposPermitidos.includes(tipoArquivo)) {
+                    alert('Por favor, envie um arquivo PDF, DOC ou DOCX.');
+                    return;
+                }
+
+                // Verificar tamanho do arquivo (máximo 5MB)
+                if (arquivo.size > 5 * 1024 * 1024) { // 5MB
+                    alert('O arquivo é muito grande. O tamanho máximo permitido é 5MB.');
+                    return;
+                }
+
                 const reader = new FileReader();
                 reader.onloadend = function () {
                     // Salve a candidatura e o arquivo base64 no localStorage
                     candidatura.arquivoBase64 = reader.result;
 
-                    // Salve a candidatura no localStorage
-                    localStorage.setItem('candidaturaProfissional', JSON.stringify(candidatura));
+                    // Obtenha as candidaturas existentes no localStorage e adicione a nova candidatura
+                    let candidaturas = JSON.parse(localStorage.getItem('candidaturasProfissionais')) || [];
+                    candidaturas.push(candidatura);
+                    localStorage.setItem('candidaturasProfissionais', JSON.stringify(candidaturas));
 
                     // Exiba a mensagem de sucesso
                     mostrarMensagemSucesso();
@@ -143,7 +192,10 @@
                 reader.readAsDataURL(arquivo); // Converte o arquivo para base64
             } else {
                 // Salve a candidatura sem arquivo
-                localStorage.setItem('candidaturaProfissional', JSON.stringify(candidatura));
+                let candidaturas = JSON.parse(localStorage.getItem('candidaturasProfissionais')) || [];
+                candidaturas.push(candidatura);
+                localStorage.setItem('candidaturasProfissionais', JSON.stringify(candidaturas));
+
                 mostrarMensagemSucesso();
             }
         });
@@ -173,15 +225,14 @@
                     index++;
                     setTimeout(digitarTexto, 50);
                 } else {
+                    // Após mostrar a mensagem, redireciona após 3 segundos
                     setTimeout(function () {
                         window.location.href = 'index.html';
-                    }, 1500);
+                    }, 3000);
                 }
             }
-
             digitarTexto();
         }
-
     </script>
 </body>
 
