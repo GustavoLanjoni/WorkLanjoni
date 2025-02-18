@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informações do Candidato</title>
+    <link rel="stylesheet" href="css/painelAprovado2.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="telaEmpresa2.html">Painel Empresa</a></li>
+                <li><a href="bancoTalentos.html">Banco de Talentos</a></li>
+                <li><a href="painelRecusados.html">Recusados</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="informacoesCandidato">
+        <!-- As informações serão carregadas aqui -->
+    </div>
+
+    <script>
+        function carregarInformacoesCandidatos() {
+            // Recupera a lista de candidaturas do localStorage
+            let candidaturasSalvas = localStorage.getItem('candidaturasProfissionais');
+            if (!candidaturasSalvas) {
+                document.getElementById('informacoesCandidato').innerHTML = '<p>Informações não encontradas.</p>';
+                return;
+            }
+
+            candidaturasSalvas = JSON.parse(candidaturasSalvas);
+
+            // Verifica se há candidatos
+            if (candidaturasSalvas.length === 0) {
+                document.getElementById('informacoesCandidato').innerHTML = '<p>Não há candidatos disponíveis.</p>';
+                return;
+            }
+
+            // Concatena as informações de todos os candidatos
+            let html = '';
+            candidaturasSalvas.forEach((candidatura, index) => {
+                html += `
+                    <div class="candidato-container">
+                        <h3>Candidato ${index + 1}</h3> <!-- Exibe um título para cada candidato -->
+                        <div class="candidato">
+                            <p><strong>Nome:</strong> ${candidatura.nome}</p>
+                            <p><strong>E-mail:</strong> ${candidatura.email}</p>
+                            <p><strong>Telefone:</strong> ${candidatura.telefone}</p>
+                            <p><strong>Currículo:</strong>
+                                <a href="${candidatura.arquivoBase64}" download="${candidatura.arquivoNome}">${candidatura.arquivoNome}</a>
+                            </p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Exibe as informações de todos os candidatos
+            document.getElementById('informacoesCandidato').innerHTML = html;
+        }
+
+        // Carrega as informações de todos os candidatos assim que a página for carregada
+        document.addEventListener('DOMContentLoaded', carregarInformacoesCandidatos);
+    </script>
+
+</body>
+
+</html>

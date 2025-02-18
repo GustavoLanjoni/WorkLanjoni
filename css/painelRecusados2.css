@@ -1,0 +1,111 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Container para candidatura recusada */
+.candidatura-recusada-container {
+    padding: 20px;
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.candidatura-recusada-container:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.candidatura-recusada-container h2 {
+    text-align: center;
+    font-size: 32px;
+    color: #e53935; /* Cor mais moderna e chamativa para recusa */
+    margin-bottom: 25px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#detalhesCandidatura {
+    font-size: 16px;
+    padding: 20px;
+    border-left: 4px solid #e53935; /* Destaca a borda lateral para maior destaque */
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+#detalhesCandidatura:hover {
+    background-color: #fafafa; /* Leve mudança de cor ao passar o mouse */
+}
+
+#detalhesCandidatura p {
+    margin: 10px 0;
+    line-height: 1.6;
+    color: #333; /* Cor de texto mais suave */
+}
+
+#detalhesCandidatura a {
+    color: #1e88e5;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+#detalhesCandidatura a:hover {
+    color: #1565c0;
+}
+
+/* Adicionar uma borda suave ao redor dos textos, como um destaque */
+.detalles-candidato {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+    background-color: #fafafa;
+    transition: box-shadow 0.3s ease;
+}
+
+.detalles-candidato:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ícones de arquivos */
+#detalhesCandidatura img {
+    vertical-align: middle;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+#detalhesCandidatura img:hover {
+    transform: scale(1.1); /* Animação para o ícone */
+}

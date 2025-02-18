@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidatura Recusada</title>
+    <link rel="stylesheet" href="css/painelRecusados2.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="telaEmpresa2.html">Painel Empresa</a></li>
+                <li><a href="bancoTalentos.html">Banco de Talentos</a></li>
+                <li><a href="painelAprovados.html">Aprovados</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="candidatura-recusada-container" id="candidaturaRecusadaContainer">
+        <h2>Candidaturas Recusadas</h2>
+        <div id="detalhesCandidatura"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let candidaturaRecusada = JSON.parse(localStorage.getItem('candidaturaRecusada'));
+
+            if (!candidaturaRecusada) {
+                document.getElementById('detalhesCandidatura').innerHTML = '<p>Nenhuma candidatura recusada.</p>';
+                return;
+            }
+
+            // Cria um novo elemento para cada candidatura recusada
+            const detalhesContainer = document.getElementById('detalhesCandidatura');
+
+            // Adicionar um novo item com as informações da candidatura recusada sem sobrescrever o anterior
+            const candidatoDetalhes = document.createElement('div');
+            candidatoDetalhes.classList.add('detalhes-candidato'); // Pode adicionar uma classe para estilização, se necessário
+            candidatoDetalhes.innerHTML = `
+                <p><strong>Nome:</strong> ${candidaturaRecusada.nome}</p>
+                <p><strong>E-mail:</strong> ${candidaturaRecusada.email}</p>
+                <p><strong>Telefone:</strong> ${candidaturaRecusada.telefone}</p>
+                <p><strong>Vaga:</strong> ${candidaturaRecusada.vagaNome}</p>
+                <p><strong>Cidade:</strong> ${candidaturaRecusada.vagaCidade}</p>
+                <p><strong>Salário:</strong> ${candidaturaRecusada.vagaSalario}</p>
+                ${candidaturaRecusada.arquivoBase64 ? ` 
+                    <p><strong>Currículo:</strong>
+                        <img src="${getIconForFile(candidaturaRecusada.arquivoNome)}" alt="Ícone do Arquivo" width="40px">
+                        <a href="${candidaturaRecusada.arquivoBase64}" download="${candidaturaRecusada.arquivoNome}">
+                            ${candidaturaRecusada.arquivoNome}
+                        </a>
+                    </p>
+                ` : '<p>Nenhum currículo anexado.</p>'}
+            `;
+
+            // Adicionar o novo conteúdo dentro do container, mantendo o conteúdo anterior
+            detalhesContainer.appendChild(candidatoDetalhes);
+        });
+
+        // Função para retornar o ícone correto do tipo de arquivo
+        function getIconForFile(fileName) {
+            const fileExtension = fileName.split('.').pop().toLowerCase();
+            let iconUrl = '';
+
+            switch (fileExtension) {
+                case 'pdf':
+                    iconUrl = 'https://upload.wikimedia.org/wikipedia/commons/2/27/PDF_icon.svg';
+                    break;
+                case 'doc':
+                case 'docx':
+                    iconUrl = 'https://upload.wikimedia.org/wikipedia/commons/a/a1/Microsoft_Word_Logo_2013.svg';
+                    break;
+                case 'txt':
+                    iconUrl = 'https://upload.wikimedia.org/wikipedia/commons/6/65/Text-file-icon.svg';
+                    break;
+                case 'xls':
+                case 'xlsx':
+                    iconUrl = 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Excel_2013_icon.svg';
+                    break;
+                case 'ppt':
+                case 'pptx':
+                    iconUrl = 'https://upload.wikimedia.org/wikipedia/commons/1/1f/PowerPoint_2013_icon.svg';
+                    break;
+                case 'jpg':
+                case 'jpeg':
+                case 'png':
+                    iconUrl = 'https://upload.wikimedia.org/wikipedia/commons/a/a7/PNG_file_icon.svg';
+                    break;
+                default:
+                    iconUrl = 'https://upload.wikimedia.org/wikipedia/commons/0/0d/File_icon_%28flat%29.svg';
+                    break;
+            }
+
+            return iconUrl;
+        }
+    </script>
+</body>
+
+</html>
