@@ -102,7 +102,7 @@
                 return dataPublicacao.getMonth() === mesAtual && dataPublicacao.getFullYear() === anoAtual;
             });
 
-            if (vagasNoMes.length >= 5) {
+            if (vagasNoMes.length >= 2) {
                 const proximoMes = new Date(anoAtual, mesAtual + 1, 1);
                 const diasRestantes = Math.ceil((proximoMes - hoje) / (1000 * 3600 * 24));
 
