@@ -1,57 +1,71 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualizar Candidatura</title>
-    <link rel="stylesheet" href="css/visualizarCandidatura.css">
+    <link rel="stylesheet" href="css/bancoTalentosBasic.css">
+    <title>Detalhes da Candidatura</title>
 </head>
 
 <body>
-    <div class="candidatura-container">
-        <h2>Candidatura para: <span id="vagaNome">Carregando...</span></h2>
-        <p><strong>Descrição:</strong> <span id="vagaDescricao">Carregando...</span></p>
-        <p><strong>Contato:</strong> <span id="vagaContato">Carregando...</span></p>
-        <p><strong>Cidade:</strong> <span id="vagaCidade">Carregando...</span></p>
-        <p><strong>Salário:</strong> <span id="vagaSalario">Carregando...</span></p>
+    <div class="detalhes-candidatura">
+        <h1>Detalhes da Candidatura</h1>
+        
+        <!-- Informações da vaga -->
+           <h1>Candidatar-se</h1>
+        <p><strong>Nome:</strong> <span id="vaga-nome"></span></p>
+        <p><strong>Descrição:</strong> <span id="vaga-descricao"></span></p>
+        <p><strong>Contato:</strong> <span id="vaga-contato"></span></p>
+        <p><strong>Local:</strong> <span id="vaga-local"></span></p>
+        <p><strong>Salário:</strong> <span id="vaga-salario"></span></p>
 
-        <h3>Informações Pessoais:</h3>
-        <p><strong>Nome:</strong> <span id="nome">Carregando...</span></p>
-        <p><strong>E-mail:</strong> <span id="email">Carregando...</span></p>
-        <p><strong>Telefone:</strong> <span id="telefone">Carregando...</span></p>
-
-        <h3>Currículo Anexado:</h3>
-        <p id="curriculoStatus">Nenhum currículo anexado.</p>
+        <!-- Lista de candidatos, que só aparecerá se houver candidatos -->
+        <div id="lista-candidatos" style="display:none;">
+            <h2>Candidatos</h2>
+            <div id="candidatos-lista"></div>
+        </div>
     </div>
 
     <script>
-        // Carregar as candidaturas do localStorage
-        window.onload = function () {
-            const candidaturas = JSON.parse(localStorage.getItem('candidaturasBasica')) || [];
-            const candidatura = candidaturas[candidaturas.length - 1]; // Carrega a última candidatura enviada
+        document.addEventListener('DOMContentLoaded', () => {
+            // Recupera as informações da vaga e dos candidatos do localStorage
+            const vaga = JSON.parse(localStorage.getItem('vaga'));
+            const candidatos = JSON.parse(localStorage.getItem('candidatos')) || [];
 
-            if (candidatura) {
-                document.getElementById('vagaNome').textContent = candidatura.vagaNome;
-                document.getElementById('vagaDescricao').textContent = candidatura.vagaDescricao;
-                document.getElementById('vagaContato').textContent = candidatura.vagaContato;
-                document.getElementById('vagaCidade').textContent = candidatura.vagaCidade;
-                document.getElementById('vagaSalario').textContent = candidatura.vagaSalario;
-
-                document.getElementById('nome').textContent = candidatura.nome;
-                document.getElementById('email').textContent = candidatura.email;
-                document.getElementById('telefone').textContent = candidatura.telefone;
-
-                // Verificar se há currículo anexado
-                if (candidatura.arquivoNome) {
-                    document.getElementById('curriculoStatus').textContent = `Arquivo: ${candidatura.arquivoNome}`;
-                } else {
-                    document.getElementById('curriculoStatus').textContent = 'Nenhum currículo anexado.';
-                }
-            } else {
-                alert("Nenhuma candidatura encontrada.");
+            if (!vaga) {
+                alert('Vaga não encontrada.');
+                return;
             }
-        }
+
+            // Exibe as informações da vaga (nome e salário)
+            document.getElementById('vaga-nome').innerText = vaga.nome;
+            document.getElementById('vaga-salario').innerText = vaga.salario;
+
+            // Se houver candidatos, exibe a lista de candidatos
+            if (candidatos.length > 0) {
+                document.getElementById('lista-candidatos').style.display = 'block';
+                const candidatosLista = document.getElementById('candidatos-lista');
+                
+                candidatos.forEach(candidato => {
+                    const candidatoDiv = document.createElement('div');
+                    candidatoDiv.classList.add('candidato-container');
+                    candidatoDiv.innerHTML = `
+                        <div class="candidato">
+                            <h3><strong>${candidato.nome}</strong></h3>
+                            <p><strong>Telefone:</strong> ${candidato.telefone}</p>
+                            <p><strong>E-mail:</strong> ${candidato.email}</p>
+                            <p><strong>Currículo:</strong> <a href="${candidato.curriculo}" target="_blank">Visualizar Currículo</a></p>
+                        </div>
+                    `;
+                    candidatosLista.appendChild(candidatoDiv);
+                });
+            } else {
+                // Caso não haja candidatos, exibe uma mensagem
+                const candidatosLista = document.getElementById('candidatos-lista');
+                candidatosLista.innerHTML = '<p><strong>Sem candidatos para esta vaga.</strong></p>';
+            }
+        });
     </script>
 </body>
 

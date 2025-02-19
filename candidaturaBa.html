@@ -10,7 +10,7 @@
 
 <body>
     <div class="detalhes-candidatura">
-        <h1>Detalhes da Vaga</h1>
+        <h1>Candidatar-se</h1>
         <p><strong>Nome:</strong> <span id="vaga-nome"></span></p>
         <p><strong>Descrição:</strong> <span id="vaga-descricao"></span></p>
         <p><strong>Contato:</strong> <span id="vaga-contato"></span></p>
@@ -140,10 +140,27 @@
                     return;
                 }
 
+                // Salva os dados no localStorage
+                localStorage.setItem('vaga', JSON.stringify({
+                    nome: vagaNome,
+                    descricao: vagaDescricao,
+                    contato: vagaContato,
+                    local: vagaLocal,
+                    salario: vagaSalario
+                }));
+
+                localStorage.setItem('candidato', JSON.stringify({
+                    nome,
+                    email,
+                    telefone,
+                    curriculo: curriculo.name
+                }));
+
                 // Chama a função para mostrar a mensagem de sucesso e redirecionar
                 mostrarMensagemSucesso();
             });
         });
+
     </script>
 
 </body>
