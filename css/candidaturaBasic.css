@@ -2,46 +2,75 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+    font-family: 'Arial', sans-serif;
+}
   body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    padding: 10px;
+    background: linear-gradient(to right, #4CAF50, #2E8B57);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
   }
+
   .detalhes-candidatura {
     background: #fff;
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    width: 100%;
+    max-width: 550px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease-in-out;
   }
+
+  /* Efeito de entrada suave */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
   .detalhes-candidatura h1 {
     text-align: center;
-    font-size: 20px;
-    margin-bottom: 10px;
+    color: #333;
+    font-size: 22px;
+    margin-bottom: 15px;
   }
+
+  
+
   .detalhes-candidatura h3 {
     text-align: center;
     font-size: 16px;
     margin: 15px 0;
     color: #007BFF;
   }
+
   .detalhes-candidatura p {
-    font-size: 14px;
-    margin-bottom: 10px;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 8px;
   }
+
   .detalhes-candidatura p strong {
     font-weight: bold;
   }
+
   form {
     margin-top: 10px;
   }
+
   form label {
     display: block;
     font-size: 14px;
     margin-bottom: 4px;
   }
+  
   form input[type="text"],
   form input[type="email"],
   form input[type="tel"],
@@ -51,10 +80,9 @@
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 3px;
-    margin-bottom: 10px;
   }
   #btn-candidatar {
-    background: #007BFF;
+    background: #28a745;
     color: #fff;
     padding: 10px;
     border: none;
@@ -64,6 +92,32 @@
     font-size: 14px;
   }
   #btn-candidatar:hover {
-    background: #0056b3;
+    background: #28a745;
   }
+
+  .upload-container {
+    position: relative;
+    width: 100%;
+}
+
+.upload-container input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    background-color: #f5f5f5;
+}
+
+.upload-container .file-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    display: none; /* Ícone escondido até que o arquivo seja carregado */
+}
+
   
