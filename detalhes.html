@@ -29,11 +29,11 @@
 
             <div class="botao-container">
                 <button onclick="voltarParaLista()" class="btn-voltar">Voltar</button>
-                <a id="btn-candidatar" class="btn-candidatar" href="candidaturaBa.html"> 
-                     Candidatar-se
+                <a id="btn-candidatar" class="btn-candidatar" href="candidaturaBa.html">
+                    Candidatar-se
                 </a>
                 <button onclick="salvarVaga()" class="btn-salvar">
-                    <i class="fas fa-bookmark"></i> 
+                    <i class="fas fa-bookmark"></i>
                 </button>
                 <button onclick="compartilharVaga()" class="btn-compartilhar">
                     <i class="fas fa-share-alt"></i>
@@ -108,9 +108,10 @@
                 } else {
                     alert("Esta vaga já foi salva anteriormente.");
                 }
-                window.location.href = "salvas.html";
+                window.location.href = "salvas.html";  // Redireciona para a página de vagas salvas
             }
         }
+
 
         function compartilharVaga() {
             const urlParams = new URLSearchParams(window.location.search);

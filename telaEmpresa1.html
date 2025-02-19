@@ -6,26 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel da Empresa</title>
     <link rel="stylesheet" href="/css/telaEmpresa.css">
-
-
-
 </head>
 
 <body>
     <header>
         <div class="container">
             <nav>
-
                 <a href="vagasPostada.html">Vagas Postada</a>
-                <a href="painelGerenciamento1.html">Painel de Gereciamento</a>
+                <a href="painelGerenciamento1.html">Painel de Gerenciamento</a>
+                <a href="bancoTalentosBasic.html">Banco de Talentos</a> 
                 <a href="/sobre.html">Sobre</a>
                 <a href="contatoPB.html">Contato</a>
             </nav>
             <div class="actions">
-
-
-
-
                 <a href="perfilEmpresa.html" class="perfil-link">
                     <div class="perfil-bola">
                         <img id="foto-perfil-nav" src="" alt="Foto de Perfil"
@@ -41,7 +34,6 @@
         </div>
     </header>
 
-
     <script>
         // Função para redirecionar ao clicar na bola de perfil
         function redirecionarPerfil() {
@@ -49,10 +41,8 @@
         }
     </script>
 
-
     <div class="container-empresa">
         <!-- Boas-vindas -->
-
         <div class="content">
             <div class="text-container">
                 <h1 id="boas-vindas">Bem-vindo(a), Empresa!</h1>
@@ -66,9 +56,6 @@
             </a>
         </div>
 
-
-
-
         <!-- Visualização do perfil -->
         <div id="perfil-visualizacao" style="display: none; margin-top: 20px;">
             <h2>Perfil da Empresa</h2>
@@ -78,8 +65,6 @@
             <button onclick="editarPerfil()">Editar</button>
         </div>
     </div>
-
-
 
     <script>
         // Funções do Perfil da Empresa
@@ -120,17 +105,15 @@
     </script>
 
     <script>
-
         window.onload = () => {
-            const fotoPerfil = localStorage.getItem(`fotoPerfil`);
+            const fotoPerfil = localStorage.getItem('fotoPerfil');
             if (fotoPerfil) {
-                const imgNav = document.getElementById(`foto-perfil-nav`);
+                const imgNav = document.getElementById('foto-perfil-nav');
                 imgNav.src = fotoPerfil;
             }
         };
-
     </script>
-    
+
     <script src="js/menu.js"></script>
 
 </body>

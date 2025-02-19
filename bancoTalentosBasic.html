@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Candidatura</title>
+    <link rel="stylesheet" href="css/visualizarCandidatura.css">
+</head>
+
+<body>
+    <div class="candidatura-container">
+        <h2>Candidatura para: <span id="vagaNome">Carregando...</span></h2>
+        <p><strong>Descrição:</strong> <span id="vagaDescricao">Carregando...</span></p>
+        <p><strong>Contato:</strong> <span id="vagaContato">Carregando...</span></p>
+        <p><strong>Cidade:</strong> <span id="vagaCidade">Carregando...</span></p>
+        <p><strong>Salário:</strong> <span id="vagaSalario">Carregando...</span></p>
+
+        <h3>Informações Pessoais:</h3>
+        <p><strong>Nome:</strong> <span id="nome">Carregando...</span></p>
+        <p><strong>E-mail:</strong> <span id="email">Carregando...</span></p>
+        <p><strong>Telefone:</strong> <span id="telefone">Carregando...</span></p>
+
+        <h3>Currículo Anexado:</h3>
+        <p id="curriculoStatus">Nenhum currículo anexado.</p>
+    </div>
+
+    <script>
+        // Carregar as candidaturas do localStorage
+        window.onload = function () {
+            const candidaturas = JSON.parse(localStorage.getItem('candidaturasBasica')) || [];
+            const candidatura = candidaturas[candidaturas.length - 1]; // Carrega a última candidatura enviada
+
+            if (candidatura) {
+                document.getElementById('vagaNome').textContent = candidatura.vagaNome;
+                document.getElementById('vagaDescricao').textContent = candidatura.vagaDescricao;
+                document.getElementById('vagaContato').textContent = candidatura.vagaContato;
+                document.getElementById('vagaCidade').textContent = candidatura.vagaCidade;
+                document.getElementById('vagaSalario').textContent = candidatura.vagaSalario;
+
+                document.getElementById('nome').textContent = candidatura.nome;
+                document.getElementById('email').textContent = candidatura.email;
+                document.getElementById('telefone').textContent = candidatura.telefone;
+
+                // Verificar se há currículo anexado
+                if (candidatura.arquivoNome) {
+                    document.getElementById('curriculoStatus').textContent = `Arquivo: ${candidatura.arquivoNome}`;
+                } else {
+                    document.getElementById('curriculoStatus').textContent = 'Nenhum currículo anexado.';
+                }
+            } else {
+                alert("Nenhuma candidatura encontrada.");
+            }
+        }
+    </script>
+</body>
+
+</html>
