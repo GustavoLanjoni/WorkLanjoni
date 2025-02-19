@@ -118,82 +118,14 @@ main {
     transform: translateY(-10px);
 }
 
-/* Rodapé aprimorado */
-.footer {
-    background-color: #1a1a1a;
-    color: white;
-    padding: 50px 20px;
-    font-family: 'Arial', sans-serif;
-    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
 
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
 
-.footer-section {
-    flex: 1;
-    min-width: 250px;
-}
-
-.footer-section h3 {
-    font-size: 20px;
-    margin-bottom: 15px;
-    font-weight: 600;
-    color: #ecf0f1;
-    border-bottom: 2px solid #3498db;
-    display: inline-block;
-    padding-bottom: 5px;
-}
-
-.footer-section p {
-    font-size: 14px;
-    line-height: 1.7;
-    color: #bdc3c7;
-}
-
-.footer-section ul {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-section ul li {
-    margin: 12px 0;
-}
-
-.footer-section a {
-    color: #ecf0f1;
-    text-decoration: none;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.footer-section a:hover {
-    color: #3498db;
-    transform: translateX(5px);
-}
-
-.footer-section a i {
-    margin-right: 12px;
-    font-size: 18px;
-    color: #3498db;
-}
-
-/* Rodapé inferior */
 .footer-bottom {
     background-color: #111;
     text-align: center;
     padding: 15px 0;
     font-size: 14px;
-    color: #bdc3c7;
+    color: #ffffff;
     letter-spacing: 1px;
     border-top: 2px solid #ecf0f1;
 }
@@ -201,6 +133,23 @@ main {
 .footer-bottom p {
     margin: 0;
     font-size: 13px;
+}
+
+/* Ícones Sociais no Rodapé */
+.footer-social {
+    margin-top: 15px;
+}
+
+.footer-social a {
+    color: white;
+    font-size: 18px;
+    margin: 0 10px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: #3498db;
+    transform: translateY(-5px);
 }
 
 /* Responsividade */
