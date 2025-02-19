@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/detalhes1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <title>Detalhes da Vaga</title>
 </head>
 
@@ -28,38 +29,39 @@
 
             <div class="botao-container">
                 <button onclick="voltarParaLista()" class="btn-voltar">Voltar</button>
-                <button onclick="salvarVaga()" class="btn-salvar">Salvar</button>
-                <button onclick="compartilharVaga()" class="btn-compartilhar">Compartilhar</button>
+                <a id="btn-candidatar" class="btn-candidatar" href="candidaturaBa.html"> 
+                     Candidatar-se
+                </a>
+                <button onclick="salvarVaga()" class="btn-salvar">
+                    <i class="fas fa-bookmark"></i> 
+                </button>
+                <button onclick="compartilharVaga()" class="btn-compartilhar">
+                    <i class="fas fa-share-alt"></i>
+                </button>
             </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Obtém os parâmetros da URL
             const params = new URLSearchParams(window.location.search);
-            const vagaId = params.get('id'); // Obtém o ID da vaga
+            const vagaId = params.get('id');
 
             if (!vagaId) {
                 document.getElementById('vaga-detalhes').innerHTML = "<p>Vaga não encontrada.</p>";
                 return;
             }
 
-            // Recupera as vagas do localStorage
             const vagasPublicadas = JSON.parse(localStorage.getItem('planoBasico')) || [];
-
-            // Adiciona um log para verificar o conteúdo do localStorage
             console.log("Vagas no localStorage:", vagasPublicadas);
 
-            // Garante que o id seja do tipo correto para a comparação (string ou número)
-            const vaga = vagasPublicadas.find(vaga => String(vaga.id) === String(vagaId)); // Garantir que ambos os ids sejam strings
+            const vaga = vagasPublicadas.find(vaga => String(vaga.id) === String(vagaId));
 
             if (!vaga) {
                 document.getElementById('vaga-detalhes').innerHTML = "<p>Vaga não encontrada.</p>";
                 return;
             }
 
-            // Exibe as informações da vaga
             document.getElementById('modal-titulo').innerText = vaga.nome;
             document.getElementById('modal-descricao').innerText = vaga.descricao;
             document.getElementById('modal-contato').innerText = vaga.contato;
@@ -70,11 +72,9 @@
             document.getElementById('modal-tipoContratacao').innerText = vaga.tipoContratacao;
             document.getElementById('modal-tipoVaga').innerText = vaga.tipoVaga;
 
-            // Exibe os requisitos, caso existam
             const requisitosList = document.getElementById('modal-requisitos');
-            requisitosList.innerHTML = ''; // Limpa a lista de requisitos
+            requisitosList.innerHTML = '';
 
-            // Verifica se 'requisitos' é um array e se não está vazio
             if (Array.isArray(vaga.requisitos) && vaga.requisitos.length > 0) {
                 vaga.requisitos.forEach(requisito => {
                     const listItem = document.createElement('li');
@@ -82,9 +82,11 @@
                     requisitosList.appendChild(listItem);
                 });
             } else {
-                // Caso não haja requisitos, exibe uma mensagem
                 requisitosList.innerHTML = "<li>Não especificado</li>";
             }
+
+            // Define o link para candidatura
+            document.getElementById("btn-candidatar").href = `candidaturaBa.html?id=${vagaId}&nome=${encodeURIComponent(vaga.nome)}&descricao=${encodeURIComponent(vaga.descricao)}&contato=${encodeURIComponent(vaga.contato)}&cidade=${encodeURIComponent(vaga.local)}&salario=${encodeURIComponent(vaga.salario)}`;
         });
 
         function voltarParaLista() {

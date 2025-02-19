@@ -1,149 +1,139 @@
-/* Reset básico */
+/* Geral */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body e fundo */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f0f4f8;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
     padding: 20px;
+    color: #333;
 }
 
-/* Container principal */
-.detalhes-container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 900px;
-    text-align: left;
-    margin: 20px;
-    border: 1px solid #e0e0e0;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    overflow-wrap: break-word; /* Garante que o conteúdo quebra corretamente */
-}
-
-/* Título */
 h1 {
-    font-size: 2.8rem;
-    color: #3f51b5;
-    margin-bottom: 20px;
     text-align: center;
-    word-wrap: break-word; /* Garante que o título não ultrapasse os limites */
+    font-size: 2rem;
+    margin-bottom: 20px;
 }
 
-/* Detalhes da vaga */
+.detalhes-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
 #vaga-detalhes p {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    max-width: 100%; /* Garante que o texto não ultrapasse o container */
-    word-wrap: break-word; /* Quebra de palavras longas */
-    word-break: break-word; /* Garante que palavras grandes também quebrem */
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
 }
 
-/* Título em negrito */
 #vaga-detalhes strong {
-    color: #3f51b5;
+    color: #333;
 }
 
+#vaga-detalhes span {
+    color: #555;
+}
+
+/* Título e Requisitos */
 h3 {
+    margin-top: 20px;
     font-size: 1.5rem;
     color: #333;
-    margin-top: 20px;
-    word-wrap: break-word; /* Garante que o título não ultrapasse os limites */
+}
+
+ul#modal-requisitos {
+    list-style-type: disc;
+    margin-left: 20px;
+    font-size: 1rem;
+}
+
+ul#modal-requisitos li {
+    margin-bottom: 8px;
 }
 
 /* Botões */
-button {
-    background-color: #3f51b5;
-    color: white;
-    border: none;
-    padding: 14px 22px;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
-    width: 100%;
-    max-width: 250px;
-    margin: 5px;
-}
-
-button:hover {
-    background-color: #303f9f;
-    transform: translateY(-2px);
-}
-
-/* Botão de voltar */
-.btn-voltar {
-    background-color: transparent;
-    color: #3f51b5;
-    border: 1px solid #3f51b5;
-}
-
-.btn-voltar:hover {
-    background-color: #3f51b5;
-    color: white;
-}
-
-/* Botões de salvar e compartilhar */
-.btn-salvar {
-    background-color: #2196F3;
-}
-
-.btn-compartilhar {
-    background-color: #FFC107;
-}
-
-.btn-salvar:hover {
-    background-color: #1976D2;
-}
-
-.btn-compartilhar:hover {
-    background-color: #FFB300;
-}
-
-/* Layout dos botões */
 .botao-container {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
     margin-top: 20px;
+    gap: 15px; /* Ajuste do espaçamento entre os botões */
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
+.botao-container button,
+.botao-container a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.botao-container button:hover,
+.botao-container a:hover {
+    background-color: #0056b3;
+}
+
+.botao-container .btn-salvar {
+    background-color: #17a2b8;
+}
+
+.botao-container .btn-salvar:hover {
+background-color: #17a2b8;}
+
+.botao-container .btn-compartilhar {
+    background-color: #ffc107;
+}
+
+.botao-container .btn-compartilhar:hover {
+    background-color: #e0a800;
+}
+
+.botao-container .btn-candidatar {
+    background-color: #28a745;
+    text-decoration: none;
+}
+
+.botao-container .btn-candidatar:hover {
+    background-color: #28a745;
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
     .detalhes-container {
-        padding: 20px;
+        padding: 15px;
     }
 
     h1 {
-        font-size: 2rem;
+        font-size: 1.6rem;
     }
 
-    #vaga-detalhes p {
-        font-size: 1rem;
-    }
-
-    button {
-        font-size: 1rem;
-        padding: 12px 18px;
+    #vaga-detalhes p,
+    #vaga-detalhes strong,
+    #vaga-detalhes span {
+        font-size: 0.9rem;
     }
 
     .botao-container {
         flex-direction: column;
-        align-items: center;
+        gap: 10px;
+    }
+
+    .botao-container button,
+    .botao-container a {
+        width: 100%;
     }
 }
