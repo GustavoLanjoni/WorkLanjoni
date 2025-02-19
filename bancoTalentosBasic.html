@@ -11,59 +11,57 @@
 <body>
     <div class="detalhes-candidatura">
         <h1>Detalhes da Candidatura</h1>
-        
-        <!-- Informações da vaga -->
-           <h1>Candidatar-se</h1>
-        <p><strong>Nome:</strong> <span id="vaga-nome"></span></p>
-        <p><strong>Descrição:</strong> <span id="vaga-descricao"></span></p>
-        <p><strong>Contato:</strong> <span id="vaga-contato"></span></p>
-        <p><strong>Local:</strong> <span id="vaga-local"></span></p>
+        <p><strong>Nome da Vaga:</strong> <span id="vaga-nome"></span></p>
         <p><strong>Salário:</strong> <span id="vaga-salario"></span></p>
+        <p><strong>Cidade:</strong> <span id="vaga-local"></span></p>
+        <p><strong>Nome Completo:</strong> <span id="candidato-nome"></span></p>
+        <p><strong>E-mail:</strong> <span id="candidato-email"></span></p>
+        <p><strong>Telefone:</strong> <span id="candidato-telefone"></span></p>
+        <p><strong>Currículo Anexado:</strong> <span id="candidato-curriculo"></span></p>
 
-        <!-- Lista de candidatos, que só aparecerá se houver candidatos -->
-        <div id="lista-candidatos" style="display:none;">
-            <h2>Candidatos</h2>
-            <div id="candidatos-lista"></div>
-        </div>
+        <!-- Botão de download -->
+        <button id="baixar-curriculo" style="display:none;">Baixar Currículo</button>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Recupera as informações da vaga e dos candidatos do localStorage
+            // Recuperar dados da candidatura e do candidato
             const vaga = JSON.parse(localStorage.getItem('vaga'));
-            const candidatos = JSON.parse(localStorage.getItem('candidatos')) || [];
+            const candidato = JSON.parse(localStorage.getItem('candidato'));
 
-            if (!vaga) {
-                alert('Vaga não encontrada.');
-                return;
-            }
+            if (vaga && candidato) {
+                // Exibir dados da vaga
+                document.getElementById('vaga-nome').innerText = vaga.nome;
+                document.getElementById('vaga-salario').innerText = vaga.salario;
+                document.getElementById('vaga-local').innerText = vaga.local;
 
-            // Exibe as informações da vaga (nome e salário)
-            document.getElementById('vaga-nome').innerText = vaga.nome;
-            document.getElementById('vaga-salario').innerText = vaga.salario;
+                // Exibir dados do candidato
+                document.getElementById('candidato-nome').innerText = candidato.nome;
+                document.getElementById('candidato-email').innerText = candidato.email;
+                document.getElementById('candidato-telefone').innerText = candidato.telefone;
+                document.getElementById('candidato-curriculo').innerText = candidato.curriculo;
 
-            // Se houver candidatos, exibe a lista de candidatos
-            if (candidatos.length > 0) {
-                document.getElementById('lista-candidatos').style.display = 'block';
-                const candidatosLista = document.getElementById('candidatos-lista');
-                
-                candidatos.forEach(candidato => {
-                    const candidatoDiv = document.createElement('div');
-                    candidatoDiv.classList.add('candidato-container');
-                    candidatoDiv.innerHTML = `
-                        <div class="candidato">
-                            <h3><strong>${candidato.nome}</strong></h3>
-                            <p><strong>Telefone:</strong> ${candidato.telefone}</p>
-                            <p><strong>E-mail:</strong> ${candidato.email}</p>
-                            <p><strong>Currículo:</strong> <a href="${candidato.curriculo}" target="_blank">Visualizar Currículo</a></p>
-                        </div>
-                    `;
-                    candidatosLista.appendChild(candidatoDiv);
-                });
+                // Exibir o botão de download se houver um currículo anexado
+                if (candidato.curriculo) {
+                    // Supondo que a URL do currículo seja salva no localStorage com o nome correto
+                    const curriculoUrl = 'caminho/para/o/arquivo/' + candidato.curriculo; // Exemplo: "https://meusite.com/curriculos/curriculo.pdf"
+
+                    // Mostrar o botão de download
+                    const downloadButton = document.getElementById('baixar-curriculo');
+                    downloadButton.style.display = 'block';
+
+                    // Definir o link de download
+                    downloadButton.addEventListener('click', () => {
+                        const a = document.createElement('a');
+                        a.href = curriculoUrl; // Verifique se a URL está correta
+                        a.download = candidato.curriculo; // Usar o nome do arquivo do currículo
+                        a.click();
+                    });
+                } else {
+                    alert("Currículo não encontrado.");
+                }
             } else {
-                // Caso não haja candidatos, exibe uma mensagem
-                const candidatosLista = document.getElementById('candidatos-lista');
-                candidatosLista.innerHTML = '<p><strong>Sem candidatos para esta vaga.</strong></p>';
+                alert("Dados não encontrados.");
             }
         });
     </script>
