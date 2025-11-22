@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Starter</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+        .header {
+            background: #4a5cff;
+            padding: 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .menu a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .container {
+            padding: 40px;
+            max-width: 1100px;
+            margin: auto;
+        }
+        .welcome {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+            margin-bottom: 30px;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.10);
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #4a5cff;
+        }
+        .btn-upgrade {
+            display: inline-block;
+            margin-top: 20px;
+            background: #4a5cff;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .btn-upgrade:hover {
+            background: #3d4be0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo">Vagas+ Empresas</div>
+        <div class="menu">
+            <a href="#">Dashboard</a>
+            <a href="#">Minhas vagas</a>
+            <a href="#">Configurações</a>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="welcome">
+            <h2>Bem-vindo ao Plano Starter!</h2>
+            <p>Gerencie suas vagas, acompanhe candidatos e comece a contratar de forma simples e eficiente.</p>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Abrir nova vaga</h3>
+                <p>Crie uma vaga gratuita e comece a receber candidatos.</p>
+            </div>
+
+            <div class="card">
+                <h3>Minhas vagas</h3>
+                <p>Acompanhe as vagas publicadas e veja o desempenho.</p>
+            </div>
+
+            <div class="card">
+                <h3>Banco de candidatos</h3>
+                <p>Acesse os currículos recebidos e organize candidatos.</p>
+            </div>
+
+            <div class="card">
+                <h3>Melhore seu plano</h3>
+                <p>Desbloqueie mais vagas, destaque e ferramentas avançadas.</p>
+                <a href="/planos/planos.html" class="btn-upgrade">Ver planos</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
